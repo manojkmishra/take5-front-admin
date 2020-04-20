@@ -7,7 +7,7 @@
     "theme_color": "#2621f3",
     "orientation": "portrait-primary",
     "icons":[
-        { "src": "/img/icons/favicon.png", "type": "image/png", "sizes": "48x48" },
+        { "src": "/img/icons/favicon.png", "type": "image/png", "sizes": "50x50" },
         { "src": "/img/icons/dowell.png", "type": "image/png", "sizes": "135x27" }
     ]
 }
