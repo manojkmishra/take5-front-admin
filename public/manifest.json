@@ -8,6 +8,6 @@
     "orientation": "portrait-primary",
     "icons":[
         { "src": "/img/icons/favicon.ico", "type": "image/png", "sizes": "48x48" },
-        { "src": "/img/icons/dowell.png", "type": "image/png", "sizes": "135x27" },
+        { "src": "/img/icons/dowell.png", "type": "image/png", "sizes": "135x27" }
     ]
 }
