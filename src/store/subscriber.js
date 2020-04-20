@@ -16,3 +16,12 @@ store.subscribe((mutation)=>{
         break;
     }
 })
+
+axios.interceptors.request.use(function (config) 
+{  console.log('req=',config)
+   return config;
+ });
+axios.interceptors.response.use(function (response) {
+console.log('res=',response)
+   return response;
+ }, function (error) { return Promise.reject(error); });
