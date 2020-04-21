@@ -1,6 +1,7 @@
 <template>
   <div>
  Home
+ <router-link :to="{name: 'signin'}">signin</router-link>
   </div>
 </template>
 
