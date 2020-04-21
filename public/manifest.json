@@ -7,7 +7,8 @@
     "theme_color": "#2621f3",
     "orientation": "portrait-primary",
     "icons":[
-        { "src": "/img/icons/favicon.png", "type": "image/png", "sizes": "50x50" },
-        { "src": "/img/icons/dowell.png", "type": "image/png", "sizes": "135x27" }
+        { "src": "/img/icons/favicon.png", "type": "image/png", "sizes": "50x50", "purpose":"maskable" },
+        { "src": "/img/icons/dowell.png", "type": "image/png", "sizes": "135x27" ,"purpose":"maskable"},
+        { "src": "/img/icons/master.png", "type": "image/png", "sizes": "144x144" ,"purpose":"maskable"}
     ]
 }
