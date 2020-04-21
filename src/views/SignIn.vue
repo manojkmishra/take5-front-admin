@@ -9,19 +9,19 @@
                 <v-spacer />
               </v-toolbar>
               <v-card-text>
-                <v-form>
-                  <v-text-field label="Login" name="login" prepend-icon="mdi-email" type="text"/>
-                  <v-text-field id="password" label="Password" name="password" prepend-icon="mdi-lock" type="password"/>
+                <v-form ref="loginForm" :value="formValid">
+                <v-text-field label="Email" name="email" prepend-icon="mdi-email" :rules="emailRules" type="email" v-model="user.email"/>
+                  <v-text-field id="password" label="Password" prepend-icon="mdi-lock" :rules="passwordRules" name="password" type="password" v-model="user.password"/>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn color="primary">Login</v-btn>
+                <v-btn color="primary" @click="loginUser">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
-
+<!--
  Sign In
     <form @submit.prevent="submit">
       {{form}}
@@ -32,7 +32,7 @@
             <input type="password" name="password" id="password" v-model="form.password"> 
       </div>
       <div><button type="submit">Submit</button> </div>
-    </form>
+    </form> -->
     </v-container>
 </template>
 
@@ -43,19 +43,39 @@ import {mapActions} from 'vuex';
 export default {
   name: 'signin',
   components: { },
-  data(){return {form:{email:'',password:''}}},
+ // data(){return {form:{email:'',password:''}}},
+  data(){return {formValid:false, user:{email:'',password:''}, 
+                  emailRules: [ v => !!v || 'The Email is required',
+                    v => /.+@.+\..+/.test(v) || 'E-mail must be valid',],
+                  passwordRules: [ v => !!v || 'The Password is required' ],
+                 // form:{email:'',password:''}
+                }},
   methods: { 
         ...mapActions({signIn:'auth/signIn'}),
-         submit()
+        /* submit()
             { console.log('submit pressed form=',this.form);
             // let resp=axios.post('http://127.0.0.1:8000/api/auth/signin',this.form); // eslint-disable-line
             // let resp=axios.post('/auth/signin',this.form); // eslint-disable-line
             // console.log('signin res=',resp);
-              this.signIn(this.form).then(()=>{
+              this.signIn(this.form).then(()=>
+              {
                 console.log('authenticated- forwarding to dashboard')
                 this.$router.replace({name:'dashboard'})
               }).catch(()=>{console.log('singin view-sigin failed')})
-            }    
+            }, */
+          loginUser(event)
+                {console.log({event,$form:this.$refs.loginForm})
+                    if(this.$refs.loginForm.validate())
+                    {  console.log('validated');   
+                    console.log('user=',this.user)
+                      // this.$store.dispatch('user/loginUser',this.user)
+                        this.signIn(this.user).then(()=>
+                        {
+                          console.log('authenticated- forwarding to dashboard')
+                          this.$router.replace({name:'dashboard'})
+                        }).catch(()=>{console.log('singin view-sigin failed')})
+                    }
+                }    
     }
 }
 </script>
