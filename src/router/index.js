@@ -7,7 +7,7 @@ import store from '@/store'
 
 Vue.use(VueRouter)
 const routes = [
-  {    path: '/',   name: 'home',   component: Home  } ,
+  {    path: '/index.html',   name: 'home',   component: Home , alias:'/' } ,
   {    path: '/signin',   name: 'signin',   component: SignIn  } ,
   {    path: '/dashboard',   name: 'dashboard',   component: Dashboard,
           beforeEnter:(to,from,next)=>{
