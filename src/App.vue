@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
+ <v-app class="grey lighten-4">
     <TheNavigation/>
-    <router-view/>
-  </div>
+    <v-content class="mx-4 mb-4"><router-view/> </v-content>
+ </v-app>
 </template>
 
 <script>
-import TheNavigation from '@/components/TheNavigation'
+import TheNavigation from '@/views/TheNavigation'
 export default {
   components:{TheNavigation}
 }
