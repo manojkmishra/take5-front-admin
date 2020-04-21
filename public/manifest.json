@@ -1,7 +1,7 @@
 {
     "name": "Dowell Take5",
     "short_name": "Dowell Take5",
-    "theme_color": "#1564bf",
+    "theme_color": "#f5f5f5",
     "background_color": "#e1e2e1",
     "display": "standalone",
     "Scope": "/index.html",

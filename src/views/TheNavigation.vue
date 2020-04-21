@@ -1,6 +1,5 @@
 <template>
 
-    <div>Nav Component
       <nav >
           <v-app-bar flat app dense ><!--toolbar  -->
             <div v-if="authenticated && user">
@@ -27,18 +26,7 @@
         </v-app-bar><!-- toolbar finish --drawer start-->
       
     </nav>
-        <ul>
-            <li>  <router-link :to="{name:'home'}">Home</router-link> </li>
-           <!-- below routes available after sign in-->
-            <template v-if="authenticated">
-                <li> User={{user.name}} email={{user.email}}</li>
-                <li> <router-link :to="{name:'dashboard'}">Dashboard</router-link> </li>
-            </template>
-            <template v-else>
-                 <li> <router-link :to="{name:'signin'}">Sign In</router-link> </li>
-            </template>
-        </ul>
-    </div>
+
 </template>
 <script>
 import {mapGetters, mapActions} from 'vuex'
@@ -52,7 +40,7 @@ export default {
         ...mapActions({signOut1:'auth/signOut'}),
         signOut(){
             this.signOut1().then(()=>{
-                this.$router.replace({name:'home'})
+                this.$router.replace({name:'signin'})
             })
         }
     }
