@@ -10,7 +10,7 @@
                 </v-form>
 
                 <v-spacer />
-                <v-btn color="primary" rounded @click="loginUser" >Login</v-btn>
+                <v-btn color="primary" large rounded @click="loginUser" >Login</v-btn>
 
           </v-col>
         </v-row>

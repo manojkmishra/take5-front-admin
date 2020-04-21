@@ -1,12 +1,38 @@
 <template>
+
     <div>Nav Component
+      <nav >
+          <v-app-bar flat app dense ><!--toolbar  -->
+            <div v-if="authenticated && user">
+                <v-app-bar-nav-icon class="grey--text" @click="drwr = !drwr"></v-app-bar-nav-icon>
+            </div>
+
+            <!--  <router-link class="logoimg" to="/"> -->
+            <img src="../assets/img/dowell.png" class="logoimg" alt="Dowell Windows and Doors">
+            <!--  </router-link> -->
+            <v-toolbar-title class="transparent"> 
+                <span class="font-weight-light">Take</span><span>5</span>
+            </v-toolbar-title>
+  
+            <v-spacer></v-spacer>
+            <div v-if="authenticated">
+                <v-btn text color="grey" @click.prevent="signOut"> Sign Out
+                <v-icon >mdi-logout-variant</v-icon>  </v-btn>
+            </div>
+            <div v-else>
+                  <v-btn text color="grey"> 
+                      <router-link :to="{name:'signin'}"></router-link>
+                   </v-btn>
+            </div>
+        </v-app-bar><!-- toolbar finish --drawer start-->
+      
+    </nav>
         <ul>
             <li>  <router-link :to="{name:'home'}">Home</router-link> </li>
            <!-- below routes available after sign in-->
             <template v-if="authenticated">
                 <li> User={{user.name}} email={{user.email}}</li>
                 <li> <router-link :to="{name:'dashboard'}">Dashboard</router-link> </li>
-                <li> <a href="#" @click.prevent="signOut">Sign Out</a> </li>
             </template>
             <template v-else>
                  <li> <router-link :to="{name:'signin'}">Sign In</router-link> </li>
@@ -32,3 +58,8 @@ export default {
     }
 }
 </script>
+<style scoped>
+.logoimg{
+padding-right:10px;
+}
+</style>
