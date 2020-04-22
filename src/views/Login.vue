@@ -16,7 +16,7 @@
 
 <script>
 //import axios from 'axios';
-import navi1 from './TheNavigation';
+
 import {mapActions} from 'vuex';
 export default 
 { components: { },
