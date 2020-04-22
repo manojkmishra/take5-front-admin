@@ -16,7 +16,6 @@ export default {
                        user:'auth/user'
                       })
     },
-  name: 'dashboard',
-  components: { }
+
 }
 </script>

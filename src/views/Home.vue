@@ -1,12 +1,6 @@
 <template>
-  <div pt-100>
- Home
- <router-link :to="{name: 'signin'}">signin</router-link><br/>
-  <router-link :to="{name: 'signin'}">signin</router-link><br/>
-  <router-link :to="{name: 'signin'}">signin</router-link><br/>
-    <router-link :to="{name: 'signin'}">signin</router-link><br/>
-     <router-link :to="{name: 'signin'}">signin</router-link><br/>
-      <router-link :to="{name: 'signin'}">signin</router-link>
+  <div pb-100>
+ Home<br/>
   </div>
 </template>
 
