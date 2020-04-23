@@ -13,9 +13,13 @@ import {mapGetters, mapActions} from 'vuex'
 export default {
     computed:{
         ...mapGetters({authenticated:'auth/authenticated',
-                       user:'auth/user'
+                      user:'auth/user'
                       })
     },
+     created(){ // this.$store.dispatch('getjobs');
+                this.$store.dispatch('getuserlist')
+
+                }
 
 }
 </script>
