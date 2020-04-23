@@ -12,7 +12,8 @@ const routes = [
   {path:'/index.html',name:'home',component: Home, alias:'/',meta: {middleware: [Middlewares.auth]},
     redirect: '/dashboard' } , 
   {path:'/login',name:'login',component: Login,meta: {middleware: [Middlewares.guest]}  } ,
-  {path:'/dashboard',name:'dashboard',component: Dashboard,meta: {middleware: [Middlewares.auth]}  } 
+  {path:'/dashboard',name:'dashboard',component: Dashboard,meta: {middleware: [Middlewares.auth]}  },
+  {path:'/userlist',name:'userlist',component: UserList,meta: {middleware: [Middlewares.auth]}  } , 
 ]
 const router = new VueRouter({
   mode: 'history', base: process.env.BASE_URL, routes
