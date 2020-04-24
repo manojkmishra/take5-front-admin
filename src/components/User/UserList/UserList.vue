@@ -23,14 +23,17 @@
                     <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.password" label="Password"></v-text-field>
+                    <v-text-field v-model="editedItem.password" label="Password" type="password"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.password" label="Confirm Password"></v-text-field>
+                    <v-text-field v-model="editedItem.confirm_password" label="Confirm Password" type="password"></v-text-field>
+                  </v-col>
+                   <v-col cols="12" sm="6" md="6">
+                    <v-text-field v-model="editedItem.mobile" label="Mobile"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
                     <v-select single-line bottom label="Type" 
-                      v-model="editedItem.TYPE" :items="typeOptions"   
+                      v-model="editedItem.type" :items="typeOptions"   
                     ></v-select>
                   </v-col>
                 </v-row>
@@ -76,15 +79,16 @@
                         { text: "ID", value: "id", width: "6%" },
                         { text: "NAME", align: "left", sortable: true, value: "name" },
                         { text: "EMAIL", align: "left", sortable: true, value: "email" },
+                        { text: "MOBILE", align: "left", sortable: true, value: "mobile" },
                         { text: "TYPE", align: "left", sortable: true, value: "type" },
-                        { text: "CREATEDBY", align: "left", sortable: true, value: "createdby.name" },
-                        { text: "UPDATEDBY", align: "left", sortable: true, value: "updatedby.name" },
+                        { text: "CREATEDBY", align: "left", sortable: true, value: "created_by.name" },
+                        { text: "UPDATEDBY", align: "left", sortable: true, value: "updated_by.name" },
                         { text: "UPDATEDAT", align: "left", sortable: true, value: "updated_at" },
                        // { text: "Actions", value: "action", sortable: false, width: "8%" },
                         { text: 'Actions', value: 'actions', sortable: false,width: "10%" },
       ],
       desserts: [],categories: [],
-      editedItem: { name: '', STATUS: '', TYPE:'',   comment: '', },
+      editedItem: { name: '', email: '', type:'',   password: '', confirm_password: '', mobile:''},
       editedIndex: -1,
       typeOptions: [ "Admin User",  "Normal User" ],
      // formData: {     id: '',     }
@@ -128,8 +132,11 @@ created(){ /*this.loading=true;
                     } 
            //--------save clicked when adding new
         else {  console.log('add-item',this.editedItem)
-                    //add new api here
-                     this.$store.dispatch('addstatus', this.editedItem) 
+                    //adduser api here
+                        if(this.editedItem.type=="Admin User") this.editedItem.type=1;
+                        else if(this.editedItem.type=="Normal User") this.editedItem.type=2;
+
+                     this.$store.dispatch('adduser', this.editedItem) 
                       .then((response) => {})     .catch((error) => {});
             }
                 this.close()
