@@ -8,7 +8,7 @@
                   <v-text-field id="password" label="Password" prepend-icon="mdi-lock" :rules="passwordRules" name="password" type="password" v-model="user.password"/>
         </v-form>
         <v-spacer />
-        <v-btn color="primary" large rounded @click="loginUser" >Login</v-btn>
+        <v-btn color="primary" :loading="loading" large rounded @click="loginUser" >Login</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -20,7 +20,7 @@
 import {mapActions} from 'vuex';
 export default 
 { components: { },
-  data(){return {formValid:false, user:{email:'',password:''}, 
+  data(){return {formValid:false, user:{email:'',password:''}, loading:false,
                   emailRules: [ v => !!v || 'The Email is required',
                     v => /.+@.+\..+/.test(v) || 'E-mail must be valid',],
                   passwordRules: [ v => !!v || 'The Password is required' ],
@@ -30,14 +30,28 @@ export default
           loginUser(event)
                 {console.log({event,$form:this.$refs.loginForm})
                     if(this.$refs.loginForm.validate())
-                    {  console.log('validated');   
+                    { this.loading=true; 
+                      console.log('validated');   
                     console.log('user=',this.user)
                       // this.$store.dispatch('user/loginUser',this.user)
                         this.signIn(this.user).then(()=>
-                        {
+                        { this.loading=false;
                           console.log('authenticated- forwarding to dashboard')
                           this.$router.replace({name:'dashboard'})
-                        }).catch(()=>{console.log('singin view-sigin failed')})
+                          swal.fire({
+                position: 'top-right',
+                title:'<span style="color:white">Login Success!!</span>',
+                  timer: 2000,toast: true, background: 'purple', color:'white'
+                // customClass: 'swal2-popup',
+                 });
+                        }).catch(()=>{
+                          swal.fire({
+                position: 'top-right',
+                title:'<span style="color:white">Login Failed!!</span>',
+                  timer: 3000, toast: true, background: 'purple', color:'white'
+                 });
+                              this.loading=false;
+                        })
                     }
                 }    
     }

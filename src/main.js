@@ -7,9 +7,9 @@ import vuetify from './plugins/vuetify';
 //localStorage.removeItem('token')
 require('@/store/subscriber')  //@ is for src folder
 require ('@/plugins/Sweetalert');
-axios.defaults.baseURL='http://127.0.0.1:8000/api'
+//axios.defaults.baseURL='http://127.0.0.1:8000/api'
 //axios.defaults.baseURL='http://54.79.50.225/api'
-//axios.defaults.baseURL='/api/'
+axios.defaults.baseURL='/api/'
 /*
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('/sw.js')
