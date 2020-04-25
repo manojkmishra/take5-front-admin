@@ -4,17 +4,19 @@ import router from './router'
 import store from './store'
 import axios from 'axios';
 import vuetify from './plugins/vuetify';
-
+//localStorage.removeItem('token')
 require('@/store/subscriber')  //@ is for src folder
-//axios.defaults.baseURL='http://127.0.0.1:8000/api'
+require ('@/plugins/Sweetalert');
+axios.defaults.baseURL='http://127.0.0.1:8000/api'
 //axios.defaults.baseURL='http://54.79.50.225/api'
-axios.defaults.baseURL='/api/'
+//axios.defaults.baseURL='/api/'
 /*
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('/sw.js')
     .then(reg => console.log('service worker registered', reg))
     .catch(err => console.log('service worker not registered', err));
 }*/
+//localStorage.removeItem('token')
 Vue.config.productionTip = false
 store.dispatch('auth/attempt',localStorage.getItem('token'))
 .then(()=>{

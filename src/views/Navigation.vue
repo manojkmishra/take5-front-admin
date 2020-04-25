@@ -79,12 +79,12 @@ export default {
 
              ],
           },
-          { action: 'mdi-hand-saw', title: 'SAW Settings',hasMulSub: true,items: [
-              { title: 'Saw Schedules', route:'/sawschedules' },
-               { title: 'Saw Bars', route:'/sawbars' },
-               { title: 'Saw Cuts', route:'/sawcuts' },
-               { title: 'Saw Status', route:'/sawstatus' },
-               { title: 'Saw Flags', route:'/sawflags' },
+          { action: 'mdi-truck-delivery', title: 'Job Settings',hasMulSub: true,items: [
+              { title: 'Job List', route:'/joblist' },
+               { title: 'User Jobs', route:'/sawbars' },
+              // { title: 'Saw Cuts', route:'/sawcuts' },
+               //{ title: 'Saw Status', route:'/sawstatus' },
+              // { title: 'Saw Flags', route:'/sawflags' },
              ],
           },
            { action: 'mdi-chart-bar', title: 'Charts',hasMulSub: true, items: [ { title: 'Geebung', route:'test' }, ], },

@@ -26,14 +26,27 @@ export default{
       {  return new Promise((resolve, reject) => 
         {  axios.post(api.adduser, payload)
                 .then((response) => 
-                {  console.log('actions-reguser-res=',response);
+                {  console.log('actions-adduser-res=',response);
                     ctx.dispatch('getuserlist');
-                    if (response.data) { console.log('actions-res=',response)
-                                        resolve(response);
-                        }
-                    else { reject(response);  }
                 }).catch((error) => { console.log('actions-adduser-res=',error);
                   reject(error);  })
+        })
+      },
+      deleteuser(ctx, payload) 
+      {  return new Promise((resolve, reject) => 
+        {  axios.post(api.deleteuser, payload)
+                .then((response) => 
+                {  console.log('actions-deleteuser-res=',response);
+                    ctx.dispatch('getuserlist');
+                }).catch((error) => { reject(error);  })
+        })
+      },
+      edituser(ctx, payload) 
+      {  return new Promise((resolve, reject) => 
+        {  axios.post(api.edituser, payload)
+                .then((response) => 
+                { ctx.dispatch('getuserlist');
+                }).catch((error) => { reject(error);  })
         })
       },
       

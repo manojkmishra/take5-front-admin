@@ -6,7 +6,7 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <!--------------modal------------------->
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="500px" >
           <template v-slot:activator="{ on }">
             <v-btn color="primary" dark rounded class="mb-2" v-on="on">New User</v-btn>
           </template>
@@ -15,28 +15,38 @@
             <v-card-title><span class="headline" >{{ formTitle }}</span></v-card-title>
             <v-card-text>
               <v-container>
+                <v-form ref="userform">
                 <v-row>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.name" label="Name"></v-text-field>
+                    <v-text-field v-model="editedItem.name" label="Name" :rules="requiredRules"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+                    <v-text-field v-model="editedItem.email" label="Email" 
+                    :rules="emailRules" ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.password" label="Password" type="password"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.confirm_password" label="Confirm Password" type="password"></v-text-field>
-                  </v-col>
+                 
+                    <v-col cols="12" sm="6" md="6" v-if="dialogDelete === false">
+                      <v-text-field :rules="passwordRules"
+                     v-model="editedItem.password" label="Password" type="password" ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6" v-if="dialogDelete === false">
+                      <v-text-field  v-model="editedItem.confirm_password" label="Confirm Password" 
+                      type="password" :rules="[(editedItem.confirm_password === editedItem.password) || 
+                      'Passwords  not matching']" ></v-text-field>
+                    </v-col>
+                 
                    <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="editedItem.mobile" label="Mobile"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
                     <v-select single-line bottom label="Type" 
-                      v-model="editedItem.type" :items="typeOptions"   
+                      v-model="editedItem.type" :items="typeOptions"    
+                      :rules="[(v) => !!v || 'You must agree to continue!']"
+                     required
                     ></v-select>
                   </v-col>
                 </v-row>
+                </v-form>
               </v-container>
             </v-card-text>
 
@@ -81,8 +91,8 @@
                         { text: "EMAIL", align: "left", sortable: true, value: "email" },
                         { text: "MOBILE", align: "left", sortable: true, value: "mobile" },
                         { text: "TYPE", align: "left", sortable: true, value: "type" },
-                        { text: "CREATEDBY", align: "left", sortable: true, value: "created_by.name" },
-                        { text: "UPDATEDBY", align: "left", sortable: true, value: "updated_by.name" },
+                       // { text: "CREATEDBY", align: "left", sortable: true, value: "created_by.name" },
+                        { text: "UPDATEDBY", align: "left", sortable: true, value: "updated_by" },
                         { text: "UPDATEDAT", align: "left", sortable: true, value: "updated_at" },
                        // { text: "Actions", value: "action", sortable: false, width: "8%" },
                         { text: 'Actions', value: 'actions', sortable: false,width: "10%" },
@@ -91,30 +101,48 @@
       editedItem: { name: '', email: '', type:'',   password: '', confirm_password: '', mobile:''},
       editedIndex: -1,
       typeOptions: [ "Admin User",  "Normal User" ],
-     // formData: {     id: '',     }
+      requiredRules: [ v => !!v || 'This field is required'        ],
+      emailRules:[ v => !!v || 'The Email is required',
+                    v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+                  ],
+      passwordRules:[  v => !!v || 'The Password is required',
+                      v => (v && v.length > 5) || 'The Password must be atleast 6 chars'
+                    ]
     }),
-created(){ /*this.loading=true;
-            this.$store.dispatch('getsawstatus')
+/*created(){ this.loading=true;
+            this.$store.dispatch('getuserlist')
                     .then((res) => { //this.loading=false;
                                 console.log('getstatus response',res.data)  
-                                this.categories=res.data;
+                                this.sawstatus=res.data;
                                 this.loading=false;
-                        }) */
+                        }) 
         },
+        */
     computed: {
-      formTitle() {  if (this.dialogDelete) { return "Delete Status";} 
+      formTitle() {  if (this.dialogDelete) { return "Delete User";} 
                     else if (this.editedIndex === -1) { console.log('new--this.editindx',this.editedIndex);
                                         return "New User"; }
                     else if (this.editedIndex > -1) { console.log('edit--this.editindx',this.editedIndex);
-                                return "Edit Status";  }  
+                                return "Edit User";  }  
                               },
-         ...mapState({  sawstatus:state => state.user.userlist
-        }),
+         ...mapState({  sawstatus:state => state.user.userlist}),
+          ...mapGetters({authenticated:'auth/authenticated',
+                          user:'auth/user'
+                        })
 
      },
     watch: { dialog (val) { console.log('inside watch- dialog- val=',val)
-      val || this.close()  },    },
+                          val || this.close()  },    
+        },
     methods: { 
+                  passwordValidator() 
+                  { return (this.editedItem.confirm_password === this.editedItem.password) || 
+                      'Password not matching';                    
+                  },
+      reseteditedItem(){
+        this.editedItem= { name: '', email: '', type:'',   password: '', confirm_password: '', mobile:''}
+      },
+
       editItem (item) { console.log('edit-item',item)
         this.dialogDelete = false;
         this.editedIndex = this.sawstatus.indexOf(item); console.log('editedIndex',this.editedIndex)
@@ -125,25 +153,42 @@ created(){ /*this.loading=true;
       save () 
       {  //console.log('save-item=',item);
         if (this.editedIndex > -1) //save clicked when editing
-                  {  console.log('edit',this.editedItem)
+              {  console.log('edit',this.editedItem)
                     //edit api here
-                     this.$store.dispatch('editstatus', this.editedItem) 
-                      .then((response) => {})     .catch((error) => {});
-                    } 
+                      if(this.editedItem.type=="Admin User") this.editedItem.type=1;
+                      else if(this.editedItem.type=="Normal User") this.editedItem.type=2;
+                    if (!this.$refs.userform.validate()) 
+                    {   
+                      console.log('add-item- form validation wrong',this.editedItem)
+                      return false; 
+                    }
+                    else
+                    this.$store.dispatch('edituser', this.editedItem) 
+                } 
            //--------save clicked when adding new
         else {  console.log('add-item',this.editedItem)
                     //adduser api here
-                        if(this.editedItem.type=="Admin User") this.editedItem.type=1;
-                        else if(this.editedItem.type=="Normal User") this.editedItem.type=2;
-
-                     this.$store.dispatch('adduser', this.editedItem) 
-                      .then((response) => {})     .catch((error) => {});
+                      if(this.editedItem.type=="Admin User") this.editedItem.type=1;
+                      else if(this.editedItem.type=="Normal User") this.editedItem.type=2;
+                     if (!this.$refs.userform.validate()) 
+                    {   
+                      console.log('add-item- form validation wrong',this.editedItem)
+                       return false; 
+                     }
+                    else
+                        this.$store.dispatch('adduser', this.editedItem) 
             }
-                this.close()
+            //this.reseteditedItem();
+            this.close()
         },
         //--------------delete start----------------------------------------------------------
       deleteItem (item) {console.log('delete-pressed-item',item)
-                        const index = this.desserts.indexOf(item)
+                        //const index = this.desserts.indexOf(item)
+                        if(this.user.email==item.email)
+                        { 
+                          return false;
+                        }
+                        return false;
                         this.dialogDelete = true;
                         this.editedIndex = this.sawstatus.indexOf(item);
                         this.editedItem = Object.assign({}, item);
@@ -152,14 +197,13 @@ created(){ /*this.loading=true;
               },
       remove() { console.log('remove---function- editedIndex', this.editedIndex)
                   // delete api here
-                   this.$store.dispatch('deletestatus', this.editedItem) 
+                    this.$store.dispatch('deleteuser', this.editedItem) 
                       .then((response) => {})     .catch((error) => {});
                   this.close();
                 },
       //-------------------------------delete finish-----------------
       //------------------close modal---------------------------
-      close () {  
-                  this.dialog = false
+      close () {  this.dialog = false
                   setTimeout(() => {  this.editedItem = Object.assign({}, this.defaultItem)
                           this.editedIndex = -1, this.dialogDelete = false; }, 100)
               },
