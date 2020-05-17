@@ -4,7 +4,9 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import UserList from '../components/User/UserList/UserList.vue'
-import store from '@/store'
+import Jobs from '../components/Jobs/Jobs.vue'
+import status from '@/components/status/status.vue'
+import flags from '@/components/flags/flags.vue'
 import Middlewares from "../middlewares/";
 
 Vue.use(VueRouter)
@@ -13,7 +15,11 @@ const routes = [
     redirect: '/dashboard' } , 
   {path:'/login',name:'login',component: Login,meta: {middleware: [Middlewares.guest]}  } ,
   {path:'/dashboard',name:'dashboard',component: Dashboard,meta: {middleware: [Middlewares.auth]}  },
-  {path:'/userlist',name:'userlist',component: UserList,meta: {middleware: [Middlewares.auth]}  } , 
+  {path:'/userlist',name:'userlist',component: UserList,meta: {middleware: [Middlewares.auth]}  } ,
+  {path:'/joblist',name:'joblist',component: Jobs,meta: {middleware: [Middlewares.auth]}  } ,
+  {path:'/jobtype',name:'jobtype',component: Jobs,meta: {middleware: [Middlewares.auth]}  } ,
+  {path:'/status',name:'status',component: status,meta: {middleware: [Middlewares.auth]}  } ,
+  {path:'/flags',name:'flags',component: flags,meta: {middleware: [Middlewares.auth]}  } ,  
 ]
 const router = new VueRouter({
   mode: 'history', base: process.env.BASE_URL, routes

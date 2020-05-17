@@ -39,14 +39,14 @@ export default
                           console.log('authenticated- forwarding to dashboard')
                           this.$router.replace({name:'dashboard'})
                           swal.fire({
-                position: 'top-right',
+                position: 'bottom-right',
                 title:'<span style="color:white">Login Success!!</span>',
                   timer: 2000,toast: true, background: 'purple', color:'white'
                 // customClass: 'swal2-popup',
                  });
                         }).catch(()=>{
                           swal.fire({
-                position: 'top-right',
+                position: 'bottom-right',
                 title:'<span style="color:white">Login Failed!!</span>',
                   timer: 3000, toast: true, background: 'purple', color:'white'
                  });

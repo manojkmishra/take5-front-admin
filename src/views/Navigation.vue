@@ -19,7 +19,7 @@
      <div v-if="authenticated">
             <div snackbar="true" > </div>
             <v-navigation-drawer v-model="drwr" app dark  
-             color="teal">
+              color="blue darken-4">
                <v-layout column align-center>
                     <v-flex class="mt-5" >
                          <v-avatar size="120" class=""><img src="@/assets/img/user.png"></v-avatar>
@@ -81,10 +81,10 @@ export default {
           },
           { action: 'mdi-truck-delivery', title: 'Job Settings',hasMulSub: true,items: [
               { title: 'Job List', route:'/joblist' },
-               { title: 'User Jobs', route:'/sawbars' },
-              // { title: 'Saw Cuts', route:'/sawcuts' },
-               //{ title: 'Saw Status', route:'/sawstatus' },
-              // { title: 'Saw Flags', route:'/sawflags' },
+              // { title: 'User Jobs', route:'/sawbars' },
+               { title: 'Job Type', route:'/jobtype' },
+               { title: 'Status', route:'/status' },
+               { title: 'Flags', route:'/flags' },
              ],
           },
            { action: 'mdi-chart-bar', title: 'Charts',hasMulSub: true, items: [ { title: 'Geebung', route:'test' }, ], },
