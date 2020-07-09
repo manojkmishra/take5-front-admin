@@ -87,16 +87,17 @@ export default {
              //  { title: 'Flags', route:'/flags' },
              ],
           },
-           { action: 'mdi-chart-bar', title: 'Charts',hasMulSub: true, items: [ { title: 'Geebung', route:'test' }, ], },
+           { action: 'mdi-chart-bar', title: 'Charts',hasMulSub: true, items: [ 
+           { title: 'Geebung', route:'test' }, ], },
        /*   { action: 'mdi-folder', title: 'NSW',hasMulSub: true,items: [
               { title: 'Smithfield' },
               { title: 'Nowra' },
               { title: 'Beresfield' },
             ],
           },
-          { action: 'mdi-folder', title: 'SA', hasMulSub: true,items: [ { title: 'Elizabeth', route:'eli' }, ], },
+          { action: 'mdi-folder', title: 'SA', hasMulSub: true,items: [ { title: 'Elizabeth', route:'eli' }, ], }, */
           { action: 'mdi-folder', title: 'VIC', hasMulSub: true,items: [{ title: 'Bayswater' },], },
-          */
+          
           
         ],
      
