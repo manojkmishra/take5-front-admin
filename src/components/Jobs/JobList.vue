@@ -132,7 +132,7 @@ export default
              // { text: 'created_at', align: 'left', value: 'created_at'},
               { text: 'updated_at', align: 'left',  value: 'updated_at'},
              // { text: 'created_by', align: 'left',  value: 'createdby.name'},
-             //  { text: 'updated_by', align: 'left',  value: 'updatedby.name'},
+               { text: 'updated_by', align: 'left',  value: 'updatedby.name'},
               { text: 'V6 Ord', align: 'left',  value: 'V6_ORDER_NO'},
               { text: 'SJC No', align: 'left',  value: 'SJC_NO'},
               { text: 'Type', align: 'left',  value: 'type'},
@@ -174,7 +174,11 @@ export default
                   {  console.log('edit',this.editedItem)
                     //edit api here
                     this.$store.dispatch('editjobs', this.editedItem) 
-                        .then((response) => { this.sawflags=res.data;})     .catch((error) => {});
+                        .then((response) => { 
+                           this.$store.dispatch('getjobs')
+                           .then((res) => { this.sawflags=res.data; })
+                        })     
+                        
                     } 
            //--------save clicked when adding new
         else {  console.log('add-item',this.editedItem)

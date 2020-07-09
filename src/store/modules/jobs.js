@@ -44,7 +44,7 @@ export default
                 .catch(response => {    });
             return res;
     },
-    async editjobtypes ({dispatch}, formData)
+    async editjobs ({dispatch}, formData)
     {   console.log('editjobs-- formData=', formData);
           let res= await axios.post(api.editjobs, formData)  
                 .then(response => { dispatch('getjobs');  })
