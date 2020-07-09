@@ -76,12 +76,8 @@
                        // { text: "Actions", value: "action", sortable: false, width: "8%" },
                         { text: 'Actions', value: 'actions', sortable: false,width: "10%" },
       ],
-    //  categories: [],
-      //sawflags:[],
       editedItem: { type: '',  comments: '',   },
       editedIndex: -1,
-      typeOptions: [ "saw_schedules",  "optimised_bars", "optimised_cuts", "Flag" ],
-     // formData: {     id: '',    STATUS: '', TYPE:'',   comment: '', }
     }),
         created(){  this.loading=true;
              this.$store.dispatch('getjobtypes')
@@ -100,7 +96,8 @@
                    },
       ...mapState({
 
-            sawflags:state => state.jobs.getjobtypes
+            sawflags:state => state.jobs.getjobtypes,
+             jobtypeoptions1:state => state.jobs.jobtypeoptions,
         }),
              },
     

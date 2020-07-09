@@ -4,10 +4,15 @@ import * as types from '../types';
 import * as api from '../config';
 export default
 {
-  state: {getjobs:null,getjobtypes:null,
+  state: {getjobs:null,getjobtypes:null, jobtypeoptions:null,
         },
   getters:{
-      
+      getLocationsForEvent (state) {
+            let options = [];
+            for (let status in state.getjobtypes) 
+               { options.push({value: state.getjobtypes[status].id, label: state.getjobtypes[status].type});  }
+              return options;
+      }
   },
   mutations: 
   {
@@ -17,7 +22,11 @@ export default
     },
     [types.GET_JOB_TYPES ] (state, payload) 
     { state.getjobtypes = payload.getjobtypes;
-     console.log('/store/saw.js-types.GET_JOB_TYPES state=', state);
+      let options = [];
+      for (let status in payload.getjobtypes) 
+         { options.push({value: payload.getjobtypes[status].id, label: payload.getjobtypes[status].type});  }
+         state.jobtypeoptions = options;
+      console.log('/store/saw.js-types.GET_JOB_TYPES state=', state);
     },
   },
   actions:{
@@ -27,6 +36,27 @@ export default
     { let res= await axios.get(api.getjobs);  
       commit({type:types.GET_JOBS ,  getjobs: res.data} ); 
       return res;    
+    },
+    async addjobs ({dispatch}, formData)
+    {   console.log('addjobs-- formData=', formData);
+          let res= await axios.post(api.addjobs, formData)  
+                .then(response => { dispatch('getjobs');  })
+                .catch(response => {    });
+            return res;
+    },
+    async editjobtypes ({dispatch}, formData)
+    {   console.log('editjobs-- formData=', formData);
+          let res= await axios.post(api.editjobs, formData)  
+                .then(response => { dispatch('getjobs');  })
+                .catch(response => {    });
+            return res;
+    },
+    async deljobs ({dispatch}, formData)
+    {   console.log('delete-- formData=', formData);
+          let res= await axios.post(api.deljobs, formData)  
+                .then(response => { dispatch('getjobs');  })
+                .catch(response => {    });
+            return res;
     },
     async getjobtypes ({commit,dispatch}) 
     { let res= await axios.get(api.getjobtypes);  

@@ -12,12 +12,13 @@
     {   data(){return{aa:[], loading:false}},
         components: { 'joblist': JobList, },
         created(){ this.loading=true;
-             this.$store.dispatch('getjobs')
+           /*  this.$store.dispatch('getjobs')
                     .then((res) => { //this.loading=false;
                                 console.log('getjobs response',res.data)  
                                 this.aa=res.data;
                                 this.loading=false;
                         })
+                        */
         }
     }
 

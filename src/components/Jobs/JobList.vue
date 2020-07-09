@@ -1,6 +1,8 @@
 <template> 
 <div class="mt-10">
-  <v-data-table :headers="headers" :items="bb"   class="elevation-1" :search="search"
+        <v-progress-linear :active="loading" :indeterminate="loading" absolute   top  color="deep-purple accent-4"
+      ></v-progress-linear>
+  <v-data-table :headers="headers" :items="sawflags"   class="elevation-1" :search="search"
         :footer-props="{showFirstLastPage: true, itemsPerPageOptions: [10,20,40,-1], }">
     <template v-slot:top >
         <v-toolbar flat dark dense color="blue darken-4">
@@ -17,27 +19,45 @@
           </template>
           <!----popup---------------->
           <v-card>
-            <v-card-title><span class="headline" >{{ formTitle }}</span></v-card-title>
+            <v-card-title class="headline grey lighten-2"><span class="headline" >{{ formTitle }}</span></v-card-title>
             <v-card-text>
+              <v-form class="px-3" ref="form">
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.name" label="Name"></v-text-field>
+                    <v-text-field v-model="editedItem.V6_ORDER_NO" label="V6 OrdNo" ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.comment" label="Comments"></v-text-field>
+                    <v-text-field v-model="editedItem.SJC_NO" label="SJC No" ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="6">
+                    <v-text-field v-model="editedItem.CLIENT_NAME" label="Cust Name" ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="6">
+                                      <v-menu max-width="290">
+                      <template v-slot:activator="{ on }">
+                            <v-text-field :value="formattedDate" label="Due date" 
+                            prepend-icon="mdi-calendar-range" v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="editedItem.DELIVERY_DATE"></v-date-picker>
+                    </v-menu>
+
+                  <!--  <v-text-field v-model="editedItem.SJC_NO" label="Date"></v-text-field>  -->
                   </v-col>
                   <v-col cols="4" sm="12" md="4">
-                    <v-text-field v-model="editedItem.red" label="red"></v-text-field>
+                    <v-text-field v-model="editedItem.SITE_ADDRESS" label="address" ></v-text-field>
                   </v-col>
                   <v-col cols="4" sm="12" md="4">
-                    <v-text-field v-model="editedItem.green" label="green"></v-text-field>
+                    <v-text-field v-model="editedItem.CONTACT" label="Contact" ></v-text-field>
                   </v-col>
                   <v-col cols="4" sm="12" md="4">
-                    <v-text-field v-model="editedItem.blue" label="blue"></v-text-field>
+                    <v-select single-line bottom label="Type"  class="select"
+                      v-model="editedItem.type"   
+                    ></v-select>
                   </v-col>
                 </v-row>
               </v-container>
+              </v-form >
             </v-card-text>
             <v-card-actions>
               <div class="flex-grow-1"></div>
@@ -53,20 +73,26 @@
           </v-card>
         </v-dialog>
         <!--------------modal--------------->
- <!--
-    <template v-slot:item.status_id="{ item }" >
-       <v-btn ripple small v-if="item.status_id =='9'"  color="red lighten-2" rounded dark :loading="loading"  @click.prevent="chstatus(item)">{{item.Status}}</v-btn>
-       <v-btn ripple small v-else-if="item.status_id =='12'"  color="teal" rounded dark :loading="loading"  @click.prevent="chstatus(item)">{{item.Status}}</v-btn>
-       <v-btn ripple small v-else color="blue lighten-3" rounded dark :loading="loading"   @click.prevent="chstatus(item)">{{item.Status}}</v-btn>
-    </template>
-    <template v-slot:item.flag="{ item }">
-        <v-icon small > mdi-flag-outline </v-icon>
-    </template>
--->
         </v-toolbar>
     </template>
+     
+    <template v-slot:item.bom="{ item }" >
+       <v-btn ripple x-small  color="red lighten-2" rounded dark >BOM</v-btn>
+     </template>
+    <template v-slot:item.pics="{ item }">
+       <v-btn ripple x-small  color="teal " rounded dark >Pics</v-btn>
+    </template>
+    <template v-slot:item.c19="{ item }">
+       <v-btn ripple x-small  color="teal " rounded dark >C19</v-btn>
+    </template>
+    <template v-slot:item.t5="{ item }">
+       <v-btn ripple x-small  color="blue " rounded dark >T5</v-btn>
+    </template>
+    <template v-slot:item.jc="{ item }">
+       <v-btn ripple x-small  color="blue " rounded dark >JC</v-btn>
+    </template>
 
-        <template v-slot:item.actions="{ item }">
+    <template v-slot:item.actions="{ item }">
       <v-icon medium color="blue darken-2" class="mr-2" @click="editItem(item)" >mdi-pencil</v-icon>
       <v-icon medium color="red" @click="deleteItem(item)" >mdi-delete</v-icon>
     </template>
@@ -79,38 +105,60 @@
 <script>
 import Vue from 'vue'
 import { mapGetters, mapState, mapActions} from 'vuex';
+import format from 'date-fns/format'
+import parseISO from 'date-fns/parseISO'
 import axios from "axios";
 export default
 {  computed: 
    {  ...mapState({ //sawbars: state => state.sawtables.sawbars, 
+                jobtypeoptions1:state => state.jobs.jobtypeoptions,
+                getjobtypes:state => state.jobs.getjobtypes
               }),
+        locations () {
+  return this.$store.getters.jobtypeoptions1;
+                        },
+              aad(){
+                console.log('aad joblist-jobtypeoptions1',jobtypeoptions1)
+                return "aa";
+              }
             },
-    props:{bb:Array},
-    data() { return {dialog: false,search: '',dialogDelete: false, loading:false,
-          editedItem: { name: '', red: '', green:'', blue:'',  comment: '',   },
-      editedIndex: -1,
+    //props:{bb:Array},
+    data() { return {dialog: false,search: '',dialogDelete: false, loading:false, //jobtypeoptions1:[],
+          editedItem: { name: '', DELIVERY_DATE: '', green:'', blue:'',  comment: '', 
+          V6_ORDER_NO:'', SJC_NO:'',SITE_ADDRESS:'' , type:''},
+      editedIndex: -1, sawflags:[],// inputRules:[v=>v.length>=3||'Min len is 3 chars'],
       typeOptions: [ "saw_schedules",  "optimised_bars", "optimised_cuts", "Flag" ],
           headers: [
-              { text: 'created_at', align: 'left', value: 'created_at'},
+             // { text: 'created_at', align: 'left', value: 'created_at'},
               { text: 'updated_at', align: 'left',  value: 'updated_at'},
              // { text: 'created_by', align: 'left',  value: 'createdby.name'},
              //  { text: 'updated_by', align: 'left',  value: 'updatedby.name'},
               { text: 'V6 Ord', align: 'left',  value: 'V6_ORDER_NO'},
               { text: 'SJC No', align: 'left',  value: 'SJC_NO'},
-              { text: 'Type', align: 'left',  value: ''},
+              { text: 'Type', align: 'left',  value: 'type'},
+              { text: 'User', align: 'left',  value: 'type'},
+              { text: 'Cust Nam', align: 'left',  value: 'CLIENT_NAME'},
               { text: 'Address', align: 'left',  value: 'SITE_ADDRESS'},
-               { text: 'Contact', align: 'left',  value: 'CONTACT'},
-              { text: 'Date', align: 'left',  value: 'DELIVERY_DATE'},
+              { text: 'Contact', align: 'left',  value: 'CONTACT'},
+              { text: 'Due Dt', align: 'left',  value: 'DELIVERY_DATE'},
              // { text: 'schedule_saw', align: 'left',  value: 'schedule_saw'},
-              { text: 'BOM', align: 'left',  value: 'cut_saw'},
-              { text: 'Pics', value: 'quote_ID',sortable: false },
-              { text: 'C19', value: 'order_ID' ,sortable: false},
-              { text: 'T5', value: 'cut_time',sortable: false },
-              { text: 'JC', value: 'status_id', sortable: false },
+              { text: 'BOM', align: 'left',  value: 'bom'},
+              { text: 'Pics', value: 'pics',sortable: false },
+              { text: 'C19', value: 'c19' ,sortable: false},
+              { text: 'T5', value: 't5',sortable: false },
+              { text: 'JC', value: 'jc', sortable: false },
               { text: 'Action', value: 'actions', sortable: false },
             ],
             }
           },
+  created(){ this.loading=true;
+             this.$store.dispatch('getjobs')
+                    .then((res) => { //this.loading=false;
+                                console.log('getjobs response',res.data)  
+                                this.sawflags=res.data;
+                                this.loading=false;
+                        })
+        },
   methods: {  
           editItem (item) {  this.dialogDelete = false;
         console.log('edit-item',item)
@@ -121,19 +169,22 @@ export default
         },
          save () 
       {  //console.log('save-item=',item);
-        if (this.editedIndex > -1) //save clicked when editing
+       
+       if (this.editedIndex > -1) //save clicked when editing
                   {  console.log('edit',this.editedItem)
                     //edit api here
-                    this.$store.dispatch('editflag', this.editedItem) 
-                        .then((response) => {})     .catch((error) => {});
+                    this.$store.dispatch('editjobs', this.editedItem) 
+                        .then((response) => { this.sawflags=res.data;})     .catch((error) => {});
                     } 
            //--------save clicked when adding new
         else {  console.log('add-item',this.editedItem)
                     //add new api here
-                    this.$store.dispatch('addflag', this.editedItem) 
-                      .then((response) => {})     .catch((error) => {});
-            }
-                this.close()
+                    this.$store.dispatch('addjobs', this.editedItem) 
+                      .then((response) => {   this.$store.dispatch('getjobs')
+                                                  .then((res) => { this.sawflags=res.data; })
+                                          })     
+              }
+          this.close()
         },
         //--------------delete start----------------------------------------------------------
       deleteItem (item) {console.log('delete-pressed-item',item)
@@ -146,9 +197,10 @@ export default
               },
       remove() { console.log('remove()- editedIndex', this.editedIndex)
                   // delete api here
-                  this.$store.dispatch('deleteflag', this.editedItem)  
-                                .then((response) => {})
-                                .catch((error) => {});
+                  this.$store.dispatch('deljobs', this.editedItem)  
+                                .then((response) => {   this.$store.dispatch('getjobs')
+                                                  .then((res) => { this.sawflags=res.data; })
+                                          })
                              
                  // this.dialogDelete = false;
                   this.close(); 
@@ -165,6 +217,7 @@ export default
         
           },
   computed: { 
+      formattedDate(){return this.editedItem.DELIVERY_DATE ? format(parseISO(this.editedItem.DELIVERY_DATE),'do MMM yyyy') : ''},
       formTitle() {  if (this.dialogDelete) { return "Delete Flag";} 
                      else if (this.editedIndex === -1) { console.log('formtitle()-this.editindx(-1=new)',this.editedIndex);
                                         return "New Job"; }
@@ -179,4 +232,8 @@ export default
 </script>
 
 <style scoped>
+.headline{
+
+  /*background-color: blue;*/
+}
 </style>

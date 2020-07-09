@@ -18,6 +18,7 @@ export default {
     },
      created(){ // this.$store.dispatch('getjobs');
                 this.$store.dispatch('getuserlist')
+                this.$store.dispatch('getjobtypes')
                 }
 
 }
