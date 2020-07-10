@@ -2,7 +2,7 @@
 <div class="mt-10">
         <v-progress-linear :active="loading" :indeterminate="loading" absolute   top  color="deep-purple accent-4"
       ></v-progress-linear>
-  <v-data-table :headers="headers" :items="sawflags"   class="elevation-1" :search="search"
+  <v-data-table :headers="headers" :items="sawflags" dense  class="elevation-1" :search="search"
         :footer-props="{showFirstLastPage: true, itemsPerPageOptions: [10,20,40,-1], }">
     <template v-slot:top >
         <v-toolbar flat dark dense color="blue darken-4">
@@ -24,17 +24,26 @@
               <v-form class="px-3" ref="form">
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6" md="6">
+                  <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.V6_ORDER_NO" label="V6 OrdNo" ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="6">
+                  <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.SJC_NO" label="SJC No" ></v-text-field>
                   </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-select single-line bottom label="Type"  class="select" 
+                      v-model="editedItem.type"   :items="jobtypeoptions" item-text="label" item-value='value'
+                    > </v-select>
+                  </v-col>
+                  
                   <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="editedItem.CLIENT_NAME" label="Cust Name" ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                                      <v-menu max-width="290">
+                    <v-text-field v-model="editedItem.SITE_ADDRESS" label="Addr" ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                      <v-menu max-width="290">
                       <template v-slot:activator="{ on }">
                             <v-text-field :value="formattedDate" label="Due date" 
                             prepend-icon="mdi-calendar-range" v-on="on"></v-text-field>
@@ -44,17 +53,16 @@
 
                   <!--  <v-text-field v-model="editedItem.SJC_NO" label="Date"></v-text-field>  -->
                   </v-col>
-                  <v-col cols="4" sm="12" md="4">
-                    <v-text-field v-model="editedItem.SITE_ADDRESS" label="address" ></v-text-field>
-                  </v-col>
-                  <v-col cols="4" sm="12" md="4">
+
+                  <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.CONTACT" label="Contact" ></v-text-field>
                   </v-col>
-                  <v-col cols="4" sm="12" md="4">
-                    <v-select single-line bottom label="Type"  class="select"
-                      v-model="editedItem.type"   
-                    ></v-select>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-select single-line bottom label="User"  class="select" 
+                      v-model="editedItem.field_user"   :items="useroptions" item-text="label" item-value='value'
+                    > </v-select>
                   </v-col>
+
                 </v-row>
               </v-container>
               </v-form >
@@ -109,22 +117,10 @@ import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
 import axios from "axios";
 export default
-{  computed: 
-   {  ...mapState({ //sawbars: state => state.sawtables.sawbars, 
-                jobtypeoptions1:state => state.jobs.jobtypeoptions,
-                getjobtypes:state => state.jobs.getjobtypes
-              }),
-        locations () {
-  return this.$store.getters.jobtypeoptions1;
-                        },
-              aad(){
-                console.log('aad joblist-jobtypeoptions1',jobtypeoptions1)
-                return "aa";
-              }
-            },
+{ 
     //props:{bb:Array},
     data() { return {dialog: false,search: '',dialogDelete: false, loading:false, //jobtypeoptions1:[],
-          editedItem: { name: '', DELIVERY_DATE: '', green:'', blue:'',  comment: '', 
+          editedItem: { name: '', DELIVERY_DATE: '', type:'', field_user:'',  comment: '', 
           V6_ORDER_NO:'', SJC_NO:'',SITE_ADDRESS:'' , type:''},
       editedIndex: -1, sawflags:[],// inputRules:[v=>v.length>=3||'Min len is 3 chars'],
       typeOptions: [ "saw_schedules",  "optimised_bars", "optimised_cuts", "Flag" ],
@@ -135,8 +131,8 @@ export default
                { text: 'updated_by', align: 'left',  value: 'updatedby.name'},
               { text: 'V6 Ord', align: 'left',  value: 'V6_ORDER_NO'},
               { text: 'SJC No', align: 'left',  value: 'SJC_NO'},
-              { text: 'Type', align: 'left',  value: 'type'},
-              { text: 'User', align: 'left',  value: 'type'},
+              { text: 'Type', align: 'left',  value: 'type1.type'},
+              { text: 'User', align: 'left',  value: 'fuser.name'},
               { text: 'Cust Nam', align: 'left',  value: 'CLIENT_NAME'},
               { text: 'Address', align: 'left',  value: 'SITE_ADDRESS'},
               { text: 'Contact', align: 'left',  value: 'CONTACT'},
@@ -162,8 +158,11 @@ export default
   methods: {  
           editItem (item) {  this.dialogDelete = false;
         console.log('edit-item',item)
-        this.editedIndex = this.sawflags.indexOf(item); console.log('editedIndex',this.editedIndex)
-        this.editedItem = Object.assign({}, item); console.log('editedItem',this.editedItem)
+        this.editedIndex = this.sawflags.indexOf(item); 
+        console.log('editedIndex',this.editedIndex)
+        this.editedItem = Object.assign({}, item); 
+        //this.editedItem.field_user = item.fuser.name;
+        console.log('editedItem',this.editedItem)
       //  this.editedItem=item;
         this.dialog = true
         },
@@ -221,6 +220,11 @@ export default
         
           },
   computed: { 
+          ...mapState({
+        
+            jobtypeoptions:state => state.jobs.jobtypeoptions,
+             useroptions:state => state.user.useroptions,
+        }),
       formattedDate(){return this.editedItem.DELIVERY_DATE ? format(parseISO(this.editedItem.DELIVERY_DATE),'do MMM yyyy') : ''},
       formTitle() {  if (this.dialogDelete) { return "Delete Flag";} 
                      else if (this.editedIndex === -1) { console.log('formtitle()-this.editindx(-1=new)',this.editedIndex);

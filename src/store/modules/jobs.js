@@ -4,15 +4,9 @@ import * as types from '../types';
 import * as api from '../config';
 export default
 {
-  state: {getjobs:null,getjobtypes:null, jobtypeoptions:null,
+  state: {getjobs:null,getjobtypes:null, jobtypeoptions:[],
         },
   getters:{
-      getLocationsForEvent (state) {
-            let options = [];
-            for (let status in state.getjobtypes) 
-               { options.push({value: state.getjobtypes[status].id, label: state.getjobtypes[status].type});  }
-              return options;
-      }
   },
   mutations: 
   {
@@ -25,8 +19,8 @@ export default
       let options = [];
       for (let status in payload.getjobtypes) 
          { options.push({value: payload.getjobtypes[status].id, label: payload.getjobtypes[status].type});  }
-         state.jobtypeoptions = options;
-      console.log('/store/saw.js-types.GET_JOB_TYPES state=', state);
+            state.jobtypeoptions = options;
+            console.log('/store/saw.js-types.GET_JOB_TYPES state=', state);
     },
   },
   actions:{

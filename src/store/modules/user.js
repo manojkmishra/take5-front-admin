@@ -4,7 +4,7 @@ import * as types from '../types';
 import * as api from '../config';
 export default{
  // namespaced:true,
-  state: {userlist:null,  },
+  state: {userlist:null, useroptions:[],  },
   getters:{ },
   mutations: 
   { 
@@ -12,6 +12,10 @@ export default{
     [types.GET_USER_LIST ] (state, payload) 
         {
           state.userlist = payload.userlist;   
+          let options = [];
+         for (let status in payload.userlist) 
+         { options.push({value: payload.userlist[status].id, label: payload.userlist[status].name});  }
+            state.useroptions = options;
           console.log('/store---types.GET_USER_LIST state=', state);
          },
   
