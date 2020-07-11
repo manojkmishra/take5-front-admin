@@ -19,12 +19,12 @@
      <div v-if="authenticated">
             <div snackbar="true" > </div>
             <v-navigation-drawer v-model="drwr" app dark  
-              color="blue darken-4">
+              color="teal ">
                <v-layout column align-center>
                     <v-flex class="mt-5" >
                          <v-avatar size="120" class=""><img src="@/assets/img/user.png"></v-avatar>
-                         <p class="subheading mt-1" style="text-align: center; color:rgb(6, 231, 125);"
-                         color="green accent-4">{{user.name}}</p>
+                         <p class="subheading mt-1" style="text-align: center; color:white;"
+                         >{{user.name}}</p>
                     </v-flex> <!--popup to add projects below -->
                </v-layout>            
       <!---multi leve finish ---------->

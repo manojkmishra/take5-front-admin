@@ -87,15 +87,19 @@
     <template v-slot:item.bom="{ item }" >
        <v-btn ripple x-small  color="red lighten-2" rounded dark >BOM</v-btn>
      </template>
+
     <template v-slot:item.pics="{ item }">
        <v-btn ripple x-small  color="teal " rounded dark >Pics</v-btn>
     </template>
+
     <template v-slot:item.c19="{ item }">
-       <v-btn ripple x-small  color="teal " rounded dark >C19</v-btn>
+       <v-btn ripple x-small  color="teal " rounded dark @click.prevent="c19fn(item)"  >C19</v-btn>
     </template>
+
     <template v-slot:item.t5="{ item }">
        <v-btn ripple x-small  color="blue " rounded dark >T5</v-btn>
     </template>
+
     <template v-slot:item.jc="{ item }">
        <v-btn ripple x-small  color="blue " rounded dark >JC</v-btn>
     </template>
@@ -156,15 +160,21 @@ export default
                         })
         },
   methods: {  
-          editItem (item) {  this.dialogDelete = false;
-        console.log('edit-item',item)
-        this.editedIndex = this.sawflags.indexOf(item); 
-        console.log('editedIndex',this.editedIndex)
-        this.editedItem = Object.assign({}, item); 
-        //this.editedItem.field_user = item.fuser.name;
-        console.log('editedItem',this.editedItem)
-      //  this.editedItem=item;
-        this.dialog = true
+        c19fn(x)
+          { console.log('c19fn-item=',x)
+            this.$router.push({name: 'c19'});
+          },
+        
+        editItem (item) 
+        {  this.dialogDelete = false;
+          console.log('edit-item',item)
+          this.editedIndex = this.sawflags.indexOf(item); 
+          console.log('editedIndex',this.editedIndex)
+          this.editedItem = Object.assign({}, item); 
+          //this.editedItem.field_user = item.fuser.name;
+          console.log('editedItem',this.editedItem)
+          //  this.editedItem=item;
+          this.dialog = true
         },
          save () 
       {  //console.log('save-item=',item);
