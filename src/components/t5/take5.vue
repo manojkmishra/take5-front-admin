@@ -48,51 +48,51 @@
       <tbody>
         <tr class="rowht">
           <td>Am I fit to do the task?</td>
-          <td><v-radio-group v-model="rad.rad1" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad1" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad1" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad1" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad1" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad1" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td class="pr-5">Do I clearly understand the task?</td>
-          <td><v-radio-group v-model="rad.rad2" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad2" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad2" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad2" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad2" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad2" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Am I authorised/ competent to do the task? </td>
-          <td><v-radio-group v-model="rad.rad3" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad3" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad3" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad3" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad3" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad3" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Do I have the correct PPE & tools for the task? </td>
-          <td><v-radio-group v-model="rad.rad4" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad4" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad4" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad4" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad4" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad4" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Have I done all pre-start checks on equipment </td>
-          <td><v-radio-group v-model="rad.rad5" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad5" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad5" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad5" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad5" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad5" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Have I identified, isolated & tagged out all energy sources </td>
-          <td><v-radio-group v-model="rad.rad6" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad6" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad6" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad6" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad6" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad6" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Have I done the required High Risk or Authority to Work Permits for the task? </td>
-          <td><v-radio-group v-model="rad.rad7" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad7" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad7" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad7" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad7" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad7" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Have I told others that may be affected by my work? </td>
-          <td><v-radio-group v-model="rad.rad8" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad8" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad8" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad8" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad8" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="prerad.rad8" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
       </tbody>
     </template>
@@ -114,13 +114,13 @@
       <tbody>
         <tr>
           <td>Have I used the check list to identify hazards</td>
-          <td><v-radio-group v-model="rad.rad1" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad1" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="hazrad.rad1" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="hazrad.rad1" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Have I identified, risk ranked and managed the hazards in my work area </td>
-          <td><v-radio-group v-model="rad.rad2" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="rad.rad2" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="hazrad.rad2" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="hazrad.rad2" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
         </tr>
 
       </tbody>
@@ -138,23 +138,14 @@
       <tbody>
         <tr>
                 <td>HIGH - STOP WORK AND SEE YOU MANAGER/ SUPERVISOR</td>
-                <td> <v-radio-group v-model="radios">
-                    <v-radio label="HIGH" value="radio-1"></v-radio>
-                    </v-radio-group>
-                </td>
-        </tr>
-        <tr>    <td>MEDIUM- Prepare Risk Assessment/SWMS/JSEA – Must be controlled before work starts</td>
-                <td> <v-radio-group v-model="radios">
-                    <v-radio label="MEDIUM" value="radio-1"></v-radio>
-                    </v-radio-group>
-                </td>
+                <td><v-radio-group v-model="hazrad.rad3" @change="inputChange()"><v-radio label="HIGH" :value="true"  ></v-radio> </v-radio-group></td>
+         </tr>
+        <tr>    <td>MEDIUM - Prepare Risk Assessment/SWMS/JSEA – Must be controlled before work starts</td>
+                <td><v-radio-group v-model="hazrad.rad3" @change="inputChange()"><v-radio label="MEDIUM" :value="true"  ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
                 <td>LOW - Begin Task </td>
-                <td> <v-radio-group v-model="radios">
-                    <v-radio label="LOW" value="radio-1"></v-radio>
-                    </v-radio-group>
-                </td>
+                <td><v-radio-group v-model="hazrad.rad3" @change="inputChange()"><v-radio label="LOW" :value="true"  ></v-radio> </v-radio-group></td>
         </tr>
       </tbody>
     </template>
@@ -210,10 +201,10 @@
           <td>4</td> <td>Environment</td>
             <td> 
                 <v-row justify="space-around">
-                    <v-checkbox v-model="haz3.one" class="mx-2" label="Wind"></v-checkbox>
-                    <v-checkbox v-model="haz3.two" class="mx-2" label="Rain"></v-checkbox>
-                    <v-checkbox v-model="haz3.three" class="mx-2" label="Hail/Snow"></v-checkbox>
-                    <v-checkbox v-model="haz3.three" class="mx-2" label="Fog"></v-checkbox>
+                    <v-checkbox v-model="haz4.one" class="mx-2" label="Wind"></v-checkbox>
+                    <v-checkbox v-model="haz4.two" class="mx-2" label="Rain"></v-checkbox>
+                    <v-checkbox v-model="haz4.three" class="mx-2" label="Hail/Snow"></v-checkbox>
+                    <v-checkbox v-model="haz4.three" class="mx-2" label="Fog"></v-checkbox>
                 </v-row>
             </td>
         </tr>
@@ -221,10 +212,10 @@
           <td>5</td> <td>General</td>
             <td> 
                 <v-row justify="space-around">
-                    <v-checkbox v-model="haz4.one" class="mx-2" label="Bites/Stings"></v-checkbox>
-                    <v-checkbox v-model="haz4.two" class="mx-2" label="Sharp Edges"></v-checkbox>
-                    <v-checkbox v-model="haz4.three" class="mx-2" label="Vibration"></v-checkbox>
-                    <v-checkbox v-model="haz4.four" class="mx-2" label="Body of Water"></v-checkbox>
+                    <v-checkbox v-model="haz5.one" class="mx-2" label="Bites/Stings"></v-checkbox>
+                    <v-checkbox v-model="haz5.two" class="mx-2" label="Sharp Edges"></v-checkbox>
+                    <v-checkbox v-model="haz5.three" class="mx-2" label="Vibration"></v-checkbox>
+                    <v-checkbox v-model="haz5.four" class="mx-2" label="Body of Water"></v-checkbox>
                 </v-row>
             </td>
         </tr>
@@ -232,19 +223,112 @@
           <td>6</td> <td>Gravity</td>
             <td> 
                 <v-row justify="space-around">
-                    <v-checkbox v-model="haz5.one" class="mx-2" label="Slip/Trip"></v-checkbox>
-                    <v-checkbox v-model="haz5.two" class="mx-2" label="Fall from height"></v-checkbox>
-                    <v-checkbox v-model="haz5.three" class="mx-2" label="Falling Object"></v-checkbox>
+                    <v-checkbox v-model="haz6.one" class="mx-2" label="Slip/Trip"></v-checkbox>
+                    <v-checkbox v-model="haz6.two" class="mx-2" label="Fall from height"></v-checkbox>
+                    <v-checkbox v-model="haz6.three" class="mx-2" label="Falling Object"></v-checkbox>
                 </v-row>
             </td>
         </tr>
         <tr>
-          <td>6</td> <td>Manual Handling</td>
+          <td>7</td> <td>Manual Handling</td>
             <td> 
                 <v-row justify="space-around">
-                    <v-checkbox v-model="haz5.one" class="mx-2" label="Twisting/Grip"></v-checkbox>
-                    <v-checkbox v-model="haz5.two" class="mx-2" label="Lifting/Lowering"></v-checkbox>
-                    <v-checkbox v-model="haz5.three" class="mx-2" label="Falling Object"></v-checkbox>
+                    <v-checkbox v-model="haz7.one" class="mx-2" label="Twisting/Grip"></v-checkbox>
+                    <v-checkbox v-model="haz7.two" class="mx-2" label="Lifting/Lowering"></v-checkbox>
+                    <v-checkbox v-model="haz7.three" class="mx-2" label="Pushing/Pulling"></v-checkbox>
+                    <v-checkbox v-model="haz7.three" class="mx-2" label="Weight/Shape"></v-checkbox>
+                </v-row>
+            </td>
+        </tr>
+        <tr>
+          <td>8</td> <td>Light</td>
+            <td> 
+                <v-row justify="space-around">
+                    <v-checkbox v-model="haz8.one" class="mx-2" label="Too Dark"></v-checkbox>
+                    <v-checkbox v-model="haz8.two" class="mx-2" label="Too Bright"></v-checkbox>
+                    <v-checkbox v-model="haz8.three" class="mx-2" label="Poor Visibility"></v-checkbox>
+                </v-row>
+            </td>
+        </tr>
+        <tr>
+          <td>9</td> <td>Mechanics</td>
+            <td> 
+                <v-row justify="space-around">
+                    <v-checkbox v-model="haz9.one" class="mx-2" label="Struck by"></v-checkbox>
+                    <v-checkbox v-model="haz9.two" class="mx-2" label="Strike Against"></v-checkbox>
+                    <v-checkbox v-model="haz9.three" class="mx-2" label="Caught Between"></v-checkbox>
+                    <v-checkbox v-model="haz9.four" class="mx-2" label="Caught in"></v-checkbox>
+                </v-row>
+            </td>
+        </tr>
+        <tr>
+          <td>10</td> <td>Noise</td>
+            <td> 
+                <v-row justify="space-around">
+                    <v-checkbox v-model="haz10.one" class="mx-2" label="Continous"></v-checkbox>
+                    <v-checkbox v-model="haz10.two" class="mx-2" label="Intermittent"></v-checkbox>
+                    <v-checkbox v-model="haz10.three" class="mx-2" label="Impact"></v-checkbox>
+                    <v-checkbox v-model="haz10.four" class="mx-2" label="Environmental"></v-checkbox>
+                </v-row>
+            </td>
+        </tr>
+        <tr>
+          <td>11</td> <td>Pressure</td>
+            <td> 
+                <v-row justify="space-around">
+                    <v-checkbox v-model="haz11.one" class="mx-2" label="Air"></v-checkbox>
+                    <v-checkbox v-model="haz11.two" class="mx-2" label="Fluid"></v-checkbox>
+                    <v-checkbox v-model="haz11.three" class="mx-2" label="Gas"></v-checkbox>
+                </v-row>
+            </td>
+        </tr>
+        <tr>
+          <td>12</td> <td>Propulsion</td>
+            <td> 
+                <v-row justify="space-around">
+                    <v-checkbox v-model="haz12.one" class="mx-2" label="Flying object"></v-checkbox>
+                    <v-checkbox v-model="haz12.two" class="mx-2" label="Ejected object"></v-checkbox>
+                </v-row>
+            </td>
+        </tr>
+        <tr>
+          <td>13</td> <td>Radiation</td>
+            <td> 
+                <v-row justify="space-around">
+                    <v-checkbox v-model="haz13.one" class="mx-2" label="UV"></v-checkbox>
+                    <v-checkbox v-model="haz13.two" class="mx-2" label="Radioactive source"></v-checkbox>
+                    <v-checkbox v-model="haz13.one" class="mx-2" label="Laser"></v-checkbox>
+                    <v-checkbox v-model="haz13.one" class="mx-2" label="Infrared"></v-checkbox>
+                </v-row>
+            </td>
+        </tr>
+        <tr>
+          <td>14</td> <td>Thermal</td>
+            <td> 
+                <v-row justify="space-around">
+                    <v-checkbox v-model="haz14.one" class="mx-2" label="Hot environment"></v-checkbox>
+                    <v-checkbox v-model="haz14.two" class="mx-2" label="Cold environment"></v-checkbox>
+                    <v-checkbox v-model="haz14.one" class="mx-2" label="Cold surfaces"></v-checkbox>
+                    <v-checkbox v-model="haz14.one" class="mx-2" label="Hot surfaces"></v-checkbox>
+                </v-row>
+            </td>
+        </tr>
+        <tr>
+          <td>15</td> <td>Traffic</td>
+            <td> 
+                <v-row justify="space-around">
+                    <v-checkbox v-model="haz15.one" class="mx-2" label="Pedestrians"></v-checkbox>
+                    <v-checkbox v-model="haz15.two" class="mx-2" label="Vehicles"></v-checkbox>
+                    <v-checkbox v-model="haz15.one" class="mx-2" label="Mobile plant"></v-checkbox>
+                    <v-checkbox v-model="haz15.one" class="mx-2" label="Speeding"></v-checkbox>
+                </v-row>
+            </td>
+        </tr>
+        <tr>
+          <td>16</td> <td>Other</td>
+            <td> 
+                <v-row justify="space-around">
+                    <v-checkbox v-model="haz16.one" class="mx-2" label="Other"></v-checkbox>
                 </v-row>
             </td>
         </tr>
@@ -252,8 +336,36 @@
        </tbody>
     </template>
   </v-simple-table> 
+
+       <!-------hazards identification  ----->
+    <div class="aaa"></div>
+        <v-toolbar color="purple darken-2" dark dense>
+          <v-toolbar-title>Residual Risk</v-toolbar-title>
+    </v-toolbar>
+  <v-simple-table dense>
+    <template v-slot:default>
+      <thead>
+        <tr>
+          <th class="text-left">What is the highest residual risk (left over) risk after the controls are in place<span class="star">*</span> </th>
+        <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+                <td>HIGH - STOP WORK AND SEE YOU MANAGER/ SUPERVISOR</td>
+                <td><v-radio-group v-model="resrad.rad1" @change="inputChange()"><v-radio label="HIGH" :value="true"  ></v-radio> </v-radio-group></td>
+         </tr>
+        <tr>    <td>MEDIUM - Prepare Risk Assessment/SWMS/JSEA – Must be controlled before work starts</td>
+                <td><v-radio-group v-model="resrad.rad1" @change="inputChange()"><v-radio label="MEDIUM" :value="true"  ></v-radio> </v-radio-group></td>
+        </tr>
+        <tr>
+                <td>LOW - Begin Task </td>
+                <td><v-radio-group v-model="resrad.rad1" @change="inputChange()"><v-radio label="LOW" :value="true"  ></v-radio> </v-radio-group></td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
   <!------- ------>
-             
             </v-container>
           </v-form>
         </v-card>
@@ -273,12 +385,25 @@ export default {
     data () {
       return {
           formValid:false,
-          rad:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null, rad8:null},
+          prerad:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null, rad8:null},
+          hazrad:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null, rad8:null},
+          resrad:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null, rad8:null},
           haz1:{one:null,two:null,three:null},
           haz2:{one:null,two:null,three:null,four:null},
           haz3:{one:null,two:null,three:null},
           haz4:{one:null,two:null,three:null,four:null},
           haz5:{one:null,two:null,three:null,four:null},
+          haz6:{one:null,two:null,three:null,four:null},
+          haz7:{one:null,two:null,three:null,four:null},
+          haz8:{one:null,two:null,three:null,four:null},
+          haz9:{one:null,two:null,three:null,four:null},
+          haz10:{one:null,two:null,three:null,four:null},
+          haz11:{one:null,two:null,three:null,four:null},
+          haz12:{one:null,two:null,three:null,four:null},
+          haz13:{one:null,two:null,three:null,four:null},
+          haz14:{one:null,two:null,three:null,four:null},
+          haz15:{one:null,two:null,three:null,four:null},
+          haz16:{one:null,two:null,three:null,four:null},
 
           formd:{
           }        
