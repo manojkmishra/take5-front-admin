@@ -4,7 +4,7 @@ import * as types from '../types';
 import * as api from '../config';
 export default
 {
-  state: {getjobs:null,getjobtypes:null, jobtypeoptions:[],
+  state: {getjobs:null,getjobtypes:null, jobtypeoptions:[],selectedsjc:null
         },
   getters:{
   },
@@ -22,10 +22,16 @@ export default
             state.jobtypeoptions = options;
             console.log('/store/saw.js-types.GET_JOB_TYPES state=', state);
     },
+    [types.SET_SELECTED_SJC] (state, payload) 
+    {   state.selectedsjc=payload.selectedsjc;
+        console.log('/store/saw.js-types.SET_SELECTED_SJC state=', state);
+       
+    },
   },
   actions:{
       //get jobs --currently get used-thinking of getting just 500 jobs for admin so no post
       //in future post will be used to get jobs filtered based on field user logedin
+    selectedsjc: ({commit}, data) => {commit({  type: types.SET_SELECTED_SJC ,selectedsjc: data   });  },
     async getjobs ({commit,dispatch}) 
     { let res= await axios.get(api.getjobs);  
       commit({type:types.GET_JOBS ,  getjobs: res.data} ); 

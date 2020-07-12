@@ -97,7 +97,7 @@
     </template>
 
     <template v-slot:item.t5="{ item }">
-       <v-btn ripple x-small  color="blue " rounded dark >T5</v-btn>
+       <v-btn ripple x-small  color="blue " rounded dark @click.prevent="t5fn(item)" >T5</v-btn>
     </template>
 
     <template v-slot:item.jc="{ item }">
@@ -139,6 +139,7 @@ export default
               { text: 'User', align: 'left',  value: 'fuser.name'},
               { text: 'Cust Nam', align: 'left',  value: 'CLIENT_NAME'},
               { text: 'Address', align: 'left',  value: 'SITE_ADDRESS'},
+              { text: 'Postcd', align: 'left',  value: 'POSTCODE'},
               { text: 'Contact', align: 'left',  value: 'CONTACT'},
               { text: 'Due Dt', align: 'left',  value: 'DELIVERY_DATE'},
              // { text: 'schedule_saw', align: 'left',  value: 'schedule_saw'},
@@ -162,7 +163,13 @@ export default
   methods: {  
         c19fn(x)
           { console.log('c19fn-item=',x)
-            this.$router.push({name: 'c19'});
+            this.$store.dispatch('selectedsjc', x);
+            this.$router.push({name: 'covid19'});
+          },
+        t5fn(x)
+          { console.log('t5fn-item=',x)
+            this.$store.dispatch('selectedsjc', x);
+            this.$router.push({name: 'take5'});
           },
         
         editItem (item) 

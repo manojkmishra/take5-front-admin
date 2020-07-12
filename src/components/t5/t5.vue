@@ -7,17 +7,17 @@
          </v-btn> 
        </v-flex>
     <v-flex xs12 pt-0>
-         <covid19 ></covid19>
+         <take5 ></take5>
     </v-flex>
   </v-layout>
  </v-container>
 </template>
 <script>
  import Vue from 'vue';
-    import covid19 from './covid19.vue'
+    import take5 from './take5.vue'
     export default 
     {   
-        components: { 'covid19': covid19, },
+        components: { 'take5': take5, },
     }
 
 </script>
