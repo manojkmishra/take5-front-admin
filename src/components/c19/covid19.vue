@@ -65,19 +65,35 @@
     </template>
   </v-simple-table>
     <!------   ----->
+        <v-toolbar color="purple darken-2" dark dense>
+          <v-toolbar-title>Site Details</v-toolbar-title>
+    </v-toolbar>
+<v-simple-table dense>
+    <template v-slot:default>
+      <tbody>
+        <tr><td>Client</td> <td>{{selectedsjc.CLIENT_NAME }}</td> </tr>
+        <tr><td>Address</td> <td>{{selectedsjc.SITE_ADDRESS }}</td>  </tr>
+        <tr><td>SJC No</td> <td>{{selectedsjc.SJC_NO }}</td>  </tr>
+        <tr><td>V6 Order No</td> <td>{{selectedsjc.V6_ORDER_NO }}</td>  </tr>
+        <tr><td>Date</td> <td>{{selectedsjc.DELIVERY_DATE }}</td>  </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
              <v-layout wrap mt-10>
+               
               <!--  <v-flex xs12 md4> <v-text-field  label="Company (disabled)" disabled/> </v-flex>
                 <v-flex xs12 md4> <v-text-field class="purple-input" label="User Name"/> </v-flex>
                 <v-flex xs12 md4> <v-text-field label="Email Address" class="purple-input"/> </v-flex> -->
-                <v-flex xs12 md6> <v-text-field v-model="formd.fname" :rules="fieldRules" label="First Name (Occupant/Tenant)" class="purple-input"/> </v-flex>
-                <v-flex xs12 md6> <v-text-field v-model="formd.lname" :rules="fieldRules" label="Last Name" class="purple-input"/> </v-flex>
+                <v-flex xs12 md6> <v-text-field v-model="formc.FNAME" :rules="fieldRules" label="First Name (Occupant/Tenant)" class="purple-input"><pre>{{ getc19.FNAME }}</pre>  </v-text-field>
+                </v-flex>
+                <v-flex xs12 md6> <v-text-field v-model="formc.LNAME" :rules="fieldRules" label="Last Name" class="purple-input"/> </v-flex>
                 
-                <v-flex xs12 md6> <v-text-field v-model="formd.cname" :rules="fieldRules" label="Company" class="purple-input"/> </v-flex>
-                <v-flex xs12 md6> <v-text-field v-model="formd.phone" :rules="phoneRules" class="purple-input" label="Phone No" type="number"/> </v-flex>
+                <v-flex xs12 md6> <v-text-field v-model="formc.CNAME" :rules="fieldRules" label="Company" class="purple-input"/> </v-flex>
+                <v-flex xs12 md6> <v-text-field v-model="formc.PHONE" :rules="phoneRules" class="purple-input" label="Phone No" type="number"/> </v-flex>
               <!--  <v-flex xs12 md4> <v-text-field label="City" class="purple-input"/> </v-flex>
                 <v-flex xs12 md4><v-text-field label="Country" class="purple-input"/> </v-flex> -->
-                <v-flex xs12 md8><v-text-field v-model="formd.addr" :rules="fieldRules" label="Address" class="purple-input"/></v-flex>
-                <v-flex xs12 md4><v-text-field v-model="formd.post" :rules="postRules" class="purple-input" label="Postal Code" type="number"/></v-flex>
+                <v-flex xs12 md8><v-text-field v-model="formc.ADDRESS" :rules="fieldRules" label="Address" class="purple-input"/></v-flex>
+                <v-flex xs12 md4><v-text-field v-model="formc.POST_CODE" :rules="postRules" class="purple-input" label="Postal Code" type="number"/></v-flex>
 
                <!-- <v-flex xs12> <v-textarea class="purple-input" label="About Me"   value="Lorem ipsum dolor sit amet, consectetur adipiscing elit." /> </v-flex> -->
                 <v-flex xs12 text-center ><v-btn rounded class="mx-0 font-weight-light" color="success" @click="submit">Submit</v-btn></v-flex>
@@ -91,21 +107,81 @@
 </template>
 
 <script>
+import { mapGetters, mapState, mapActions} from 'vuex';
 export default {
   computed: {
+    ...mapState({ selectedsjc: state => state.jobs.selectedsjc, 
+                  getc19: state => state.jobs.getc19,     
+              }),
     rad1Rules() { return [this.rad.rad1 !=null || "Pls select one"  ]; },
     rad2Rules() { return [this.rad.rad2 !=null || "Pls select one"  ]; },
     rad3Rules() { return [this.rad.rad3 !=null || "Pls select one"  ]; },
     rad4Rules() { return [this.rad.rad4 !=null || "Pls select one"  ]; },
     rad5Rules() { return [this.rad.rad5 !=null || "Pls select one"  ]; },
     rad6Rules() { return [this.rad.rad6 !=null || "Pls select one"  ]; },
-    rad7Rules() { return [this.rad.rad7 !=null || "Pls select one"  ]; }
-  },
+    rad7Rules() { return [this.rad.rad7 !=null || "Pls select one"  ]; },
+
+    formc(){
+     // get: function () {
+            console.log('get formd-',this.getc19)
+              console.log('get formc-',this.getc19)
+              if(this.getc19 && this.getc19.SJC_NO==this.selectedsjc.SJC_NO ){
+                    console.log('get c19 form already filled')
+                    this.formd.ADDRESS=this.getc19.ADDRESS
+                    this.formd.FNAME=this.getc19.FNAME
+                    this.formd.LNAME=this.getc19.LNAME
+                    this.formd.CNAME=this.getc19.CNAME
+                    this.formd.PHONE=this.getc19.PHONE
+                    this.formd.POST_CODE=this.getc19.POST_CODE
+                    console.log('get c19 form already filled this.formd',this.formd)
+                    return this.formd;
+                  }
+                  else 
+              return this.formd
+          },
+      rad(){
+     // get: function () {
+            console.log('get formd-',this.getc19)
+              console.log('get formc-',this.getc19)
+              if(this.getc19 && this.getc19.SJC_NO==this.selectedsjc.SJC_NO ){
+                    console.log('get c19 form already filled')
+                    if(this.getc19.rad1==1) {this.radf.rad1=true } else { this.radf.rad1=false}
+                    if(this.getc19.rad2==1) {this.radf.rad2=true } else { this.radf.rad2=false}
+                    if(this.getc19.rad3==1) {this.radf.rad3=true } else { this.radf.rad3=false}
+                    if(this.getc19.rad4==1) {this.radf.rad4=true } else { this.radf.rad4=false}
+                    if(this.getc19.rad5==1) {this.radf.rad5=true } else { this.radf.rad5=false}
+                    if(this.getc19.rad6==1) {this.radf.rad6=true } else { this.radf.rad6=false}
+                    if(this.getc19.rad7==1) {this.radf.rad7=true } else { this.radf.rad7=false}
+                    return this.radf;
+                  }
+                  else 
+              return this.radf
+          },
+    /*  set: function (newValue) {
+        console.log('set formc-',this.getc19)
+        console.log('set formc-newValue',newValue)
+             this.enteredValue = 0;
+             if(this.getc19){
+                    console.log('set c19 form already filled')
+                    this.formd.ADDRESS=getc19.ADDRESS
+                    this.formd.FNAME=getc19.FNAME
+                    this.formd.LNAME=getc19.LNAME
+                    this.formd.CNAME=getc19.CNAME
+                    this.formd.PHONE=getc19.PHONE
+                    this.formd.POST_CODE=getc19.POST_CODE
+                    console.log('set c19 form already filled this.formd',this.formd)
+                    return this.formd;
+                  }
+          }*/
+        
+    },
+
+ // },
     data () {
       return {
-        formd:{fname:'',lname:'',cname:'',phone:'',post:'',addr:''},
+        formd:{FNAME:'',LNAME:'',CNAME:'',PHONE:'',POST_CODE:'',ADDRESS:'',rad:''},
           formValid:false,
-          rad:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null},
+          radf:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null},
           fieldRules: [ (v) => (v && v.length >2)|| 'Required & should be more than 2 chars ' ],
            phoneRules:[
             (v) => /^\d+$/.test(v)||'Required and must be in numbers',
@@ -120,25 +196,57 @@ export default {
     },
     methods: {
         inputChange(){
-            console.log('this.rad1=',this.rad.rad1)
-            console.log('this.rad2=',this.rad.rad2)
-            console.log('this.rad3=',this.rad.rad3)
-            console.log('this.rad4=',this.rad.rad4)
-            console.log('this.rad5=',this.rad.rad5)
-            console.log('this.rad6=',this.rad.rad6)
-            console.log('this.rad7=',this.rad.rad7)
+           // console.log('this.rad1=',this.rad.rad1)
+           // console.log('this.rad2=',this.rad.rad2)
+           // console.log('this.rad3=',this.rad.rad3)
+          //  console.log('this.rad4=',this.rad.rad4)
+          //  console.log('this.rad5=',this.rad.rad5)
+          //  console.log('this.rad6=',this.rad.rad6)
+            console.log('this.rad=',this.rad)
+            console.log('selectedsjc=',this.selectedsjc)
            // this.one.yes = !this.one.no
            // this.one.no = !this.one.yes
             //console.log(this.one)
         },
-        submit(event){
-    console.log({event,$form:this.$refs.loginForm})
-      if(this.$refs.loginForm.validate())
-      { console.log('validated-this.rad',this.rad)
-      console.log('validated-this.formd',this.formd)
+        submit(event)
+        {  // console.log({event,$form:this.$refs.loginForm})
+          if(this.$refs.loginForm.validate())
+            { console.log('validated-this.rad',this.rad)
+              this.formd.rad=this.rad
+              this.formd.sjcid=this.selectedsjc.id
+              this.formd.V6_ORDER_NO=this.selectedsjc.V6_ORDER_NO
+              this.formd.SJC_NO=this.selectedsjc.SJC_NO
+              //console.log('validated-this.formd',this.formd)
+              this.$store.dispatch('addc19', this.formd) 
+            }
         }
-    }
-    }
+    },
+    /* watch: {  getc19: function(newVal, oldVal) 
+                { // watch it
+                  console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+                  if(newVal){
+                    console.log('c19 form already filled')
+                    if(newVal.rad1==1) {this.rad.rad1=true } else { this.rad.rad1=false}
+                    if(newVal.rad2==1) {this.rad.rad2=true } else { this.rad.rad2=false}
+                    if(newVal.rad3==1) {this.rad.rad3=true } else { this.rad.rad3=false}
+                    if(newVal.rad4==1) {this.rad.rad4=true } else { this.rad.rad4=false}
+                    if(newVal.rad5==1) {this.rad.rad5=true } else { this.rad.rad5=false}
+                    if(newVal.rad6==1) {this.rad.rad6=true } else { this.rad.rad6=false}
+                    if(newVal.rad7==1) {this.rad.rad7=true } else { this.rad.rad7=false}
+
+                    this.formd.ADDRESS=newVal.ADDRESS
+                    this.formd.FNAME=newVal.FNAME
+                    this.formd.LNAME=newVal.LNAME
+                    this.formd.CNAME=newVal.CNAME
+                    this.formd.PHONE=newVal.PHONE
+                    this.formd.POST_CODE=newVal.POST_CODE
+                    console.log('c19 form already filled this.formd',this.formd)
+                    console.log('c19 form already filled this.rad',this.rad)
+
+
+                  }
+                }
+          } */
  
  
 }

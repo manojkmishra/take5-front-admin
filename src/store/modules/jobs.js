@@ -4,7 +4,7 @@ import * as types from '../types';
 import * as api from '../config';
 export default
 {
-  state: {getjobs:null,getjobtypes:null, jobtypeoptions:[],selectedsjc:null
+  state: {getjobs:null,getjobtypes:null, jobtypeoptions:[],selectedsjc:null, getc19:null,
         },
   getters:{
   },
@@ -17,6 +17,10 @@ export default
     [types.GET_USER_JOBS ] (state, payload) 
     { state.getuserjobs = payload.getuserjobs;
      console.log('/store/saw.js-types.GET_USER_JOBS state=', state);
+    },
+    [types.GET_C19 ] (state, payload) 
+    { state.getc19 = payload.getc19;
+     console.log('/store/saw.js-types.GET_C19 state=', state);
     },
     [types.GET_JOB_TYPES ] (state, payload) 
     { state.getjobtypes = payload.getjobtypes;
@@ -92,6 +96,20 @@ export default
                 .then(response => { dispatch('getjobtypes');  })
                 .catch(response => {    });
             return res;
+    },
+    async addc19 ({dispatch}, formData)
+    {   console.log('addc19-- formData=', formData);
+          let res= await axios.post(api.addc19, formData)  
+                .then(response => { //dispatch('getjobs');  
+                                    })
+                .catch(response => {    });
+            return res;
+    },
+    async getc19 ({commit,dispatch}, formData)
+    {   let res= await axios.post(api.getc19, formData)
+      console.log('getc19-- res=', res);
+        commit({type: types.GET_C19, getc19: res.data} );  
+        return res;
     },
   }
 

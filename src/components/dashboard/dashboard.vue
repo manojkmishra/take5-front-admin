@@ -85,11 +85,20 @@ export default
             }
           },
   created(){ 
+     this.$store.dispatch('getuserjobs')
+    /*  .then((res) => { //this.loading=false;
+                                console.log('getuserjobs response',res.data)  
+                                this.getuserjobs=res.data;
+                                this.loading=false;
+                        })
+                        */
+                   
         },
   methods: {  
         c19fn(x)
           { console.log('c19fn-item=',x)
             this.$store.dispatch('selectedsjc', x);
+            this.$store.dispatch('getc19', x);
             this.$router.push({name: 'covid19'});
           },
         t5fn(x)
@@ -105,10 +114,9 @@ export default
                        user:'auth/user'
                       }),
           ...mapState({
-        
             jobtypeoptions:state => state.jobs.jobtypeoptions,
             getuserjobs:state => state.jobs.getuserjobs,
-             useroptions:state => state.user.useroptions,
+            useroptions:state => state.user.useroptions,
         }),
       formattedDate(){
                 var today = new Date();

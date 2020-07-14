@@ -15,6 +15,9 @@ export const addjobtypes = apiDomain+ '/take5/addjobtypes';
 export const editjobtypes = apiDomain+ '/take5/editjobtypes';
 export const deljobtypes = apiDomain+ '/take5/deljobtypes';
 
+export const addc19 = apiDomain+ '/take5/addc19';
+export const getc19 = apiDomain+ '/take5/getc19';
+
 
 
 
