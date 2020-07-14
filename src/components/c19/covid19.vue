@@ -84,7 +84,7 @@
               <!--  <v-flex xs12 md4> <v-text-field  label="Company (disabled)" disabled/> </v-flex>
                 <v-flex xs12 md4> <v-text-field class="purple-input" label="User Name"/> </v-flex>
                 <v-flex xs12 md4> <v-text-field label="Email Address" class="purple-input"/> </v-flex> -->
-                <v-flex xs12 md6> <v-text-field v-model="formc.FNAME" :rules="fieldRules" label="First Name (Occupant/Tenant)" class="purple-input"><pre>{{ getc19.FNAME }}</pre>  </v-text-field>
+                <v-flex xs12 md6> <v-text-field v-model="formc.FNAME" :rules="fieldRules" label="First Name (Occupant/Tenant)" class="purple-input"></v-text-field>
                 </v-flex>
                 <v-flex xs12 md6> <v-text-field v-model="formc.LNAME" :rules="fieldRules" label="Last Name" class="purple-input"/> </v-flex>
                 

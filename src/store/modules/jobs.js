@@ -4,7 +4,8 @@ import * as types from '../types';
 import * as api from '../config';
 export default
 {
-  state: {getjobs:null,getjobtypes:null, jobtypeoptions:[],selectedsjc:null, getc19:null,
+  state: {getjobs:null,getjobtypes:null, jobtypeoptions:[],selectedsjc:null, 
+      getc19:null,getuserjobs:null,
         },
   getters:{
   },
@@ -46,8 +47,9 @@ export default
       return res;    
     },
     async getuserjobs ({commit,dispatch}) 
-    { let res= await axios.get(api.getuserjobs);  
-      commit({type:types.GET_USER_JOBS ,  getuserjobs: res.data} ); 
+    { let res= await axios.get(api.getuserjobs)
+     // .then(res => { console.log('store getuserjobs res',res);
+     //       commit({type:types.GET_USER_JOBS ,  getuserjobs: res.data} );   })
       return res;    
     },
     async addjobs ({dispatch}, formData)

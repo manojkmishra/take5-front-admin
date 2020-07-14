@@ -69,6 +69,9 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 export default {
+  created(){
+//this.$store.dispatch('getuserjobs')
+  },
     data(){return{ drwr:false, 
      
       items: [

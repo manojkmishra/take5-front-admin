@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <dashboard/>
+    <dashboard1></dashboard1>
          <!--   Dashboard
              <template v-if="authenticated">
                 <li> User={{user.name}} email={{user.email}}</li>
@@ -12,7 +12,7 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
-import dashboard from '@/components/dashboard/dashboard.vue'
+import dashboard1 from '@/components/dashboard/dashboard1.vue'
 
 export default {
     computed:{
@@ -20,12 +20,16 @@ export default {
                       user:'auth/user'
                       })
     },
-    components: { 'dashboard': dashboard, },
+    components: { 'dashboard1': dashboard1, },
      created(){ // this.$store.dispatch('getjobs');
+               // this.$store.dispatch('getuserjobs')
                 this.$store.dispatch('getuserlist')
                 this.$store.dispatch('getjobtypes')
-                this.$store.dispatch('getuserjobs')
-                }
+                
+                },
+    mounted(){
+//this.$store.dispatch('getuserjobs')
+    }
 
 }
 </script>

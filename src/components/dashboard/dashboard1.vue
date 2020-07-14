@@ -25,15 +25,16 @@
     </template>
 
     <template v-slot:item.c19="{ item }">
-       <v-btn ripple x-small  color="red lighten-2 " rounded dark @click.prevent="c19fn(item)"  >C19</v-btn>
+       <v-btn v-if="item.C19STATUS==1" ripple x-small  color="teal" rounded dark @click.prevent="c19fn(item)"  >C19</v-btn>
+       <v-btn v-else ripple x-small  color="red lighten-2" rounded dark @click.prevent="c19fn(item)"  >C19</v-btn>
     </template>
 
     <template v-slot:item.t5="{ item }">
-       <v-btn ripple x-small  color="red lighten-2 " rounded dark @click.prevent="t5fn(item)" >T5</v-btn>
+       <v-btn ripple x-small  color="red lighten-2 " rounded dark @click.prevent="t5fn(item)" >TK5</v-btn>
     </template>
 
     <template v-slot:item.jc="{ item }">
-       <v-btn ripple x-small  color="red lighten-2" rounded dark >JC</v-btn>
+       <v-btn ripple x-small  color="red lighten-2" rounded dark >SJC</v-btn>
     </template>
 
     <template v-slot:item.actions="{ item }">
@@ -53,13 +54,30 @@ import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
 import axios from "axios";
 export default
-{ 
+{   computed: { 
+              ...mapGetters({authenticated:'auth/authenticated',
+                       user:'auth/user'
+                      }),
+          ...mapState({
+            jobtypeoptions:state => state.jobs.jobtypeoptions,
+           // getuserjobs:state => state.jobs.getuserjobs,
+            useroptions:state => state.user.useroptions,
+        }),
+      formattedDate(){
+                var today = new Date();
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                //var date1 = today.getDate()+'-'+(today.getMonth()+1);
+
+                return date;
+          }
+  },
     //props:{bb:Array},
     data() { return {dialog: false,search: '',dialogDelete: false, loading:false, //jobtypeoptions1:[],
           editedItem: { name: '', DELIVERY_DATE: '', type:'', field_user:'',  comment: '', 
           V6_ORDER_NO:'', SJC_NO:'',SITE_ADDRESS:'' , type:''},
       editedIndex: -1, sawflags:[],// inputRules:[v=>v.length>=3||'Min len is 3 chars'],
       typeOptions: [ "saw_schedules",  "optimised_bars", "optimised_cuts", "Flag" ],
+      getuserjobs:[],
           headers: [
              // { text: 'created_at', align: 'left', value: 'created_at'},
              // { text: 'updated_at', align: 'left',  value: 'updated_at'},
@@ -86,12 +104,12 @@ export default
           },
   created(){ 
      this.$store.dispatch('getuserjobs')
-    /*  .then((res) => { //this.loading=false;
+      .then((res) => { //this.loading=false;
                                 console.log('getuserjobs response',res.data)  
                                 this.getuserjobs=res.data;
                                 this.loading=false;
                         })
-                        */
+                        
                    
         },
   methods: {  
@@ -109,23 +127,7 @@ export default
 
         
           },
-  computed: { 
-              ...mapGetters({authenticated:'auth/authenticated',
-                       user:'auth/user'
-                      }),
-          ...mapState({
-            jobtypeoptions:state => state.jobs.jobtypeoptions,
-            getuserjobs:state => state.jobs.getuserjobs,
-            useroptions:state => state.user.useroptions,
-        }),
-      formattedDate(){
-                var today = new Date();
-                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-                //var date1 = today.getDate()+'-'+(today.getMonth()+1);
 
-                return date;
-          }
-  },
   watch: {     
             },
 }

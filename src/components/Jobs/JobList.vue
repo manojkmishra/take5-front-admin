@@ -88,23 +88,24 @@
     </template>
      
     <template v-slot:item.bom="{ item }" >
-       <v-btn ripple x-small  color="red lighten-2" rounded dark >BOM</v-btn>
+       <v-btn ripple x-small  color="blue" rounded dark >BOM</v-btn>
      </template>
 
     <template v-slot:item.pics="{ item }">
-       <v-btn ripple x-small  color="teal " rounded dark >Pics</v-btn>
+       <v-btn ripple x-small  color="red lighten-2" rounded dark >Pics</v-btn>
     </template>
 
     <template v-slot:item.c19="{ item }">
-       <v-btn ripple x-small  color="teal " rounded dark @click.prevent="c19fn(item)"  >C19</v-btn>
+       <v-btn v-if="item.C19STATUS==1" ripple x-small  color="teal" rounded dark @click.prevent="c19fn(item)"  >C19</v-btn>
+       <v-btn v-else ripple x-small  color="red lighten-2" rounded dark @click.prevent="c19fn(item)"  >C19</v-btn>
     </template>
 
     <template v-slot:item.t5="{ item }">
-       <v-btn ripple x-small  color="blue " rounded dark @click.prevent="t5fn(item)" >T5</v-btn>
+       <v-btn ripple x-small  color="red lighten-2 " rounded dark @click.prevent="t5fn(item)" >Tk5</v-btn>
     </template>
 
     <template v-slot:item.jc="{ item }">
-       <v-btn ripple x-small  color="blue " rounded dark >JC</v-btn>
+       <v-btn ripple x-small  color="red lighten-2 " rounded dark >SJC</v-btn>
     </template>
 
     <template v-slot:item.actions="{ item }">
