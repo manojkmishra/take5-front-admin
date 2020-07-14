@@ -25,10 +25,10 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.V6_ORDER_NO" label="V6 OrdNo" ></v-text-field>
+                    <v-text-field v-model="editedItem.SJC_NO" label="SJC No" :rules="postRules"  type="number"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.SJC_NO" label="SJC No" ></v-text-field>
+                    <v-text-field v-model="editedItem.V6_ORDER_NO" label="V6 OrdNo" :rules="postRules"  type="number" ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-select single-line bottom label="Type"  class="select" 
@@ -36,30 +36,33 @@
                     > </v-select>
                   </v-col>
                   
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.CLIENT_NAME" label="Cust Name" ></v-text-field>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.CLIENT_NAME" label="Cust Name" :rules="fieldRules"  ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.SITE_ADDRESS" label="Addr" ></v-text-field>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.SITE_ADDRESS" label="Addr" :rules="fieldRules"  ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.POSTCODE" label="Post Code" :rules="postRules"  type="number"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                       <v-menu max-width="290">
                       <template v-slot:activator="{ on }">
-                            <v-text-field :value="formattedDate" label="Due date" 
-                            prepend-icon="mdi-calendar-range" v-on="on"></v-text-field>
+                            <v-text-field :value="formattedDate" label="Due date" :rules="[(v) => !!v || 'required']"
+                            prepend-icon="mdi-calendar-range" v-on="on" ></v-text-field>
                       </template>
-                      <v-date-picker v-model="editedItem.DELIVERY_DATE"></v-date-picker>
+                      <v-date-picker v-model="editedItem.DELIVERY_DATE" ></v-date-picker>
                     </v-menu>
 
                   <!--  <v-text-field v-model="editedItem.SJC_NO" label="Date"></v-text-field>  -->
                   </v-col>
 
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.CONTACT" label="Contact" ></v-text-field>
+                    <v-text-field v-model="editedItem.CONTACT" label="Contact" :rules="phoneRules"  type="number" ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-select single-line bottom label="User"  class="select" 
-                      v-model="editedItem.field_user"   :items="useroptions" item-text="label" item-value='value'
+                    <v-select single-line bottom label="User"  class="select" :rules="[(v) => !!v || 'required']"
+                    required v-model="editedItem.field_user"   :items="useroptions"  item-text="label" item-value='value'
                     > </v-select>
                   </v-col>
 
@@ -130,11 +133,8 @@ export default
       typeOptions: [ "saw_schedules",  "optimised_bars", "optimised_cuts", "Flag" ],
           headers: [
              // { text: 'created_at', align: 'left', value: 'created_at'},
-              { text: 'updated_at', align: 'left',  value: 'updated_at'},
-             // { text: 'created_by', align: 'left',  value: 'createdby.name'},
-               { text: 'updated_by', align: 'left',  value: 'updatedby.name'},
-              { text: 'V6 Ord', align: 'left',  value: 'V6_ORDER_NO'},
               { text: 'SJC No', align: 'left',  value: 'SJC_NO'},
+               { text: 'V6 Ord', align: 'left',  value: 'V6_ORDER_NO'},
               { text: 'Type', align: 'left',  value: 'type1.type'},
               { text: 'User', align: 'left',  value: 'fuser.name'},
               { text: 'Cust Nam', align: 'left',  value: 'CLIENT_NAME'},
@@ -149,8 +149,22 @@ export default
               { text: 'T5', value: 't5',sortable: false },
               { text: 'JC', value: 'jc', sortable: false },
               { text: 'Action', value: 'actions', sortable: false },
+               { text: 'updated_at', align: 'left',  value: 'updated_at'},
+             // { text: 'created_by', align: 'left',  value: 'createdby.name'},
+               { text: 'updated_by', align: 'left',  value: 'updatedby.name'},
             ],
-            }
+
+        phoneRules:[
+            (v) => /^\d+$/.test(v)||'Required and must be in numbers',
+            (v) => (v && v.length >8) || 'Must be more than 8 digits '
+         ],
+         fieldRules: [ (v) => (v && v.length >2)|| 'Required & should be more than 2 chars ' ],
+         postRules:[
+            (v) => /^\d+$/.test(v)||'Required and must be in numbers',
+            (v) => (v && v.length >2) || 'Must be more than 2 digits '
+         ],
+         fieldRules: [ (v) => (v && v.length >2)|| 'Required & should be more than 2 chars ' ],
+    }
           },
   created(){ this.loading=true;
              this.$store.dispatch('getjobs')
@@ -185,7 +199,8 @@ export default
         },
          save () 
       {  //console.log('save-item=',item);
-       
+        if(this.$refs.form.validate())
+        {
        if (this.editedIndex > -1) //save clicked when editing
                   {  console.log('edit',this.editedItem)
                     //edit api here
@@ -205,6 +220,7 @@ export default
                                           })     
               }
           this.close()
+          } //validate loop
         },
         //--------------delete start----------------------------------------------------------
       deleteItem (item) {console.log('delete-pressed-item',item)

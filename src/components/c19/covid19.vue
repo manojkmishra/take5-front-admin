@@ -106,7 +106,7 @@ export default {
         formd:{fname:'',lname:'',cname:'',phone:'',post:'',addr:''},
           formValid:false,
           rad:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null},
-          fieldRules: [ (v) => (v && v.length >2)|| 'Required & Len > 2 ' ],
+          fieldRules: [ (v) => (v && v.length >2)|| 'Required & should be more than 2 chars ' ],
            phoneRules:[
             (v) => /^\d+$/.test(v)||'Required and must be in numbers',
             (v) => (v && v.length >8) || 'Must be more than 8 digits '

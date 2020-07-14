@@ -6,6 +6,7 @@ export const deleteuser = apiDomain+ '/take5/deleteuser';
 export const edituser = apiDomain+ '/take5/edituser';
 //------------------------------------------------------
 export const getjobs = apiDomain+ '/take5/getjobs';
+export const getuserjobs = apiDomain+ '/take5/getuserjobs';
 export const addjobs = apiDomain+ '/take5/addjobs';
 export const editjobs = apiDomain+ '/take5/editjobs';
 export const deljobs = apiDomain+ '/take5/deljobs';

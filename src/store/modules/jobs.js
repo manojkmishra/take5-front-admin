@@ -14,6 +14,10 @@ export default
     { state.getjobs = payload.getjobs;
      console.log('/store/saw.js-types.GET_JOBS state=', state);
     },
+    [types.GET_USER_JOBS ] (state, payload) 
+    { state.getuserjobs = payload.getuserjobs;
+     console.log('/store/saw.js-types.GET_USER_JOBS state=', state);
+    },
     [types.GET_JOB_TYPES ] (state, payload) 
     { state.getjobtypes = payload.getjobtypes;
       let options = [];
@@ -34,7 +38,12 @@ export default
     selectedsjc: ({commit}, data) => {commit({  type: types.SET_SELECTED_SJC ,selectedsjc: data   });  },
     async getjobs ({commit,dispatch}) 
     { let res= await axios.get(api.getjobs);  
-      commit({type:types.GET_JOBS ,  getjobs: res.data} ); 
+      //commit({type:types.GET_JOBS ,  getjobs: res.data} ); 
+      return res;    
+    },
+    async getuserjobs ({commit,dispatch}) 
+    { let res= await axios.get(api.getuserjobs);  
+      commit({type:types.GET_USER_JOBS ,  getuserjobs: res.data} ); 
       return res;    
     },
     async addjobs ({dispatch}, formData)

@@ -26,7 +26,7 @@
     <template v-slot:default>
       <tbody>
         <tr><td>Client</td> <td>{{selectedsjc.CLIENT_NAME }}</td> </tr>
-        <tr><td>Site</td> <td>{{selectedsjc.SITE_ADDRESS }}</td>  </tr>
+        <tr><td>Address</td> <td>{{selectedsjc.SITE_ADDRESS }}</td>  </tr>
         <tr><td>Date</td> <td>{{selectedsjc.DELIVERY_DATE }}</td>  </tr>
         <tr><td>Task</td> <td><v-text-field class="purple-input" label="Describe Task..."/> </td>  </tr>
       </tbody>
@@ -48,51 +48,51 @@
       <tbody>
         <tr class="rowht">
           <td>Am I fit to do the task?</td>
-          <td><v-radio-group v-model="prerad.rad1" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad1" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad1" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad1Rules" v-model="prerad.rad1" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad1Rules" v-model="prerad.rad1" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad1Rules" v-model="prerad.rad1" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td class="pr-5">Do I clearly understand the task?</td>
-          <td><v-radio-group v-model="prerad.rad2" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad2" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad2" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad2Rules" v-model="prerad.rad2" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad2Rules" v-model="prerad.rad2" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad2Rules" v-model="prerad.rad2" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Am I authorised/ competent to do the task? </td>
-          <td><v-radio-group v-model="prerad.rad3" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad3" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad3" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad3Rules" v-model="prerad.rad3" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad3Rules" v-model="prerad.rad3" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad3Rules" v-model="prerad.rad3" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Do I have the correct PPE & tools for the task? </td>
-          <td><v-radio-group v-model="prerad.rad4" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad4" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad4" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad4Rules" v-model="prerad.rad4" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad4Rules" v-model="prerad.rad4" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad4Rules" v-model="prerad.rad4" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Have I done all pre-start checks on equipment </td>
-          <td><v-radio-group v-model="prerad.rad5" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad5" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad5" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad5Rules" v-model="prerad.rad5" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad5Rules" v-model="prerad.rad5" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad5Rules" v-model="prerad.rad5" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Have I identified, isolated & tagged out all energy sources </td>
-          <td><v-radio-group v-model="prerad.rad6" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad6" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad6" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad6Rules" v-model="prerad.rad6" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad6Rules" v-model="prerad.rad6" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad6Rules" v-model="prerad.rad6" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Have I done the required High Risk or Authority to Work Permits for the task? </td>
-          <td><v-radio-group v-model="prerad.rad7" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad7" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad7" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad7Rules" v-model="prerad.rad7" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad7Rules" v-model="prerad.rad7" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad7Rules" v-model="prerad.rad7" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td>Have I told others that may be affected by my work? </td>
-          <td><v-radio-group v-model="prerad.rad8" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad8" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
-          <td><v-radio-group v-model="prerad.rad8" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad8Rules" v-model="prerad.rad8" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad8Rules" v-model="prerad.rad8" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group :rules="prerad8Rules" v-model="prerad.rad8" @change="inputChange()"><v-radio :value="2" ></v-radio> </v-radio-group></td>
         </tr>
       </tbody>
     </template>
@@ -236,7 +236,7 @@
                     <v-checkbox v-model="haz7.one" class="mx-2" label="Twisting/Grip"></v-checkbox>
                     <v-checkbox v-model="haz7.two" class="mx-2" label="Lifting/Lowering"></v-checkbox>
                     <v-checkbox v-model="haz7.three" class="mx-2" label="Pushing/Pulling"></v-checkbox>
-                    <v-checkbox v-model="haz7.three" class="mx-2" label="Weight/Shape"></v-checkbox>
+                    <v-checkbox v-model="haz7.four" class="mx-2" label="Weight/Shape"></v-checkbox>
                 </v-row>
             </td>
         </tr>
@@ -297,8 +297,8 @@
                 <v-row justify="space-around">
                     <v-checkbox v-model="haz13.one" class="mx-2" label="UV"></v-checkbox>
                     <v-checkbox v-model="haz13.two" class="mx-2" label="Radioactive source"></v-checkbox>
-                    <v-checkbox v-model="haz13.one" class="mx-2" label="Laser"></v-checkbox>
-                    <v-checkbox v-model="haz13.one" class="mx-2" label="Infrared"></v-checkbox>
+                    <v-checkbox v-model="haz13.three" class="mx-2" label="Laser"></v-checkbox>
+                    <v-checkbox v-model="haz13.four" class="mx-2" label="Infrared"></v-checkbox>
                 </v-row>
             </td>
         </tr>
@@ -308,8 +308,8 @@
                 <v-row justify="space-around">
                     <v-checkbox v-model="haz14.one" class="mx-2" label="Hot environment"></v-checkbox>
                     <v-checkbox v-model="haz14.two" class="mx-2" label="Cold environment"></v-checkbox>
-                    <v-checkbox v-model="haz14.one" class="mx-2" label="Cold surfaces"></v-checkbox>
-                    <v-checkbox v-model="haz14.one" class="mx-2" label="Hot surfaces"></v-checkbox>
+                    <v-checkbox v-model="haz14.three" class="mx-2" label="Cold surfaces"></v-checkbox>
+                    <v-checkbox v-model="haz14.four" class="mx-2" label="Hot surfaces"></v-checkbox>
                 </v-row>
             </td>
         </tr>
@@ -319,8 +319,8 @@
                 <v-row justify="space-around">
                     <v-checkbox v-model="haz15.one" class="mx-2" label="Pedestrians"></v-checkbox>
                     <v-checkbox v-model="haz15.two" class="mx-2" label="Vehicles"></v-checkbox>
-                    <v-checkbox v-model="haz15.one" class="mx-2" label="Mobile plant"></v-checkbox>
-                    <v-checkbox v-model="haz15.one" class="mx-2" label="Speeding"></v-checkbox>
+                    <v-checkbox v-model="haz15.three" class="mx-2" label="Mobile plant"></v-checkbox>
+                    <v-checkbox v-model="haz15.four" class="mx-2" label="Speeding"></v-checkbox>
                 </v-row>
             </td>
         </tr>
@@ -366,6 +366,13 @@
     </template>
   </v-simple-table>
   <!------- ------>
+  <v-layout wrap mt-10>
+               <!-- <v-flex xs12> <v-textarea class="purple-input" label="About Me"   value="Lorem ipsum dolor sit amet, consectetur adipiscing elit." /> </v-flex> -->
+                <v-flex xs12 text-center ><v-btn rounded class="mx-0 mr-2 font-weight-light" color="success" @click="submit">Submit</v-btn>
+                <v-btn rounded class="mx-0 mr-2 font-weight-light" color="primary" @click="reset1">Reset</v-btn>
+                <v-btn rounded class="mx-0 font-weight-light" color="warning" @click="delete1">Delete</v-btn></v-flex>
+              </v-layout>
+
             </v-container>
           </v-form>
         </v-card>
@@ -378,9 +385,21 @@
 import { mapGetters, mapState, mapActions} from 'vuex';
 export default {
     computed: 
-      {  ...mapState({   
-                     selectedsjc: state => state.jobs.selectedsjc,
-                    }),
+      {  ...mapState({ selectedsjc: state => state.jobs.selectedsjc, }),
+        prerad1Rules() { return [this.prerad.rad1 !=null || "Pls select one"  ]; },
+        prerad2Rules() { return [this.prerad.rad2 !=null || "Pls select one"  ]; },
+        prerad3Rules() { return [this.prerad.rad3 !=null || "Pls select one"  ]; },
+        prerad4Rules() { return [this.prerad.rad4 !=null || "Pls select one"  ]; },
+        prerad5Rules() { return [this.prerad.rad5 !=null || "Pls select one"  ]; },
+        prerad6Rules() { return [this.prerad.rad6 !=null || "Pls select one"  ]; },
+        prerad7Rules() { return [this.prerad.rad7 !=null || "Pls select one"  ]; },
+        prerad8Rules() { return [this.prerad.rad8 !=null || "Pls select one"  ]; },
+        hazradRules() { return [this.rad.rad2 !=null || "Pls select one"  ]; },
+        resradRules() { return [this.rad.rad3 !=null || "Pls select one"  ]; },
+        rad4Rules() { return [this.rad.rad4 !=null || "Pls select one"  ]; },
+        rad5Rules() { return [this.rad.rad5 !=null || "Pls select one"  ]; },
+        rad6Rules() { return [this.rad.rad6 !=null || "Pls select one"  ]; },
+        rad7Rules() { return [this.rad.rad7 !=null || "Pls select one"  ]; }
       },
     data () {
       return {
@@ -404,20 +423,18 @@ export default {
           haz14:{one:null,two:null,three:null,four:null},
           haz15:{one:null,two:null,three:null,four:null},
           haz16:{one:null,two:null,three:null,four:null},
-
-          formd:{
-          }        
+                 
         }
     },
     methods: {
         inputChange(){
-            console.log('this.rad1=',this.rad.rad1)
-            console.log('this.rad2=',this.rad.rad2)
-            console.log('this.rad3=',this.rad.rad3)
-            console.log('this.rad4=',this.rad.rad4)
-            console.log('this.rad5=',this.rad.rad5)
-            console.log('this.rad6=',this.rad.rad6)
-            console.log('this.rad7=',this.rad.rad7)
+            console.log('this.rad1=',this.prerad.rad1)
+            console.log('this.rad2=',this.prerad.rad2)
+            console.log('this.rad3=',this.prerad.rad3)
+            console.log('this.rad4=',this.prerad.rad4)
+            console.log('this.rad5=',this.prerad.rad5)
+            console.log('this.rad6=',this.prerad.rad6)
+            console.log('this.rad7=',this.prerad.rad7)
            // this.one.yes = !this.one.no
            // this.one.no = !this.one.yes
             //console.log(this.one)
@@ -425,8 +442,14 @@ export default {
         submit(event){
     console.log({event,$form:this.$refs.loginForm})
       if(this.$refs.loginForm.validate())
-      { console.log('validated-this.rad',this.rad)
+      { console.log('validated-this.prerad',this.prerad)
         }
+    },
+    reset1(){
+      this.$refs.loginForm.reset()
+    },
+    delete1(){
+      this.$refs.loginForm.reset()
     }
     }
  

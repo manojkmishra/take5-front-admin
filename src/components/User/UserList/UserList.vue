@@ -41,7 +41,7 @@
                   <v-col cols="12" sm="6" md="6">
                     <v-select single-line bottom label="Type" 
                       v-model="editedItem.type" :items="typeOptions"    
-                      :rules="[(v) => !!v || 'You must agree to continue!']"
+                      :rules="[(v) => !!v || 'required']"
                      required
                     ></v-select>
                   </v-col>

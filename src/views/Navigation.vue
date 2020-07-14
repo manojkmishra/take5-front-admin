@@ -25,6 +25,8 @@
                          <v-avatar size="120" class=""><img src="@/assets/img/user.png"></v-avatar>
                          <p class="subheading mt-1" style="text-align: center; color:white;"
                          >{{user.name}}</p>
+                         <p class="subheading mt-1" style="text-align: center; color:white;"
+                         >{{usertype}}</p>
                     </v-flex> <!--popup to add projects below -->
                </v-layout>            
       <!---multi leve finish ---------->
@@ -105,7 +107,13 @@ export default {
     computed:{
         ...mapGetters({authenticated:'auth/authenticated',
                        user:'auth/user'
-                      })
+                      }),
+                      usertype(){
+                        if(this.user.admin==1){
+                          return "Admin User";
+                        }
+                        else{ return "Take5 User"}
+                      }
     },
     methods:{
         ...mapActions({signOut1:'auth/signOut'}),
