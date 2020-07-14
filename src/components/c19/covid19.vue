@@ -96,7 +96,11 @@
                 <v-flex xs12 md4><v-text-field v-model="formc.POST_CODE" :rules="postRules" class="purple-input" label="Postal Code" type="number"/></v-flex>
 
                <!-- <v-flex xs12> <v-textarea class="purple-input" label="About Me"   value="Lorem ipsum dolor sit amet, consectetur adipiscing elit." /> </v-flex> -->
-                <v-flex xs12 text-center ><v-btn rounded class="mx-0 font-weight-light" color="success" @click="submit">Submit</v-btn></v-flex>
+                <v-flex xs12 text-center >
+                  <v-btn v-if="resubmit==true" rounded class="mx-0 mr-2 font-weight-light" color="primary" @click="editsubmit">Re-Submit</v-btn>
+                  <v-btn v-if="resubmit==true" rounded class="mx-0 font-weight-light" color="warning" @click="delete1">Delete</v-btn>
+                  <v-btn v-else rounded class="mx-0 font-weight-light" color="success" @click="submit">Submit</v-btn>
+                  </v-flex>
               </v-layout>
             </v-container>
           </v-form>
@@ -120,31 +124,42 @@ export default {
     rad5Rules() { return [this.rad.rad5 !=null || "Pls select one"  ]; },
     rad6Rules() { return [this.rad.rad6 !=null || "Pls select one"  ]; },
     rad7Rules() { return [this.rad.rad7 !=null || "Pls select one"  ]; },
+    resub(){
 
+    },
     formc(){
-     // get: function () {
-            console.log('get formd-',this.getc19)
-              console.log('get formc-',this.getc19)
               if(this.getc19 && this.getc19.SJC_NO==this.selectedsjc.SJC_NO ){
-                    console.log('get c19 form already filled')
+                console.log('formc present-this.getc19',this.getc19)
                     this.formd.ADDRESS=this.getc19.ADDRESS
                     this.formd.FNAME=this.getc19.FNAME
                     this.formd.LNAME=this.getc19.LNAME
                     this.formd.CNAME=this.getc19.CNAME
                     this.formd.PHONE=this.getc19.PHONE
                     this.formd.POST_CODE=this.getc19.POST_CODE
-                    console.log('get c19 form already filled this.formd',this.formd)
+                    this.formd.id=this.getc19.id
+                    this.resubmit=true;
+                    console.log('form present-',this.formd)
                     return this.formd;
+                    
                   }
-                  else 
-              return this.formd
+                  else {  console.log('formc not present-this.getc19',this.getc19)
+                    this.formd.ADDRESS=''
+                    this.formd.FNAME=''
+                    this.formd.LNAME=''
+                    this.formd.CNAME=''
+                    this.formd.PHONE=''
+                    this.formd.POST_CODE=''
+                    this.formd.id=''
+                    this.resubmit=false;
+                    console.log('form not present-',this.formd)
+                    return this.formd
+                  }
           },
       rad(){
      // get: function () {
-            console.log('get formd-',this.getc19)
-              console.log('get formc-',this.getc19)
+            
               if(this.getc19 && this.getc19.SJC_NO==this.selectedsjc.SJC_NO ){
-                    console.log('get c19 form already filled')
+                console.log('rad present-this.getc19',this.getc19)
                     if(this.getc19.rad1==1) {this.radf.rad1=true } else { this.radf.rad1=false}
                     if(this.getc19.rad2==1) {this.radf.rad2=true } else { this.radf.rad2=false}
                     if(this.getc19.rad3==1) {this.radf.rad3=true } else { this.radf.rad3=false}
@@ -152,35 +167,24 @@ export default {
                     if(this.getc19.rad5==1) {this.radf.rad5=true } else { this.radf.rad5=false}
                     if(this.getc19.rad6==1) {this.radf.rad6=true } else { this.radf.rad6=false}
                     if(this.getc19.rad7==1) {this.radf.rad7=true } else { this.radf.rad7=false}
+                    console.log('rad present-',this.radf)
                     return this.radf;
                   }
-                  else 
-              return this.radf
+                  else { console.log('rad not present-this.getc19',this.getc19)
+              this.radf.rad1='';this.radf.rad2=null;this.radf.rad3=null;this.radf.rad4=null;this.radf.rad5=null;
+              this.radf.rad6=null;this.radf.rad7=null;
+              console.log('rad not present-',this.radf)
+              return this.radf 
+              }
           },
-    /*  set: function (newValue) {
-        console.log('set formc-',this.getc19)
-        console.log('set formc-newValue',newValue)
-             this.enteredValue = 0;
-             if(this.getc19){
-                    console.log('set c19 form already filled')
-                    this.formd.ADDRESS=getc19.ADDRESS
-                    this.formd.FNAME=getc19.FNAME
-                    this.formd.LNAME=getc19.LNAME
-                    this.formd.CNAME=getc19.CNAME
-                    this.formd.PHONE=getc19.PHONE
-                    this.formd.POST_CODE=getc19.POST_CODE
-                    console.log('set c19 form already filled this.formd',this.formd)
-                    return this.formd;
-                  }
-          }*/
-        
+          
     },
 
  // },
     data () {
       return {
-        formd:{FNAME:'',LNAME:'',CNAME:'',PHONE:'',POST_CODE:'',ADDRESS:'',rad:''},
-          formValid:false,
+        formd:{FNAME:'',LNAME:'',CNAME:'',PHONE:'',POST_CODE:'',ADDRESS:'',rad:'',id:''},
+          formValid:false, resubmit:false,
           radf:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null},
           fieldRules: [ (v) => (v && v.length >2)|| 'Required & should be more than 2 chars ' ],
            phoneRules:[
@@ -196,17 +200,8 @@ export default {
     },
     methods: {
         inputChange(){
-           // console.log('this.rad1=',this.rad.rad1)
-           // console.log('this.rad2=',this.rad.rad2)
-           // console.log('this.rad3=',this.rad.rad3)
-          //  console.log('this.rad4=',this.rad.rad4)
-          //  console.log('this.rad5=',this.rad.rad5)
-          //  console.log('this.rad6=',this.rad.rad6)
             console.log('this.rad=',this.rad)
             console.log('selectedsjc=',this.selectedsjc)
-           // this.one.yes = !this.one.no
-           // this.one.no = !this.one.yes
-            //console.log(this.one)
         },
         submit(event)
         {  // console.log({event,$form:this.$refs.loginForm})
@@ -219,34 +214,24 @@ export default {
               //console.log('validated-this.formd',this.formd)
               this.$store.dispatch('addc19', this.formd) 
             }
+        },
+        editsubmit(event)
+        {  // console.log({event,$form:this.$refs.loginForm})
+          if(this.$refs.loginForm.validate())
+            { console.log('validated-this.rad',this.rad)
+              this.formd.rad=this.rad
+              this.formd.sjcid=this.selectedsjc.id
+              this.formd.V6_ORDER_NO=this.selectedsjc.V6_ORDER_NO
+              this.formd.SJC_NO=this.selectedsjc.SJC_NO
+              //console.log('validated-this.formd',this.formd)
+              this.$store.dispatch('editc19', this.formd) 
+            }
+        },
+        delete1(){
+              this.$store.dispatch('delc19', this.formd) 
         }
     },
-    /* watch: {  getc19: function(newVal, oldVal) 
-                { // watch it
-                  console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-                  if(newVal){
-                    console.log('c19 form already filled')
-                    if(newVal.rad1==1) {this.rad.rad1=true } else { this.rad.rad1=false}
-                    if(newVal.rad2==1) {this.rad.rad2=true } else { this.rad.rad2=false}
-                    if(newVal.rad3==1) {this.rad.rad3=true } else { this.rad.rad3=false}
-                    if(newVal.rad4==1) {this.rad.rad4=true } else { this.rad.rad4=false}
-                    if(newVal.rad5==1) {this.rad.rad5=true } else { this.rad.rad5=false}
-                    if(newVal.rad6==1) {this.rad.rad6=true } else { this.rad.rad6=false}
-                    if(newVal.rad7==1) {this.rad.rad7=true } else { this.rad.rad7=false}
-
-                    this.formd.ADDRESS=newVal.ADDRESS
-                    this.formd.FNAME=newVal.FNAME
-                    this.formd.LNAME=newVal.LNAME
-                    this.formd.CNAME=newVal.CNAME
-                    this.formd.PHONE=newVal.PHONE
-                    this.formd.POST_CODE=newVal.POST_CODE
-                    console.log('c19 form already filled this.formd',this.formd)
-                    console.log('c19 form already filled this.rad',this.rad)
-
-
-                  }
-                }
-          } */
+    
  
  
 }

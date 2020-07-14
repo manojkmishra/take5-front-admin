@@ -100,16 +100,27 @@ export default
     async addc19 ({dispatch}, formData)
     {   console.log('addc19-- formData=', formData);
           let res= await axios.post(api.addc19, formData)  
-                .then(response => { //dispatch('getjobs');  
+                .then(response => { dispatch('getc19',formData);  
                                     })
                 .catch(response => {    });
             return res;
     },
     async getc19 ({commit,dispatch}, formData)
     {   let res= await axios.post(api.getc19, formData)
-      console.log('getc19-- res=', res);
-        commit({type: types.GET_C19, getc19: res.data} );  
-        return res;
+      .then(res => { commit({type: types.GET_C19, getc19: res.data} ); })
+      return res;
+    },
+    async editc19 ({dispatch}, formData)
+    {   console.log('editc19-- formData=', formData);
+          let res= await axios.post(api.editc19, formData)  
+                .then(response => { dispatch('getc19',formData); })
+            return res;
+    },
+    async delc19 ({dispatch}, formData)
+    {   console.log('delc19-- formData=', formData);
+          let res= await axios.post(api.delc19, formData)  
+                .then(response => { dispatch('getc19',formData); })
+            return res;
     },
   }
 
