@@ -200,7 +200,7 @@ export default
           this.dialog = true
         },
          save () 
-      {  //console.log('save-item=',item);
+      {  console.log('save-item=',this.editedItem);
         if(this.$refs.form.validate())
         {
        if (this.editedIndex > -1) //save clicked when editing

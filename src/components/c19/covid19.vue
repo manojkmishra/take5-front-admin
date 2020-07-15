@@ -28,8 +28,8 @@
       <tbody>
         <tr>
           <td>Have you knowingly come into CLOSE contact with anyone who has travelled overseas in the last 14 days?</td>
-          <td><v-radio-group  v-model="rad.rad1" :rules="rad1Rules" @change="inputChange()"><v-radio  :value="true"  ></v-radio> </v-radio-group></td>
-          <td><v-radio-group  v-model="rad.rad1" :rules="rad1Rules" @change="inputChange()"><v-radio :rules="[v => !!v || 'required']" :value="false" ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="rad.rad1" :rules="rad1Rules" @change="inputChange()"><v-radio :value="true"  ></v-radio> </v-radio-group></td>
+          <td><v-radio-group v-model="rad.rad1" :rules="rad1Rules" @change="inputChange()"><v-radio :value="false" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
           <td class="pr-5">Have you or anyone that resides at the same address been tested for COVID-19 in the last 5 days?</td>
@@ -171,7 +171,7 @@ export default {
                     return this.radf;
                   }
                   else { console.log('rad not present-this.getc19',this.getc19)
-              this.radf.rad1='';this.radf.rad2=null;this.radf.rad3=null;this.radf.rad4=null;this.radf.rad5=null;
+              this.radf.rad1=null;this.radf.rad2=null;this.radf.rad3=null;this.radf.rad4=null;this.radf.rad5=null;
               this.radf.rad6=null;this.radf.rad7=null;
               console.log('rad not present-',this.radf)
               return this.radf 

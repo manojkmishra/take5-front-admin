@@ -19,7 +19,7 @@
      <div v-if="authenticated">
             <div snackbar="true" > </div>
             <v-navigation-drawer v-model="drwr" app dark  
-              color="teal ">
+              id="sidebar">
                <v-layout column align-center>
                     <v-flex class="mt-5" >
                          <v-avatar size="120" class=""><img src="@/assets/img/user.png"></v-avatar>
@@ -133,4 +133,7 @@ export default {
 .logoimg{
 padding-right:10px;
 }
+  #sidebar{
+    background-color:#0747A6 !important;
+  }
 </style>
