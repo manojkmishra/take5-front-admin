@@ -179,6 +179,7 @@ export default
         c19fn(x)
           { console.log('c19fn-item=',x)
             this.$store.dispatch('selectedsjc', x);
+            this.$store.dispatch('getc19', x);
             this.$router.push({name: 'covid19'});
           },
         t5fn(x)
