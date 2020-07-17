@@ -5,7 +5,7 @@ import * as api from '../config';
 export default
 {
   state: {getjobs:null,getjobtypes:null, jobtypeoptions:[],selectedsjc:null, 
-      getc19:null,getuserjobs:null,
+      getc19:null,getuserjobs:null,gettk5:null,
         },
   getters:{
   },
@@ -22,6 +22,10 @@ export default
     [types.GET_C19 ] (state, payload) 
     { state.getc19 = payload.getc19;
      console.log('/store/saw.js-types.GET_C19 state=', state);
+    },
+    [types.GET_TK5 ] (state, payload) 
+    { state.gettk5 = payload.gettk5;
+     console.log('/store/saw.js-types.GET_TK5 state=', state);
     },
     [types.GET_JOB_TYPES ] (state, payload) 
     { state.getjobtypes = payload.getjobtypes;
@@ -122,6 +126,32 @@ export default
     {   console.log('delc19-- formData=', formData);
           let res= await axios.post(api.delc19, formData)  
                 .then(response => { dispatch('getc19',formData); })
+            return res;
+    },
+    //-------------------------------
+    async addtk5 ({dispatch}, formData)
+    {   console.log('addtk5-- formData=', formData);
+          let res= await axios.post(api.addtk5, formData)  
+                .then(response => { dispatch('gettk5',response.data);  
+                                    })
+            return res;
+    },
+    async gettk5 ({commit,dispatch}, formData)
+    {   let res= await axios.post(api.gettk5, formData)
+      .then(res => { commit({type: types.GET_TK5, gettk5: res.data} ); 
+                        })
+      return res;
+    },
+    async edittk5 ({dispatch}, formData)
+    {   console.log('edittk5-- formData=', formData);
+          let res= await axios.post(api.edittk5, formData)  
+                .then(response => { dispatch('gettk5',formData); })
+            return res;
+    },
+    async deltk5 ({dispatch}, formData)
+    {   console.log('deltk5-- formData=', formData);
+          let res= await axios.post(api.deltk5, formData)  
+                .then(response => { dispatch('gettk5',formData); })
             return res;
     },
   }

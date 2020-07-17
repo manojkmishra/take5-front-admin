@@ -128,7 +128,8 @@ export default {
 
     },
     formc(){
-              if(this.getc19 && this.getc19.SJC_NO==this.selectedsjc.SJC_NO ){
+              if(this.getc19 && this.getc19.SJC_NO==this.selectedsjc.SJC_NO )
+              {
                 console.log('formc present-this.getc19',this.getc19)
                     this.formd.ADDRESS=this.getc19.ADDRESS
                     this.formd.FNAME=this.getc19.FNAME
@@ -170,7 +171,8 @@ export default {
                     console.log('rad present-',this.radf)
                     return this.radf;
                   }
-                  else { console.log('rad not present-this.getc19',this.getc19)
+                  else { 
+                    console.log('first time- no save in db-rad not present-this.getc19',this.getc19)
               this.radf.rad1=null;this.radf.rad2=null;this.radf.rad3=null;this.radf.rad4=null;this.radf.rad5=null;
               this.radf.rad6=null;this.radf.rad7=null;
               console.log('rad not present-',this.radf)
@@ -211,7 +213,7 @@ export default {
               this.formd.sjcid=this.selectedsjc.id
               this.formd.V6_ORDER_NO=this.selectedsjc.V6_ORDER_NO
               this.formd.SJC_NO=this.selectedsjc.SJC_NO
-              //console.log('validated-this.formd',this.formd)
+              console.log('addc19--this.formd',this.formd)
               this.$store.dispatch('addc19', this.formd) 
             }
         },
@@ -223,7 +225,7 @@ export default {
               this.formd.sjcid=this.selectedsjc.id
               this.formd.V6_ORDER_NO=this.selectedsjc.V6_ORDER_NO
               this.formd.SJC_NO=this.selectedsjc.SJC_NO
-              //console.log('validated-this.formd',this.formd)
+              console.log('editc19-this.formd',this.formd)
               this.$store.dispatch('editc19', this.formd) 
             }
         },

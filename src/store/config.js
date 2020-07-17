@@ -20,6 +20,11 @@ export const editc19 = apiDomain+ '/take5/editc19';
 export const delc19 = apiDomain+ '/take5/delc19';
 export const getc19 = apiDomain+ '/take5/getc19';
 
+export const addtk5 = apiDomain+ '/take5/addtk5';
+export const edittk5 = apiDomain+ '/take5/edittk5';
+export const deltk5 = apiDomain+ '/take5/deltk5';
+export const gettk5 = apiDomain+ '/take5/gettk5';
+
 
 
 

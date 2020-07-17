@@ -165,6 +165,8 @@ export default
             (v) => (v && v.length >2) || 'Must be more than 2 digits '
          ],
          fieldRules: [ (v) => (v && v.length >2)|| 'Required & should be more than 2 chars ' ],
+        // formx:{sjcid:'',v},
+
     }
           },
   created(){ this.loading=true;
@@ -185,6 +187,8 @@ export default
         t5fn(x)
           { console.log('t5fn-item=',x)
             this.$store.dispatch('selectedsjc', x);
+                x.jobpage=1;
+            this.$store.dispatch('gettk5', x);
             this.$router.push({name: 'take5'});
           },
         

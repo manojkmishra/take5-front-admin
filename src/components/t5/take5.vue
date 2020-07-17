@@ -16,7 +16,7 @@
             <p class="my-5 mx-4">Please complete take 5 safety checklist below.  </p> 
 
 <!----------    main form  =========================          ----------->
-<v-form ref="loginForm" :value="formValid">
+<v-form ref="take5Form" :value="formValid">
     <v-container py-0>
 <!-------- task details table======  ------->
     <v-toolbar color="purple darken-2" dark dense>
@@ -131,21 +131,22 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left">What is the highest residential risk identified (please select)  <span class="star">*</span> </th>
+          <th class="text-left">What is the highest residential risk identified (please select)  
+            <span class="star">*</span> </th>
         <th></th>
         </tr>
       </thead>
       <tbody>
         <tr>
                 <td>HIGH - STOP WORK AND SEE YOU MANAGER/ SUPERVISOR</td>
-                <td><v-radio-group v-model="hazrad.rad3" @change="inputChange()"><v-radio label="HIGH" :value="true"  ></v-radio> </v-radio-group></td>
+                <td><v-radio-group v-model="hazresrad.rad" @change="inputChange()"><v-radio :value="true" label="HIGH"   ></v-radio> </v-radio-group></td>
          </tr>
         <tr>    <td>MEDIUM - Prepare Risk Assessment/SWMS/JSEA – Must be controlled before work starts</td>
-                <td><v-radio-group v-model="hazrad.rad3" @change="inputChange()"><v-radio label="MEDIUM" :value="true"  ></v-radio> </v-radio-group></td>
+                <td><v-radio-group v-model="hazresrad.rad" @change="inputChange()"><v-radio :value="false" label="MEDIUM"   ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
                 <td>LOW - Begin Task </td>
-                <td><v-radio-group v-model="hazrad.rad3" @change="inputChange()"><v-radio label="LOW" :value="true"  ></v-radio> </v-radio-group></td>
+                <td><v-radio-group v-model="hazresrad.rad" @change="inputChange()"><v-radio :value="2" label="LOW"  ></v-radio> </v-radio-group></td>
         </tr>
       </tbody>
     </template>
@@ -169,9 +170,9 @@
           <td>1</td> <td>Atmosphere</td>
             <td> 
                 <v-row justify="space-around">
-                    <v-checkbox v-model="haz1.one" class="mx-2" label="Flammable"></v-checkbox>
-                    <v-checkbox v-model="haz1.two" class="mx-2" label="Contaminated"></v-checkbox>
-                    <v-checkbox v-model="haz1.three" class="mx-2" label="Dusty"></v-checkbox>
+                    <v-checkbox v-model="haz1.one" class="mx-2" label="Flammable" @change="inputChange()"></v-checkbox>
+                    <v-checkbox v-model="haz1.two" class="mx-2" label="Contaminated" @change="inputChange()"></v-checkbox>
+                    <v-checkbox v-model="haz1.three" class="mx-2" label="Dusty" @change="inputChange()"></v-checkbox>
                 </v-row>
             </td>
           </tr>
@@ -193,7 +194,7 @@
                     <v-checkbox v-model="haz3.one" class="mx-2" label="High Voltage"></v-checkbox>
                     <v-checkbox v-model="haz3.two" class="mx-2" label="Overhead"></v-checkbox>
                     <v-checkbox v-model="haz3.three" class="mx-2" label="Underground"></v-checkbox>
-                    <v-checkbox v-model="haz3.three" class="mx-2" label="Leads"></v-checkbox>
+                    <v-checkbox v-model="haz3.four" class="mx-2" label="Leads"></v-checkbox>
                 </v-row>
             </td>
         </tr>
@@ -352,15 +353,16 @@
       </thead>
       <tbody>
         <tr>
-                <td>HIGH - STOP WORK AND SEE YOU MANAGER/ SUPERVISOR</td>
-                <td><v-radio-group v-model="resrad.rad1" @change="inputChange()"><v-radio label="HIGH" :value="true"  ></v-radio> </v-radio-group></td>
-         </tr>
-        <tr>    <td>MEDIUM - Prepare Risk Assessment/SWMS/JSEA – Must be controlled before work starts</td>
-                <td><v-radio-group v-model="resrad.rad1" @change="inputChange()"><v-radio label="MEDIUM" :value="true"  ></v-radio> </v-radio-group></td>
+          <td>HIGH - STOP WORK AND SEE YOU MANAGER/ SUPERVISOR</td>
+          <td><v-radio-group v-model="resrad.rad" @change="inputChange()"><v-radio :value="true" label="HIGH" ></v-radio> </v-radio-group></td>
+        </tr>
+        <tr>    
+          <td>MEDIUM - Prepare Risk Assessment/SWMS/JSEA – Must be controlled before work starts</td>
+          <td><v-radio-group v-model="resrad.rad" @change="inputChange()"><v-radio :value="false" label="MEDIUM" ></v-radio> </v-radio-group></td>
         </tr>
         <tr>
-                <td>LOW - Begin Task </td>
-                <td><v-radio-group v-model="resrad.rad1" @change="inputChange()"><v-radio label="LOW" :value="true"  ></v-radio> </v-radio-group></td>
+          <td>LOW - Begin Task </td>
+          <td><v-radio-group v-model="resrad.rad" @change="inputChange()" ><v-radio :value="2" label="LOW" ></v-radio> </v-radio-group></td>
         </tr>
       </tbody>
     </template>
@@ -368,11 +370,18 @@
   <!------- ------>
   <v-layout wrap mt-10>
                <!-- <v-flex xs12> <v-textarea class="purple-input" label="About Me"   value="Lorem ipsum dolor sit amet, consectetur adipiscing elit." /> </v-flex> -->
-                <v-flex xs12 text-center ><v-btn rounded class="mx-0 mr-2 font-weight-light" color="success" @click="submit">Submit</v-btn>
-                <v-btn rounded class="mx-0 mr-2 font-weight-light" color="primary" @click="reset1">Reset</v-btn>
+            <!--    <v-flex xs12 text-center >
+                <v-btn rounded class="mx-0 mr-2 font-weight-light" color="success" @click="submit">Submit</v-btn>
+                <v-btn rounded class="mx-0 mr-2 font-weight-light" color="primary" @click="resubmit">Re-Submit</v-btn>
                 <v-btn rounded class="mx-0 font-weight-light" color="warning" @click="delete1">Delete</v-btn></v-flex>
-              </v-layout>
-
+               -->
+                <v-flex xs12 text-center >
+                  <v-btn v-if="resubmit==true" disabled rounded class="mx-0 mr-2 font-weight-light" color="success" @click="submit">Submit</v-btn>
+                  <v-btn v-if="resubmit==true && user.admin =='1'" rounded class="mx-0 mr-2 font-weight-light" color="primary" @click="editsubmit">Re-Submit</v-btn>
+                  <v-btn v-if="resubmit==true && user.admin =='1'" rounded class="mx-0 font-weight-light" color="warning" @click="delete1">Delete</v-btn>
+                  <v-btn v-else rounded class="mx-0 font-weight-light" color="success" @click="submit">Submit</v-btn>
+                </v-flex>
+              </v-layout> 
             </v-container>
           </v-form>
         </v-card>
@@ -385,7 +394,11 @@
 import { mapGetters, mapState, mapActions} from 'vuex';
 export default {
     computed: 
-      {  ...mapState({ selectedsjc: state => state.jobs.selectedsjc, }),
+      { ...mapState({ selectedsjc: state => state.jobs.selectedsjc, }),
+        ...mapState({ selectedsjc: state => state.jobs.selectedsjc, 
+                        gettk5: state => state.jobs.gettk5, 
+                        user: state => state.auth.user,    
+                    }),
         prerad1Rules() { return [this.prerad.rad1 !=null || "Pls select one"  ]; },
         prerad2Rules() { return [this.prerad.rad2 !=null || "Pls select one"  ]; },
         prerad3Rules() { return [this.prerad.rad3 !=null || "Pls select one"  ]; },
@@ -399,17 +412,106 @@ export default {
         rad4Rules() { return [this.rad.rad4 !=null || "Pls select one"  ]; },
         rad5Rules() { return [this.rad.rad5 !=null || "Pls select one"  ]; },
         rad6Rules() { return [this.rad.rad6 !=null || "Pls select one"  ]; },
-        rad7Rules() { return [this.rad.rad7 !=null || "Pls select one"  ]; }
+        rad7Rules() { return [this.rad.rad7 !=null || "Pls select one"  ]; },
+        prerad()
+        {
+              if(this.gettk5  && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.prerad1!=null ) //form values present
+                {  console.log('prerad present-this.gettk5',this.gettk5)
+                  this.prerad2=JSON.parse(this.gettk5.prerad1); 
+                  console.log('asembled prerad2=',this.prerad2)
+                  this.formd.id=this.gettk5.id
+                  this.resubmit=true;
+                  return this.prerad2;
+                }
+                  else { 
+                    console.log('first time- no save in db-rad not present-this.gettk5',this.gettk5)
+                    this.prerad2.rad1=null;this.prerad2.rad2=null;this.prerad2.rad3=null;this.prerad2.rad4=null;
+                    this.prerad2.rad5=null;
+                    this.prerad2.rad6=null;this.prerad2.rad7=null;this.prerad2.rad8=null;
+                    console.log('prerad not present-',this.prerad2)
+                    this.resubmit=false;
+                    return this.prerad2 
+                }
+        },
+        resrad()
+        { //console.log('resrad-',tis.resrad) 
+          if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.resrad1!=null )
+                { console.log('yes value-resrad-',this.gettk5.resrad1)
+                  //this.resrad2.rad=JSON.parse(this.gettk5.resrad1); 
+                  if(this.gettk5.resrad1==1)  this.resrad2.rad=true
+                  else if  (this.gettk5.resrad1==0) this.resrad2.rad=false
+                  else this.resrad2.rad=2
+                    return this.resrad2
+                  }
+              else { console.log('no value-resrad-')
+                    this.resrad2.rad=null;  
+                    return this.resrad2 
+                 }
+        },
+        hazresrad()
+        { //console.log('resrad-',tis.resrad) 
+          if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.hazresrad1!=null)
+                { console.log('yes value-hazresrad-',this.gettk5.hazresrad1)
+                  if(this.gettk5.hazresrad1==1)  this.hazresrad2.rad=true
+                  else if  (this.gettk5.hazresrad1==0) this.hazresrad2.rad=false
+                  else this.hazresrad2.rad=2
+                  }
+              else { console.log('no value-hazresrad-',this.hazresrad2)
+                    this.hazresrad2.rad=null;  
+                 }
+                 return this.hazresrad2 
+        },
+        hazrad()
+        { //console.log('resrad-',tis.resrad) 
+          if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.hazrad1!=null )
+                { console.log('yes value-hazrad-',this.gettk5.hazrad1)
+                  this.hazrad2=JSON.parse(this.gettk5.hazrad1);
+                   return this.hazrad2 
+                  }
+              else { console.log('no value-hazrad-')
+                    this.hazrad2.rad1=null;  this.hazrad2.rad2=null; 
+                    return this.hazrad2 
+                 }
+        },
+        haz1(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz1db != null )
+                 { console.log('yes value-haz1db-',this.gettk5.haz1db)
+                  this.haz1d=JSON.parse(this.gettk5.haz1db);
+                  }
+              else {  console.log('no value-haz1db-')
+                    this.haz1d.one=null;  this.haz1d.two=null; this.haz1d.three=null;
+                  }
+                  return this.haz1d 
+              },
+        haz2(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz2db != null )
+                 { console.log('yes value-haz2db-',this.gettk5.haz2db)
+                  this.haz2d=JSON.parse(this.gettk5.haz2db);
+                  }
+              else {  console.log('no value-haz2db-')
+                    this.haz2d.one=null;  this.haz2d.two=null; this.haz2d.three=null;this.haz2d.four=null;
+                  }
+                  return this.haz2d 
+              },
+          haz3(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz3db != null )
+                 { console.log('yes value-haz3db-',this.gettk5.haz3db)
+                  this.haz3d=JSON.parse(this.gettk5.haz3db);
+                  }
+              else {  console.log('no value-haz3db-')
+                    this.haz3d.one=null;  this.haz3d.two=null; this.haz3d.three=null;this.haz3d.four=null;
+                  }
+                  return this.haz3d 
+              },
+
       },
     data () {
       return {
-          formValid:false,
-          prerad:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null, rad8:null},
-          hazrad:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null, rad8:null},
-          resrad:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null, rad8:null},
-          haz1:{one:null,two:null,three:null},
-          haz2:{one:null,two:null,three:null,four:null},
-          haz3:{one:null,two:null,three:null},
+          formValid:false,resubmit:false,
+          prerad2:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null, rad8:null},
+          hazrad2:{rad1:null,rad2:null},
+          hazresrad2:{rad:null},
+          resrad2:{rad:null},
+          haz1d:{one:null,two:null,three:null},
+          haz2d:{one:null,two:null,three:null,four:null},
+          haz3d:{one:null,two:null,three:null,four:null},
           haz4:{one:null,two:null,three:null,four:null},
           haz5:{one:null,two:null,three:null,four:null},
           haz6:{one:null,two:null,three:null,four:null},
@@ -423,30 +525,55 @@ export default {
           haz14:{one:null,two:null,three:null,four:null},
           haz15:{one:null,two:null,three:null,four:null},
           haz16:{one:null,two:null,three:null,four:null},
+
+          formd:{FNAME:'',LNAME:'',CNAME:'',PHONE:'',POST_CODE:'',ADDRESS:'',rad:'',id:''},
                  
         }
     },
     methods: {
-        inputChange(){
-            console.log('this.rad1=',this.prerad.rad1)
-            console.log('this.rad2=',this.prerad.rad2)
-            console.log('this.rad3=',this.prerad.rad3)
-            console.log('this.rad4=',this.prerad.rad4)
-            console.log('this.rad5=',this.prerad.rad5)
-            console.log('this.rad6=',this.prerad.rad6)
-            console.log('this.rad7=',this.prerad.rad7)
+        inputChange(){ console.log('this.haz1=',this.haz1);
+           // console.log('this.prerad=',this.prerad);
+           //  console.log('this.resrad=',this.resrad);
+           //  console.log('this.hazresrad=',this.hazresrad);
            // this.one.yes = !this.one.no
            // this.one.no = !this.one.yes
             //console.log(this.one)
         },
-        submit(event){
-    console.log({event,$form:this.$refs.loginForm})
-      if(this.$refs.loginForm.validate())
-      { console.log('validated-this.prerad',this.prerad)
-        }
-    },
-    reset1(){
-      this.$refs.loginForm.reset()
+        submit(event)
+        { console.log({event,$form:this.$refs.take5Form})
+          if(this.$refs.take5Form.validate())
+            { this.formd.sjcid=this.selectedsjc.id
+              this.formd.V6_ORDER_NO=this.selectedsjc.V6_ORDER_NO
+              this.formd.SJC_NO=this.selectedsjc.SJC_NO
+              this.formd.prerad1=this.prerad;
+              this.formd.resrad1=this.resrad.rad;
+              this.formd.hazresrad1=this.hazresrad.rad;
+              this.formd.hazrad1=this.hazrad;
+
+              this.formd.haz1f=this.haz1;
+              this.formd.haz2f=this.haz2;
+              this.formd.haz3f=this.haz3;
+              console.log('validated-this.formdp',this.formd)
+              this.$store.dispatch('addtk5', this.formd) 
+            }
+        },
+    editsubmit(){
+      if(this.$refs.take5Form.validate())
+            { //console.log('edit-this.rad',this.rad)
+              this.formd.sjcid=this.selectedsjc.id
+              this.formd.V6_ORDER_NO=this.selectedsjc.V6_ORDER_NO
+              this.formd.SJC_NO=this.selectedsjc.SJC_NO
+              this.formd.prerad1=this.prerad;
+              this.formd.hazrad1=this.hazrad;
+              this.formd.resrad1=this.resrad.rad;
+              this.formd.hazresrad1=this.hazresrad.rad;
+
+              this.formd.haz1f=this.haz1;
+              this.formd.haz2f=this.haz2;
+              this.formd.haz3f=this.haz3;
+              console.log('edit-this.formd',this.formd)
+              this.$store.dispatch('edittk5', this.formd) 
+            }
     },
     delete1(){
       this.$refs.loginForm.reset()
