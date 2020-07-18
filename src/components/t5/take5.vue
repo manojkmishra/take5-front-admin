@@ -180,10 +180,10 @@
           <td>2</td> <td>Chemical</td>
             <td> 
                 <v-row justify="space-around">
-                    <v-checkbox v-model="haz2.one" class="mx-2" label="Reaction"></v-checkbox>
-                    <v-checkbox v-model="haz2.two" class="mx-2" label="Absorb/Ingest/Inhale"></v-checkbox>
-                    <v-checkbox v-model="haz2.three" class="mx-2" label="Spill"></v-checkbox>
-                    <v-checkbox v-model="haz2.four" class="mx-2" label="Burn"></v-checkbox>
+                    <v-checkbox v-model="haz2.one" class="mx-2" label="Reaction" @change="inputChange()"></v-checkbox>
+                    <v-checkbox v-model="haz2.two" class="mx-2" label="Absorb/Ingest/Inhale" @change="inputChange()"></v-checkbox>
+                    <v-checkbox v-model="haz2.three" class="mx-2" label="Spill" @change="inputChange()"></v-checkbox>
+                    <v-checkbox v-model="haz2.four" class="mx-2" label="Burn" @change="inputChange()"></v-checkbox>
                 </v-row>
             </td>
         </tr>
@@ -205,7 +205,7 @@
                     <v-checkbox v-model="haz4.one" class="mx-2" label="Wind"></v-checkbox>
                     <v-checkbox v-model="haz4.two" class="mx-2" label="Rain"></v-checkbox>
                     <v-checkbox v-model="haz4.three" class="mx-2" label="Hail/Snow"></v-checkbox>
-                    <v-checkbox v-model="haz4.three" class="mx-2" label="Fog"></v-checkbox>
+                    <v-checkbox v-model="haz4.four" class="mx-2" label="Fog"></v-checkbox>
                 </v-row>
             </td>
         </tr>
@@ -473,7 +473,7 @@ export default {
                     return this.hazrad2 
                  }
         },
-        haz1(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz1db != null )
+        haz1(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz1db != "null" )
                  { console.log('yes value-haz1db-',this.gettk5.haz1db)
                   this.haz1d=JSON.parse(this.gettk5.haz1db);
                   }
@@ -482,7 +482,7 @@ export default {
                   }
                   return this.haz1d 
               },
-        haz2(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz2db != null )
+        haz2(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz2db != "null" )
                  { console.log('yes value-haz2db-',this.gettk5.haz2db)
                   this.haz2d=JSON.parse(this.gettk5.haz2db);
                   }
@@ -491,7 +491,7 @@ export default {
                   }
                   return this.haz2d 
               },
-          haz3(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz3db != null )
+          haz3(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz3db != "null" )
                  { console.log('yes value-haz3db-',this.gettk5.haz3db)
                   this.haz3d=JSON.parse(this.gettk5.haz3db);
                   }
@@ -499,6 +499,123 @@ export default {
                     this.haz3d.one=null;  this.haz3d.two=null; this.haz3d.three=null;this.haz3d.four=null;
                   }
                   return this.haz3d 
+              },
+          haz4(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz4db != "null" )
+                 { console.log('yes value-haz4db-',this.gettk5.haz4db)
+                  this.haz4d=JSON.parse(this.gettk5.haz4db);
+                  }
+              else {  console.log('no value-haz4db-')
+                    this.haz4d.one=null;  this.haz4d.two=null; this.haz4d.three=null;this.haz4d.four="null";
+                  }
+                  return this.haz4d 
+              },
+        haz5(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz5db != "null" )
+                 { console.log('yes value-haz5db-',this.gettk5.haz5db)
+                  this.haz5d=JSON.parse(this.gettk5.haz5db);
+                  }
+              else {  console.log('no value-haz5db-')
+                    this.haz5d.one=null;  this.haz5d.two=null; this.haz5d.three=null;this.haz5d.four="null";
+                  }
+                  return this.haz5d 
+              },
+        haz6(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz6db != "null" )
+                 { console.log('yes value-haz6db-',this.gettk5.haz6db)
+                  this.haz6d=JSON.parse(this.gettk5.haz6db);
+                  }
+              else {  console.log('no value-haz6db-')
+                    this.haz6d.one=null;  this.haz6d.two=null; this.haz6d.three=null;this.haz6d.four=null;
+                  }
+                  return this.haz6d 
+              },
+          haz7(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz7db != "null" )
+                 { console.log('yes value-haz7db-',this.gettk5.haz7db)
+                  this.haz7d=JSON.parse(this.gettk5.haz7db);
+                  }
+              else {  console.log('no value-haz7db-')
+                    this.haz7d.one=null;  this.haz7d.two=null; this.haz7d.three=null;this.haz7d.four=null;
+                  }
+                  return this.haz7d 
+              },
+          haz8(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz8db != "null" )
+                 { console.log('yes value-haz8db-',this.gettk5.haz8db)
+                  this.haz8d=JSON.parse(this.gettk5.haz8db);
+                  }
+              else {  console.log('no value-haz8db-')
+                    this.haz8d.one=null;  this.haz8d.two=null; this.haz8d.three=null;this.haz8d.four=null;
+                  }
+                  return this.haz8d 
+              },
+          haz9(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz9db != "null" )
+                 { console.log('yes value-haz9db-',this.gettk5.haz9db)
+                  this.haz9d=JSON.parse(this.gettk5.haz9db);
+                  }
+              else {  console.log('no value-haz9db-')
+                    this.haz9d.one=null;  this.haz9d.two=null; this.haz9d.three=null;this.haz9d.four=null;
+                  }
+                  return this.haz9d 
+              },
+            haz10(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz10db != "null" )
+                 { console.log('yes value-haz10db-',this.gettk5.haz10db) //varchar- null ="null", bool null=null
+                  this.haz10d=JSON.parse(this.gettk5.haz10db);
+                  }
+              else {  console.log('no value-haz10db-')
+                    this.haz10d.one=null;  this.haz10d.two=null; this.haz10d.three=null;this.haz10d.four=null;
+                  }
+                  return this.haz10d 
+              },
+            haz11(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz11db != "null" )
+                 { console.log('yes value-haz10db-',this.gettk5.haz11db) //varchar- null ="null", bool null=null
+                  this.haz11d=JSON.parse(this.gettk5.haz11db);
+                  }
+              else {  console.log('no value-haz11db-')
+                    this.haz11d.one=null;  this.haz11d.two=null; this.haz11d.three=null;this.haz11d.four=null;
+                  }
+                  return this.haz11d 
+              },
+            haz12(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz12db != "null" )
+                 { console.log('yes value-haz12db-',this.gettk5.haz12db) //varchar- null ="null", bool null=null
+                  this.haz12d=JSON.parse(this.gettk5.haz12db);
+                  }
+              else {  console.log('no value-haz12db-')
+                    this.haz12d.one=null;  this.haz12d.two=null; 
+                  }
+                  return this.haz12d 
+              },
+            haz13(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz13db != "null" )
+                 { console.log('yes value-haz13db-',this.gettk5.haz13db) //varchar- null ="null", bool null=null
+                  this.haz13d=JSON.parse(this.gettk5.haz13db);
+                  }
+              else {  console.log('no value-haz13db-')
+                    this.haz13d.one=null;  this.haz13d.two=null; this.haz13d.three=null;this.haz13d.four=null;
+                  }
+                  return this.haz13d 
+              },
+            haz14(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz14db != "null" )
+                 { console.log('yes value-haz14db-',this.gettk5.haz14db) //varchar- null ="null", bool null=null
+                  this.haz14d=JSON.parse(this.gettk5.haz14db);
+                  }
+              else {  console.log('no value-haz14db-')
+                    this.haz14d.one=null;  this.haz14d.two=null; this.haz14d.three=null;this.haz14d.four=null;
+                  }
+                  return this.haz14d 
+              },
+            haz15(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz15db != "null" )
+                 { console.log('yes value-haz15db-',this.gettk5.haz15db) //varchar- null ="null", bool null=null
+                  this.haz15d=JSON.parse(this.gettk5.haz15db);
+                  }
+              else {  console.log('no value-haz10db-')
+                    this.haz15d.one=null;  this.haz15d.two=null; this.haz15d.three=null;this.haz15d.four=null;
+                  }
+                  return this.haz15d 
+              },
+             haz16(){  if(this.gettk5 && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO && this.gettk5.haz16db != "null" )
+                 { console.log('yes value-haz16db-',this.gettk5.haz16db) //varchar- null ="null", bool null=null
+                  this.haz16d=JSON.parse(this.gettk5.haz16db);
+                  }
+              else {  console.log('no value-haz16db-')
+                    this.haz16d.one=null; 
+                  }
+                  return this.haz16d 
               },
 
       },
@@ -512,26 +629,26 @@ export default {
           haz1d:{one:null,two:null,three:null},
           haz2d:{one:null,two:null,three:null,four:null},
           haz3d:{one:null,two:null,three:null,four:null},
-          haz4:{one:null,two:null,three:null,four:null},
-          haz5:{one:null,two:null,three:null,four:null},
-          haz6:{one:null,two:null,three:null,four:null},
-          haz7:{one:null,two:null,three:null,four:null},
-          haz8:{one:null,two:null,three:null,four:null},
-          haz9:{one:null,two:null,three:null,four:null},
-          haz10:{one:null,two:null,three:null,four:null},
-          haz11:{one:null,two:null,three:null,four:null},
-          haz12:{one:null,two:null,three:null,four:null},
-          haz13:{one:null,two:null,three:null,four:null},
-          haz14:{one:null,two:null,three:null,four:null},
-          haz15:{one:null,two:null,three:null,four:null},
-          haz16:{one:null,two:null,three:null,four:null},
+          haz4d:{one:null,two:null,three:null,four:null},
+          haz5d:{one:null,two:null,three:null,four:null},
+          haz6d:{one:null,two:null,three:null,four:null},
+          haz7d:{one:null,two:null,three:null,four:null},
+          haz8d:{one:null,two:null,three:null,four:null},
+          haz9d:{one:null,two:null,three:null,four:null},
+          haz10d:{one:null,two:null,three:null,four:null},
+          haz11d:{one:null,two:null,three:null,four:null},
+          haz12d:{one:null,two:null},
+          haz13d:{one:null,two:null,three:null,four:null},
+          haz14d:{one:null,two:null,three:null,four:null},
+          haz15d:{one:null,two:null,three:null,four:null},
+          haz16d:{one:null},
 
           formd:{FNAME:'',LNAME:'',CNAME:'',PHONE:'',POST_CODE:'',ADDRESS:'',rad:'',id:''},
                  
         }
     },
     methods: {
-        inputChange(){ console.log('this.haz1=',this.haz1);
+        inputChange(){ console.log('this.haz2=',this.haz2);
            // console.log('this.prerad=',this.prerad);
            //  console.log('this.resrad=',this.resrad);
            //  console.log('this.hazresrad=',this.hazresrad);
@@ -553,6 +670,19 @@ export default {
               this.formd.haz1f=this.haz1;
               this.formd.haz2f=this.haz2;
               this.formd.haz3f=this.haz3;
+              this.formd.haz4f=this.haz4;
+              this.formd.haz5f=this.haz5;
+              this.formd.haz6f=this.haz6;
+              this.formd.haz7f=this.haz7;
+              this.formd.haz8f=this.haz8;
+              this.formd.haz9f=this.haz9;
+              this.formd.haz10f=this.haz10;
+              this.formd.haz11f=this.haz11;
+              this.formd.haz12f=this.haz12;
+              this.formd.haz13f=this.haz13;
+              this.formd.haz14f=this.haz14;
+              this.formd.haz15f=this.haz15;
+              this.formd.haz16f=this.haz16;
               console.log('validated-this.formdp',this.formd)
               this.$store.dispatch('addtk5', this.formd) 
             }
@@ -571,6 +701,19 @@ export default {
               this.formd.haz1f=this.haz1;
               this.formd.haz2f=this.haz2;
               this.formd.haz3f=this.haz3;
+              this.formd.haz4f=this.haz4;
+              this.formd.haz5f=this.haz5;
+              this.formd.haz6f=this.haz6;
+              this.formd.haz7f=this.haz7;
+              this.formd.haz8f=this.haz8;
+              this.formd.haz9f=this.haz9;
+              this.formd.haz10f=this.haz10;
+              this.formd.haz11f=this.haz11;
+              this.formd.haz12f=this.haz12;
+              this.formd.haz13f=this.haz13;
+              this.formd.haz14f=this.haz14;
+              this.formd.haz15f=this.haz15;
+              this.formd.haz16f=this.haz16;
               console.log('edit-this.formd',this.formd)
               this.$store.dispatch('edittk5', this.formd) 
             }
