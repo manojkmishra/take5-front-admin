@@ -10,6 +10,7 @@ import status from '@/components/status/status.vue'
 import flags from '@/components/flags/flags.vue'
 import covid19 from '@/components/c19/c19.vue'
 import take5 from '@/components/t5/t5.vue'
+import picupload from '@/components/img/img.vue'
 import Middlewares from "../middlewares/";
 
 Vue.use(VueRouter)
@@ -24,7 +25,8 @@ const routes = [
   {path:'/status',name:'status',component: status,meta: {middleware: [Middlewares.auth]}  } ,
   {path:'/flags',name:'flags',component: flags,meta: {middleware: [Middlewares.auth]}  } , 
   {path:'/covid19',name:'covid19',component: covid19,meta: {middleware: [Middlewares.auth]}  } , 
-  {path:'/take5',name:'take5',component: take5 ,meta: {middleware: [Middlewares.auth]}  } , 
+  {path:'/take5',name:'take5',component: take5 ,meta: {middleware: [Middlewares.auth]}  } ,
+  {path:'/picupload',name:'picupload',component: picupload ,meta: {middleware: [Middlewares.auth]}  } ,  
 ]
 const router = new VueRouter({
   mode: 'history', base: process.env.BASE_URL, routes

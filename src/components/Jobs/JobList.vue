@@ -92,7 +92,7 @@
      </template>
 
     <template v-slot:item.pics="{ item }">
-       <v-btn ripple x-small  color="red lighten-2" rounded dark >Pics</v-btn>
+      <v-btn ripple x-small  color="red lighten-2 " rounded dark @click.prevent="picfn(item)" >Pics</v-btn>
     </template>
 
     <template v-slot:item.c19="{ item }">
@@ -190,6 +190,13 @@ export default
                 x.jobpage=1;
             this.$store.dispatch('gettk5', x);
             this.$router.push({name: 'take5'});
+          },
+        picfn(x)
+          { console.log('t5fn-item=',x)
+            //this.$store.dispatch('selectedsjc', x);
+               // x.jobpage=1;
+            //this.$store.dispatch('gettk5', x);
+            this.$router.push({name: 'picupload'});
           },
         
         editItem (item) 
