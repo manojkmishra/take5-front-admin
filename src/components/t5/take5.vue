@@ -28,7 +28,7 @@
         <tr><td>Client</td> <td>{{selectedsjc.CLIENT_NAME }}</td> </tr>
         <tr><td>Address</td> <td>{{selectedsjc.SITE_ADDRESS }}</td>  </tr>
         <tr><td>Date</td> <td>{{selectedsjc.DELIVERY_DATE }}</td>  </tr>
-        <tr><td>Task</td> <td><v-text-field class="purple-input" label="Describe Task..."/> </td>  </tr>
+        <tr><td>Task</td> <td><v-text-field v-model="DESCRIPTION" class="purple-input" label="Describe Task... "/> </td>  </tr>
       </tbody>
     </template>
   </v-simple-table>
@@ -505,7 +505,7 @@ export default {
                   this.haz4d=JSON.parse(this.gettk5.haz4db);
                   }
               else {  console.log('no value-haz4db-')
-                    this.haz4d.one=null;  this.haz4d.two=null; this.haz4d.three=null;this.haz4d.four="null";
+                    this.haz4d.one=null;  this.haz4d.two=null; this.haz4d.three=null;this.haz4d.four=null;
                   }
                   return this.haz4d 
               },
@@ -514,7 +514,7 @@ export default {
                   this.haz5d=JSON.parse(this.gettk5.haz5db);
                   }
               else {  console.log('no value-haz5db-')
-                    this.haz5d.one=null;  this.haz5d.two=null; this.haz5d.three=null;this.haz5d.four="null";
+                    this.haz5d.one=null;  this.haz5d.two=null; this.haz5d.three=null;this.haz5d.four=null;
                   }
                   return this.haz5d 
               },
@@ -621,7 +621,7 @@ export default {
       },
     data () {
       return {
-          formValid:false,resubmit:false,
+          formValid:false,resubmit:false,DESCRIPTION:null,
           prerad2:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null, rad8:null},
           hazrad2:{rad1:null,rad2:null},
           hazresrad2:{rad:null},
@@ -662,6 +662,7 @@ export default {
             { this.formd.sjcid=this.selectedsjc.id
               this.formd.V6_ORDER_NO=this.selectedsjc.V6_ORDER_NO
               this.formd.SJC_NO=this.selectedsjc.SJC_NO
+              this.formd.DESCRIPTION=this.DESCRIPTION;
               this.formd.prerad1=this.prerad;
               this.formd.resrad1=this.resrad.rad;
               this.formd.hazresrad1=this.hazresrad.rad;
@@ -693,6 +694,7 @@ export default {
               this.formd.sjcid=this.selectedsjc.id
               this.formd.V6_ORDER_NO=this.selectedsjc.V6_ORDER_NO
               this.formd.SJC_NO=this.selectedsjc.SJC_NO
+              this.formd.DESCRIPTION=this.DESCRIPTION;
               this.formd.prerad1=this.prerad;
               this.formd.hazrad1=this.hazrad;
               this.formd.resrad1=this.resrad.rad;

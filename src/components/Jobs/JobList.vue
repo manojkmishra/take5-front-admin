@@ -6,9 +6,9 @@
         :footer-props="{showFirstLastPage: true, itemsPerPageOptions: [10,20,40,-1], }">
     <template v-slot:top >
         <v-toolbar flat dark dense color="blue darken-4">
-            <v-toolbar-title>JOBS</v-toolbar-title>
+            <v-toolbar-title>ALL JOBS</v-toolbar-title>
              <v-divider class="mx-4" inset vertical ></v-divider>
-          <!-- <v-toolbar-title class="pr-4" >JOBS </v-toolbar-title> -->            
+           <v-toolbar-title class="pr-4" >ADMIN USER </v-toolbar-title>            
             <v-spacer></v-spacer>
             <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
 
@@ -101,7 +101,8 @@
     </template>
 
     <template v-slot:item.t5="{ item }">
-       <v-btn ripple x-small  color="red lighten-2 " rounded dark @click.prevent="t5fn(item)" >Tk5</v-btn>
+      <v-btn v-if="item.TAKE5STATUS==1" ripple x-small  color="teal" rounded dark @click.prevent="t5fn(item)"  >Tk5</v-btn>
+       <v-btn v-else ripple x-small  color="red lighten-2" rounded dark @click.prevent="t5fn(item)"  >Tk5</v-btn>
     </template>
 
     <template v-slot:item.jc="{ item }">

@@ -1,14 +1,17 @@
 <template> 
-<div class="mt-10">
+<div>
+<div v-if="user.admin==1" class="mt-10">
+  <joblist/></div>
+<div  class="mt-10" v-else>
         <v-progress-linear :active="loading" :indeterminate="loading" absolute   top  color="deep-purple accent-4"
       ></v-progress-linear>
   <v-data-table :headers="headers" :items="getuserjobs" dense  class="elevation-1" :search="search"
         :footer-props="{showFirstLastPage: true, itemsPerPageOptions: [10,20,40,-1], }">
     <template v-slot:top >
         <v-toolbar flat dark dense color="blue darken-4">
-            <v-toolbar-title>{{formattedDate}} JOBS for {{user.name}}</v-toolbar-title>
+            <v-toolbar-title>  USER-{{user.name}} </v-toolbar-title>
              <v-divider class="mx-4" inset vertical ></v-divider>
-          <!-- <v-toolbar-title class="pr-4" >JOBS </v-toolbar-title> -->            
+          <v-toolbar-title class="pr-4" >JOBS for {{formattedDate}} </v-toolbar-title>            
             <v-spacer></v-spacer>
             <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
 
@@ -30,7 +33,8 @@
     </template>
 
     <template v-slot:item.t5="{ item }">
-       <v-btn ripple x-small  color="red lighten-2 " rounded dark @click.prevent="t5fn(item)" >TK5</v-btn>
+      <v-btn v-if="item.TAKE5STATUS==1" ripple x-small  color="teal" rounded dark @click.prevent="t5fn(item)"  >Tk5</v-btn>
+       <v-btn v-else ripple x-small  color="red lighten-2" rounded dark @click.prevent="t5fn(item)"  >Tk5</v-btn>
     </template>
 
     <template v-slot:item.jc="{ item }">
@@ -46,15 +50,18 @@
     </template>
   </v-data-table>
  </div>
+ </div>
 </template>
 <script>
 import Vue from 'vue'
+import joblist from '../Jobs/JobList.vue'
 import { mapGetters, mapState, mapActions} from 'vuex';
 import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
 import axios from "axios";
 export default
-{   computed: { 
+{    components: { 'joblist': joblist, },
+  computed: { 
               ...mapGetters({authenticated:'auth/authenticated',
                        user:'auth/user'
                       }),
@@ -65,7 +72,7 @@ export default
         }),
       formattedDate(){
                 var today = new Date();
-                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
                 //var date1 = today.getDate()+'-'+(today.getMonth()+1);
 
                 return date;
