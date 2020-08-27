@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <v-row no-gutters justify="center" align="center">
-         <v-col cols="8">
+         <v-col cols="12">
 <v-file-input
       v-model="files"
       small-chips
@@ -25,22 +25,28 @@
 
     </v-file-input>
     </v-col>
-          <v-col cols="4" class="pl-2">
+
+     </v-row>
+     <v-row>
+               <v-col cols="12" class="pr-5">
         <v-btn color="success" dark small @click="upload">
           Upload
           <v-icon right dark>mdi-cloud-upload</v-icon>
         </v-btn>
       </v-col>
-     </v-row>
+      </v-row>
     <div v-show="previews.length">
         <h5>preview</h5>
        <!-- {{previews.length}} -->
        <v-layout row>
         <div v-for="(image, index) in previews" :key="index">
             <v-flex>
-                <img :src="image" height="50"> <br>
-                <v-chip><span class="name" v-text="files[index].name"></span>-
-                                  <span class="size" v-text="getFileSize(files[index].size)"></span>
+                <img :src="image" height="100"> 
+                <br>
+                <v-chip close
+                            @click:close="remove(index)"><span class="name" v-text="files[index].name"></span>-
+                        <span class="size"  v-text="getFileSize(files[index].size)" ></span>
+                        <span ></span>
                 </v-chip>
             </v-flex>
         </div>
