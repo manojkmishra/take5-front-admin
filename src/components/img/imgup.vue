@@ -41,7 +41,7 @@
        <v-layout row>
         <div v-for="(image, index) in previews" :key="index">
             <v-flex>
-                <img :src="image" height="100"> 
+                <img :src="image" height="200"> 
                 <br>
                 <v-chip close
                             @click:close="remove(index)"><span class="name" v-text="files[index].name"></span>-
