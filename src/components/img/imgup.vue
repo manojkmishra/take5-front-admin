@@ -1,4 +1,5 @@
 <template>
+<div>
     <div class="container">
       <v-row no-gutters justify="center" align="center">
          <v-col cols="12">
@@ -38,20 +39,35 @@
        </v-layout>
 
     </div>
-   <hr>
-    <div v-show="getpic.length">
-       <v-layout row>
-        <div v-for="(image, index) in getpic" :key="index">
-            <v-col cols="12" sm="3" md="3">>
-            
-                <img :src="`http://localhost:8000${image.picname}`" height="200" width="200"
-                > <br>
-                  {{image.picname}}
-            </v-col>
-        </div>
-       </v-layout>
-    </div>
+    </div> <!----container-finish---------->
+ 
+<div class="block galleryBlock">
+    <v-container>
+      <h2 class="text-center">Images</h2>
+      <v-row>
+        <v-col v-for="(image, index) in getpic" :key="index" class="d-flex child-flex" cols="12" sm="4" md="3">
+          <v-card outlined tile class="mx-auto">
+            <v-img :src="`http://localhost:8000${image.picname}`" aspect-ratio="1" class="grey lighten-2">
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                  <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                </v-row>
+              </template>
+            </v-img>
+            <v-card-text class="text--primary">
+              <div>{{ image.picname }}</div>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="teal" text>Delete</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
+
+    <!------>
+</div>
 </template>
 <script>
 import axios from 'axios'
