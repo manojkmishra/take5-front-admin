@@ -47,18 +47,20 @@
       <v-row>
         <v-col v-for="(image, index) in getpic" :key="index" class="d-flex child-flex" cols="12" sm="4" md="3">
           <v-card outlined tile class="mx-auto">
-            <v-img :src="`http://localhost:8000${image.picname}`" aspect-ratio="1" class="grey lighten-2">
-              <template v-slot:placeholder>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
+            <a :href="`http://localhost:8000${image.PATH}`">
+              <v-img :src="`http://localhost:8000${image.PATH}`" aspect-ratio="1" class="grey lighten-2">
+                <template v-slot:placeholder>
+                  <v-row class="fill-height ma-0" align="center" justify="center">
+                    <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                  </v-row>
+                </template>
+              </v-img>
+              </a>
             <v-card-text class="text--primary">
               <div>{{ image.picname }}</div>
             </v-card-text>
             <v-card-actions>
-              <v-btn color="teal" text>Delete</v-btn>
+              <v-btn color="teal" @click="delpic(image)" text>Delete</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -87,9 +89,13 @@ export default {
         }
       },
    data: () => ({
-    files: [],images: [], previews : [],ress:[],formd:{id:''}
+    files: [],images: [], previews : [],ress:[],formd:{SJC_NO:''}
   }),
   methods: {
+    delpic(x){
+      console.log('del',x)
+      this.$store.dispatch('delpic', x) 
+    },
     
     remove (index) {
       this.files.splice(index, 1)
@@ -136,7 +142,7 @@ export default {
                                 })
                     //axios.post('https://uat.oms.dowell.com.au/api/imagesupload', formData)
                         .then(response => {
-                          this.formd.id=this.selectedsjc.id;
+                          this.formd.SJC_NO=this.selectedsjc.id;
                          // let id=this.selectedsjc.id;
                           this.$store.dispatch('getpic', this.formd) 
                          // this.$store.dispatch('getpic', x);

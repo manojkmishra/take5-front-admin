@@ -128,6 +128,12 @@ export default
       .then(res => { commit({type: types.GET_PIC, getpic: res.data} ); })
       return res;
     },
+    async delpic ({commit,dispatch}, formData)
+    {    console.log('delpic-- formData=', formData);
+          let res= await axios.post(api.delpic, formData)
+                  .then(res => { dispatch('getpic',formData); })
+            return res;
+    },
     async editc19 ({dispatch}, formData)
     {   console.log('editc19-- formData=', formData);
           let res= await axios.post(api.editc19, formData)  
