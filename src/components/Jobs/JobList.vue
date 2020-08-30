@@ -8,7 +8,7 @@
         <v-toolbar flat dark dense color="blue darken-4">
             <v-toolbar-title>ALL JOBS</v-toolbar-title>
              <v-divider class="mx-4" inset vertical ></v-divider>
-           <v-toolbar-title class="pr-4" >ADMIN USER </v-toolbar-title>            
+           <v-toolbar-title class="pr-4" >ADMIN USER - {{user.name}} </v-toolbar-title>            
             <v-spacer></v-spacer>
             <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
 
@@ -188,15 +188,15 @@ export default
         t5fn(x)
           { console.log('t5fn-item=',x)
             this.$store.dispatch('selectedsjc', x);
-                x.jobpage=1;
+                x.jobpage=1; //to diff bw jobs from this page and inside take5
             this.$store.dispatch('gettk5', x);
             this.$router.push({name: 'take5'});
           },
         picfn(x)
-          { console.log('t5fn-item=',x)
-            //this.$store.dispatch('selectedsjc', x);
-               // x.jobpage=1;
-            //this.$store.dispatch('gettk5', x);
+          { console.log('picfn-item=',x)
+            this.$store.dispatch('selectedsjc', x);
+                x.jobpage=1;
+            this.$store.dispatch('getpic', x);
             this.$router.push({name: 'picupload'});
           },
         
@@ -267,12 +267,17 @@ export default
         
           },
   computed: { 
+    ...mapGetters({authenticated:'auth/authenticated',
+                       user:'auth/user'
+                      }),
           ...mapState({
         
             jobtypeoptions:state => state.jobs.jobtypeoptions,
              useroptions:state => state.user.useroptions,
         }),
-      formattedDate(){return this.editedItem.DELIVERY_DATE ? format(parseISO(this.editedItem.DELIVERY_DATE),'do MMM yyyy') : ''},
+      formattedDate(){
+        return this.editedItem.DELIVERY_DATE ? format(parseISO(this.editedItem.DELIVERY_DATE),'do MMM yyyy') : ''
+        },
       formTitle() {  if (this.dialogDelete) { return "Delete Flag";} 
                      else if (this.editedIndex === -1) { console.log('formtitle()-this.editindx(-1=new)',this.editedIndex);
                                         return "New Job"; }

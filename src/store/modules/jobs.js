@@ -5,7 +5,7 @@ import * as api from '../config';
 export default
 {
   state: {getjobs:null,getjobtypes:null, jobtypeoptions:[],selectedsjc:null, 
-      getc19:null,getuserjobs:null,gettk5:null,
+      getc19:null,getuserjobs:null,gettk5:null,getpic:null,
         },
   getters:{
   },
@@ -22,6 +22,10 @@ export default
     [types.GET_C19 ] (state, payload) 
     { state.getc19 = payload.getc19;
      console.log('/store/saw.js-types.GET_C19 state=', state);
+    },
+    [types.GET_PIC ] (state, payload) 
+    { state.getpic = payload.getpic;
+     console.log('/store/saw.js-types.GET_PIC state=', state);
     },
     [types.GET_TK5 ] (state, payload) 
     { state.gettk5 = payload.gettk5;
@@ -44,7 +48,10 @@ export default
   actions:{
       //get jobs --currently get used-thinking of getting just 500 jobs for admin so no post
       //in future post will be used to get jobs filtered based on field user logedin
-    selectedsjc: ({commit}, data) => {commit({  type: types.SET_SELECTED_SJC ,selectedsjc: data   });  },
+    selectedsjc: ({commit}, data) => {
+          console.log('set selectedjob',data)
+          commit({  type: types.SET_SELECTED_SJC ,selectedsjc: data   });  
+      },
     async getjobs ({commit,dispatch}) 
     { let res= await axios.get(api.getjobs);  
       //commit({type:types.GET_JOBS ,  getjobs: res.data} ); 
@@ -114,6 +121,11 @@ export default
     async getc19 ({commit,dispatch}, formData)
     {   let res= await axios.post(api.getc19, formData)
       .then(res => { commit({type: types.GET_C19, getc19: res.data} ); })
+      return res;
+    },
+    async getpic ({commit,dispatch}, formData)
+    {   let res= await axios.post(api.getpic, formData)
+      .then(res => { commit({type: types.GET_PIC, getpic: res.data} ); })
       return res;
     },
     async editc19 ({dispatch}, formData)

@@ -394,7 +394,7 @@
 import { mapGetters, mapState, mapActions} from 'vuex';
 export default {
     computed: 
-      { ...mapState({ selectedsjc: state => state.jobs.selectedsjc, }),
+      { 
         ...mapState({ selectedsjc: state => state.jobs.selectedsjc, 
                         gettk5: state => state.jobs.gettk5, 
                         user: state => state.auth.user,    

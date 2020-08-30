@@ -24,6 +24,7 @@ export const addtk5 = apiDomain+ '/take5/addtk5';
 export const edittk5 = apiDomain+ '/take5/edittk5';
 export const deltk5 = apiDomain+ '/take5/deltk5';
 export const gettk5 = apiDomain+ '/take5/gettk5';
+export const getpic = apiDomain+ '/take5/getpic';
 
 
 
