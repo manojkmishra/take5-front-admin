@@ -1,6 +1,18 @@
 <template>
 <div>
     <div class="container">
+      <div v-if="files.length">
+      <div>
+        <v-progress-linear
+          v-model="progress"
+          color="light-blue"
+          height="25"
+          reactive
+        >
+          <strong>{{ progress }} %</strong>
+        </v-progress-linear>
+      </div>
+    </div>
       <v-row no-gutters justify="center" align="center">
          <v-col cols="12">
             <v-file-input v-model="files" small-chips  show-size  multiple clearable @change="inputChanged">
@@ -89,7 +101,7 @@ export default {
         }
       },
    data: () => ({
-    files: [],images: [], previews : [],ress:[],formd:{SJC_NO:''}
+    files: [],images: [], previews : [],ress:[],formd:{SJC_NO:''},progress: 0,
   }),
   methods: {
     delpic(x){
@@ -101,44 +113,62 @@ export default {
       this.files.splice(index, 1)
       this.previews.splice(index, 1)
     },
-   // inputChanged () {
-    //  console.log(this.files)
-   // },
-   inputChanged(e) { // this.files = e.target.files;
-   console.log(e)
-    console.log('files selected-',this.files)
-    this.previews = [];
-    this.files.forEach((file, index) => {
-        const reader = new FileReader();
-        reader.onload = (e) => this.previews.push(e.target.result);
-                        reader.readAsDataURL(file);
-    });
-    console.log('previews=',this.previews)
-    console.log('previews len=',this.previews.length)
-    console.log('files len=',this.files.length)
-
-                        },
-            getFileSize(size) { const fSExt = ['Bytes', 'KB', 'MB', 'GB'];
-                            let i = 0;
-                            while(size > 900) { size /= 1024; i++; }
-                            return `${(Math.round(size * 100) / 100)} ${fSExt[i]}`;
-                          },
+   inputChanged(e) 
+   { // this.files = e.target.files;
+      console.log(e)
+        console.log('files selected-',this.files)
+        this.previews = [];
+        this.files.forEach((file, index) => {
+          if (!file.type.match('image.*')) 
+            {  swal.fire({
+                  position: 'bottom-left',
+                  title:'<span style="color:white">Only image files allowed</span>',
+                  timer: 2000,toast: true, background: 'black', color:'white'
+                 });
+              this.previews = []; this.files = [];
+              return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => this.previews.push(e.target.result);
+                            reader.readAsDataURL(file);
+        });
+        console.log('previews=',this.previews)
+        console.log('previews len=',this.previews.length)
+        console.log('files len=',this.files.length)
+      },
+getFileSize(size) 
+      {   const fSExt = ['Bytes', 'KB', 'MB', 'GB'];
+          let i = 0;
+          while(size > 900) { size /= 1024; i++; }
+          return `${(Math.round(size * 100) / 100)} ${fSExt[i]}`;
+      },
 //--------------------------------
-       async upload(){
-                    const formData = new FormData();
-                    formData.append('sjcid',this.selectedsjc.id);
+       async upload()
+       {  console.log('upload this.files=',this.files)
+          console.log('upload this.files.len=',this.files.length)
+          if(this.files[0]==null)
+            {console.log('upload-no files selected')
+              swal.fire({
+                  position: 'bottom-left',
+                  title:'<span style="color:white">Please select the files</span>',
+                  timer: 2000,toast: true, background: 'black', color:'white'
+                 });
+            return;
+            }
+          const formData = new FormData();
+          formData.append('sjcid',this.selectedsjc.id);
                     // const sjcid=this.selectedsjc.id;
                     
                     this.files.forEach(file => 
                     {    formData.append('images[]', file, file.name);   });
-                    console.log('upload this.files=',this.files)
+                    
                     console.log('upload triggered FormData=',formData)
                    // resp=axios.post('http://127.0.0.1:8000/sendemail1',this.formData); 
                     await axios.post('http://127.0.0.1:8000/api/take5/imagesupload', formData,
                    // axios.post('http://54.79.50.225/api/take5/imagesupload', formData,
-                                { //onUploadProgress:uploadEvent=>{ this.progress=Math.round(uploadEvent.loaded/uploadEvent.total*100);
-                                   //     console.log('upld prges:'+ Math.round(uploadEvent.loaded/uploadEvent.total*100)+'%')
-                                   // }
+                                { onUploadProgress:uploadEvent=>{ this.progress=Math.round(uploadEvent.loaded/uploadEvent.total*100);
+                                       // console.log('upld prges:'+ Math.round(uploadEvent.loaded/uploadEvent.total*100)+'%')
+                                    }
                                 })
                     //axios.post('https://uat.oms.dowell.com.au/api/imagesupload', formData)
                         .then(response => {
@@ -152,7 +182,7 @@ export default {
                             this.images = [];
                             this.files = [];
                             this.previews = [];
-                           // this.progress = 0;
+                            this.progress = 0;
                             })
                         .catch((e) => {
                                     console.log('images error',e)
@@ -160,7 +190,7 @@ export default {
                                     this.images = [];
                                     this.files = [];
                                     this.previews = [];
-                                    //this.progress = 0;
+                                    this.progress = 0;
                                     });
 
     },
