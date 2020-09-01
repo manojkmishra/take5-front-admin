@@ -41,7 +41,9 @@
       <v-row>
         <v-col v-for="(image, index) in getpdf" :key="index" class="d-flex child-flex" cols="12" sm="4" md="2">
           <v-card outlined tile class="mx-auto">
-            <a :href="`${filepath}${image.PATH}`">
+            <!--<a :href="`${filepath}${image.PATH}`">-->
+              <a :href="`http://54.79.50.225/${image.PATH}`">
+              
               <v-img src="./pdficon.png" aspect-ratio="1" class="grey lighten-2">
                 <template v-slot:placeholder>
                   <v-row class="fill-height ma-0" align="center" justify="center">
@@ -146,8 +148,8 @@ getFileSize(size)
                     
                     console.log('upload triggered FormData=',formData)
                    // resp=axios.post('http://127.0.0.1:8000/sendemail1',this.formData); 
-                    await axios.post(`${axios.defaults.baseURL}/take5/take5/pdfupload`, formData,
-                   // axios.post('http://54.79.50.225/api/take5/imagesupload', formData,
+                   // await axios.post(`${axios.defaults.baseURL}/take5/pdfupload`, formData,
+                    axios.post('http://54.79.50.225/api/take5/pdfupload', formData,
                                 { onUploadProgress:uploadEvent=>{ this.progress=Math.round(uploadEvent.loaded/uploadEvent.total*100);
                                        // console.log('upld prges:'+ Math.round(uploadEvent.loaded/uploadEvent.total*100)+'%')
                                     }

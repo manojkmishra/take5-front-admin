@@ -59,8 +59,10 @@
       <v-row>
         <v-col v-for="(image, index) in getpic" :key="index" class="d-flex child-flex" cols="12" sm="4" md="3">
           <v-card outlined tile class="mx-auto">
-            <a :href="`${filepath}${image.PATH}`">
-              <v-img :src="`${filepath}${image.PATH}`" aspect-ratio="1" class="grey lighten-2">
+          <!--  <a :href="`${filepath}${image.PATH}`">
+              <v-img :src="`${filepath}${image.PATH}`" aspect-ratio="1" class="grey lighten-2"> -->
+            <a :href="`http://54.79.50.225/${image.PATH}`">
+              <v-img :src="`http://54.79.50.225/${image.PATH}`" aspect-ratio="1" class="grey lighten-2">
                 <template v-slot:placeholder>
                   <v-row class="fill-height ma-0" align="center" justify="center">
                     <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
@@ -171,8 +173,8 @@ getFileSize(size)
                     
                     console.log('upload triggered FormData=',formData)
                    // resp=axios.post('http://127.0.0.1:8000/sendemail1',this.formData); 
-                    await axios.post(`${axios.defaults.baseURL}/take5/imagesupload`, formData,
-                   // axios.post('http://54.79.50.225/api/take5/imagesupload', formData,
+                   // await axios.post(`${axios.defaults.baseURL}/take5/imagesupload`, formData,
+                    axios.post('http://54.79.50.225/api/take5/imagesupload', formData,
                                 { onUploadProgress:uploadEvent=>{ this.progress=Math.round(uploadEvent.loaded/uploadEvent.total*100);
                                        // console.log('upld prges:'+ Math.round(uploadEvent.loaded/uploadEvent.total*100)+'%')
                                     }
