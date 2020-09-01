@@ -5,7 +5,7 @@ import * as api from '../config';
 export default
 {
   state: {getjobs:null,getjobtypes:null, jobtypeoptions:[],selectedsjc:null, 
-      getc19:null,getuserjobs:null,gettk5:null,getpic:null,
+      getc19:null,getuserjobs:null,gettk5:null,getpic:null,getpdf:null,
         },
   getters:{
   },
@@ -26,6 +26,10 @@ export default
     [types.GET_PIC ] (state, payload) 
     { state.getpic = payload.getpic;
      console.log('/store/saw.js-types.GET_PIC state=', state);
+    },
+    [types.GET_PDF ] (state, payload) 
+    { state.getpdf = payload.getpdf;
+     console.log('/store/saw.js-types.GET_PDF state=', state);
     },
     [types.GET_TK5 ] (state, payload) 
     { state.gettk5 = payload.gettk5;
@@ -132,6 +136,17 @@ export default
     {    console.log('delpic-- formData=', formData);
           let res= await axios.post(api.delpic, formData)
                   .then(res => { dispatch('getpic',formData); })
+            return res;
+    },
+    async getpdf ({commit,dispatch}, formData)
+    {   let res= await axios.post(api.getpdf, formData)
+      .then(res => { commit({type: types.GET_PDF, getpdf: res.data} ); })
+      return res;
+    },
+    async delpdf ({commit,dispatch}, formData)
+    {    console.log('delpdf-- formData=', formData);
+          let res= await axios.post(api.delpdf, formData)
+                  .then(res => { dispatch('getpdf',formData); })
             return res;
     },
     async editc19 ({dispatch}, formData)

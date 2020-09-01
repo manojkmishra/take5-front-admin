@@ -94,6 +94,9 @@
     <template v-slot:item.pics="{ item }">
       <v-btn ripple x-small  color="red lighten-2 " rounded dark @click.prevent="picfn(item)" >Pics</v-btn>
     </template>
+    <template v-slot:item.pdfs="{ item }">
+      <v-btn ripple x-small  color="red lighten-2 " rounded dark @click.prevent="pdffn(item)" >PDF</v-btn>
+    </template>
 
     <template v-slot:item.c19="{ item }">
        <v-btn v-if="item.C19STATUS==1" ripple x-small  color="teal" rounded dark @click.prevent="c19fn(item)"  >C19</v-btn>
@@ -147,6 +150,7 @@ export default
              // { text: 'schedule_saw', align: 'left',  value: 'schedule_saw'},
               { text: 'BOM', align: 'left',  value: 'bom'},
               { text: 'Pics', value: 'pics',sortable: false },
+              { text: 'PDF', value: 'pdfs',sortable: false },
               { text: 'C19', value: 'c19' ,sortable: false},
               { text: 'T5', value: 't5',sortable: false },
               { text: 'JC', value: 'jc', sortable: false },
@@ -198,6 +202,13 @@ export default
                 x.jobpage=1;
             this.$store.dispatch('getpic', x);
             this.$router.push({name: 'picupload'});
+          },
+         pdffn(x)
+          { console.log('pdffn-item=',x)
+            this.$store.dispatch('selectedsjc', x);
+                x.jobpage=1;
+            this.$store.dispatch('getpdf', x);
+            this.$router.push({name: 'pdfupload'});
           },
         
         editItem (item) 

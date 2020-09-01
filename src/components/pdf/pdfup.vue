@@ -33,34 +33,16 @@
         </v-btn>
       </v-col>
       </v-row>
-    <div v-show="previews.length">
-        <h5>preview</h5>
-       <!-- {{previews.length}} -->
-       <v-layout row>
-        <div v-for="(image, index) in previews" :key="index">
-            <v-flex>
-                <img :src="image" height="200" width="200"> 
-                <br>
-                <v-chip close
-                            @click:close="remove(index)"><span class="name" v-text="files[index].name"></span>-
-                        <span class="size"  v-text="getFileSize(files[index].size)" ></span>
-                        <span ></span>
-                </v-chip>
-            </v-flex>
-        </div>
-       </v-layout>
-
-    </div>
     </div> <!----container-finish---------->
  
-<div class="block galleryBlock" >
+<div class="block galleryBlock">
     <v-container>
-      <h2 class="text-center">Images</h2>
+      <h2 class="text-center">PDFs</h2>
       <v-row>
-        <v-col v-for="(image, index) in getpic" :key="index" class="d-flex child-flex" cols="12" sm="4" md="3">
+        <v-col v-for="(image, index) in getpdf" :key="index" class="d-flex child-flex" cols="12" sm="4" md="2">
           <v-card outlined tile class="mx-auto">
             <a :href="`${filepath}${image.PATH}`">
-              <v-img :src="`${filepath}${image.PATH}`" aspect-ratio="1" class="grey lighten-2">
+              <v-img src="./pdficon.png" aspect-ratio="1" class="grey lighten-2">
                 <template v-slot:placeholder>
                   <v-row class="fill-height ma-0" align="center" justify="center">
                     <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
@@ -69,7 +51,7 @@
               </v-img>
               </a>
             <v-card-text class="text--primary">
-              <div>{{ image.picname }}</div>
+              <div>{{ image.PDFNAME }}</div>
             </v-card-text>
             <v-card-actions>
               <v-btn color="teal" @click="delpic(image)" text>Delete</v-btn>
@@ -85,27 +67,20 @@
 </template>
 <script>
 import axios from 'axios'
-
 import { mapGetters, mapState, mapActions} from 'vuex';
 export default {
     computed: 
       { 
         ...mapState({ selectedsjc: state => state.jobs.selectedsjc, 
                       user: state => state.auth.user,    
-                      getpic: state => state.jobs.getpic, 
+                      getpdf: state => state.jobs.getpdf, 
                     }),
-        filepath(){
+            filepath(){
           let path = axios.defaults.baseURL;
           let fpath=path.split("/api");
           let filepath=fpath[0];
           return filepath;
         }
-       /* savedimages(){
-            if(this.selectedsjc.PICS && this.selectedsjc.PICS !=null)
-            console.log('computed savedimages',this.selectedsjc.PICS)
-            var xx=JSON.parse(this.selectedsjc.PICS)
-            return xx;
-        }*/
       },
    data: () => ({
     files: [],images: [], previews : [],ress:[],formd:{SJC_NO:''},progress: 0,
@@ -113,7 +88,7 @@ export default {
   methods: {
     delpic(x){
       console.log('del',x)
-      this.$store.dispatch('delpic', x) 
+      this.$store.dispatch('delpdf', x) 
     },
     
     remove (index) {
@@ -126,10 +101,10 @@ export default {
         console.log('files selected-',this.files)
         this.previews = [];
         this.files.forEach((file, index) => {
-          if (!file.type.match('image.*')) 
+          if (!file.type.match('application/pdf')) 
             {  swal.fire({
                   position: 'bottom-left',
-                  title:'<span style="color:white">Only image files allowed</span>',
+                  title:'<span style="color:white">Only pdf files allowed</span>',
                   timer: 2000,toast: true, background: 'black', color:'white'
                  });
               this.previews = []; this.files = [];
@@ -171,7 +146,7 @@ getFileSize(size)
                     
                     console.log('upload triggered FormData=',formData)
                    // resp=axios.post('http://127.0.0.1:8000/sendemail1',this.formData); 
-                    await axios.post(`${axios.defaults.baseURL}/take5/imagesupload`, formData,
+                    await axios.post(`${axios.defaults.baseURL}/take5/take5/pdfupload`, formData,
                    // axios.post('http://54.79.50.225/api/take5/imagesupload', formData,
                                 { onUploadProgress:uploadEvent=>{ this.progress=Math.round(uploadEvent.loaded/uploadEvent.total*100);
                                        // console.log('upld prges:'+ Math.round(uploadEvent.loaded/uploadEvent.total*100)+'%')
@@ -181,11 +156,7 @@ getFileSize(size)
                         .then(response => {
                           this.formd.SJC_NO=this.selectedsjc.id;
                          // let id=this.selectedsjc.id;
-                          this.$store.dispatch('getpic', this.formd) 
-                         // this.$store.dispatch('getpic', x);
-                        //  this.getpic=response.data;
-                        //  console.log('all images uploaded',this.ress)
-
+                            this.$store.dispatch('getpdf', this.formd) 
                             this.images = [];
                             this.files = [];
                             this.previews = [];
