@@ -28,7 +28,7 @@
         <tr><td>Client</td> <td>{{selectedsjc.CLIENT_NAME }}</td> </tr>
         <tr><td>Address</td> <td>{{selectedsjc.SITE_ADDRESS }}</td>  </tr>
         <tr><td>Date</td> <td>{{selectedsjc.DELIVERY_DATE }}</td>  </tr>
-        <tr><td>Task</td> <td><v-text-field v-model="DESCRIPTION" class="purple-input" label="Describe Task... "/> </td>  </tr>
+        <tr><td>Task</td> <td><v-text-field v-model="formc.DESCRIPTION" class="purple-input" label="Describe Task... "/> </td>  </tr>
       </tbody>
     </template>
   </v-simple-table>
@@ -399,6 +399,19 @@ export default {
                         gettk5: state => state.jobs.gettk5, 
                         user: state => state.auth.user,    
                     }),
+        formc(){
+             if(this.gettk5  && this.gettk5.SJC_NO==this.selectedsjc.SJC_NO)
+              {
+                this.formd.DESCRIPTION=this.gettk5.DESCRIPTION;
+                console.log('desc=',this.formd)
+                return this.formd;
+              }
+              else{
+                this.formd.DESCRIPTION='';
+                console.log('desc=',this.formd.DESCRIPTION)
+                return this.formd;
+              }
+        },
         prerad1Rules() { return [this.prerad.rad1 !=null || "Pls select one"  ]; },
         prerad2Rules() { return [this.prerad.rad2 !=null || "Pls select one"  ]; },
         prerad3Rules() { return [this.prerad.rad3 !=null || "Pls select one"  ]; },
@@ -621,7 +634,7 @@ export default {
       },
     data () {
       return {
-          formValid:false,resubmit:false,DESCRIPTION:null,
+          formValid:false,resubmit:false,
           prerad2:{rad1:null,rad2:null,rad3:null,rad4:null,rad5:null,rad6:null,rad7:null, rad8:null},
           hazrad2:{rad1:null,rad2:null},
           hazresrad2:{rad:null},
@@ -643,7 +656,7 @@ export default {
           haz15d:{one:null,two:null,three:null,four:null},
           haz16d:{one:null},
 
-          formd:{FNAME:'',LNAME:'',CNAME:'',PHONE:'',POST_CODE:'',ADDRESS:'',rad:'',id:''},
+          formd:{FNAME:'',LNAME:'',CNAME:'',PHONE:'',POST_CODE:'',ADDRESS:'',rad:'',id:'',DESCRIPTION:null,},
                  
         }
     },
@@ -662,7 +675,7 @@ export default {
             { this.formd.sjcid=this.selectedsjc.id
               this.formd.V6_ORDER_NO=this.selectedsjc.V6_ORDER_NO
               this.formd.SJC_NO=this.selectedsjc.SJC_NO
-              this.formd.DESCRIPTION=this.DESCRIPTION;
+              //this.formd.DESCRIPTION=this.desc;
               this.formd.prerad1=this.prerad;
               this.formd.resrad1=this.resrad.rad;
               this.formd.hazresrad1=this.hazresrad.rad;
@@ -684,7 +697,7 @@ export default {
               this.formd.haz14f=this.haz14;
               this.formd.haz15f=this.haz15;
               this.formd.haz16f=this.haz16;
-              console.log('validated-this.formdp',this.formd)
+              console.log('submit---this.formd',this.formd)
               this.$store.dispatch('addtk5', this.formd) 
             }
         },
@@ -694,7 +707,7 @@ export default {
               this.formd.sjcid=this.selectedsjc.id
               this.formd.V6_ORDER_NO=this.selectedsjc.V6_ORDER_NO
               this.formd.SJC_NO=this.selectedsjc.SJC_NO
-              this.formd.DESCRIPTION=this.DESCRIPTION;
+              //this.formd.DESCRIPTION=this.formc.DESCRIPTION;
               this.formd.prerad1=this.prerad;
               this.formd.hazrad1=this.hazrad;
               this.formd.resrad1=this.resrad.rad;
@@ -716,6 +729,7 @@ export default {
               this.formd.haz14f=this.haz14;
               this.formd.haz15f=this.haz15;
               this.formd.haz16f=this.haz16;
+              console.log('edit-this.formc',this.formc)
               console.log('edit-this.formd',this.formd)
               this.$store.dispatch('edittk5', this.formd) 
             }
