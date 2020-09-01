@@ -94,19 +94,6 @@ export default {
                       user: state => state.auth.user,    
                       getpic: state => state.jobs.getpic, 
                     }),
-        filepath(){
-          let path = axios.defaults.baseURL;
-          console.log('path')
-          let fpath=path.split("/api");
-          let filepath=fpath[0];
-          return filepath;
-        }
-       /* savedimages(){
-            if(this.selectedsjc.PICS && this.selectedsjc.PICS !=null)
-            console.log('computed savedimages',this.selectedsjc.PICS)
-            var xx=JSON.parse(this.selectedsjc.PICS)
-            return xx;
-        }*/
       },
    data: () => ({
     files: [],images: [], previews : [],ress:[],formd:{SJC_NO:''},progress: 0,
@@ -173,7 +160,6 @@ getFileSize(size)
                     console.log('upload triggered FormData=',formData)
                    // resp=axios.post('http://127.0.0.1:8000/sendemail1',this.formData); 
                    // await axios.post(`${axios.defaults.baseURL}/take5/imagesupload`, formData,
-                    //axios.post(`${filepath}/take5/imagesupload`, formData, //--working on netlify
                     await axios.post('take5/imagesupload', formData,
                                 { onUploadProgress:uploadEvent=>{ this.progress=Math.round(uploadEvent.loaded/uploadEvent.total*100);
                                        // console.log('upld prges:'+ Math.round(uploadEvent.loaded/uploadEvent.total*100)+'%')
